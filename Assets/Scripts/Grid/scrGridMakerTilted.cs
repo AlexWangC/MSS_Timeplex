@@ -83,9 +83,9 @@ public class scrGridMakerTilted : MonoBehaviour
 
     private void ClearGrid()
     {
-        foreach (Transform child in transform)
+        while (this.transform.childCount > 0)
         {
-            DestroyImmediate(child.gameObject);
+            GameObject.DestroyImmediate(this.transform.GetChild(0).gameObject);
         }
     }
 }
