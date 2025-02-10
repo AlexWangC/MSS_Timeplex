@@ -1,18 +1,7 @@
-// Code by Danny Hawk. 
-// Edited by Jingxing
-/*
- * Comments:
- *      Always place the object with this script AS A CHILDREN of a GridMaker!!
- */
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-[ExecuteInEditMode]
-public class GridObject : MonoBehaviour
+public class scrGridObjectTilted : MonoBehaviour
 {
     public Vector2 gridPosition;
     private Vector2 prevGridPosition;
