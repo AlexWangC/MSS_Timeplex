@@ -12,12 +12,12 @@ using UnityEngine;
 using NaughtyAttributes;
 
 [ExecuteInEditMode]
-public class GridObject : MonoBehaviour
+public class GridObjectLegacy : MonoBehaviour
 {
     public Vector2 gridPosition;
     private Vector2 prevGridPosition;
 
-    [HideInInspector]public scrGridMakerTilted parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
+    [HideInInspector]public GridMaker parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
 
     private void Start()
     {
@@ -40,14 +40,15 @@ public class GridObject : MonoBehaviour
     [Button("Update Position")]
     public void UpdatePosition()
     {
-        this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
-        Debug.Log("Object at " + parentGrid.GetWorldPositionFromGrid(gridPosition) + "projected successfully.");
+        float x = parentGrid.TopLeft.x + parentGrid.cellWidth * (gridPosition.x - 0.5f);
+        float y = parentGrid.TopLeft.y - parentGrid.cellWidth * (gridPosition.y - 0.5f);
+        this.transform.position = new Vector3(x, y, 0);
     }
 
-    private scrGridMakerTilted getParentGrid()
+    private GridMaker getParentGrid()
     {
         scrPanel parent_panel = GetComponentInParent<scrPanel>();
-        parentGrid = parent_panel.GetComponentInChildren<scrGridMakerTilted>();
+        parentGrid = parent_panel.GetComponentInChildren<GridMaker>();
         
         return parentGrid;
     }

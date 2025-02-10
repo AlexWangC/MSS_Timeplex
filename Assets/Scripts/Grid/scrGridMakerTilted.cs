@@ -1,5 +1,5 @@
 using UnityEngine;
-using NaughtyAttributes; 
+using NaughtyAttributes;
 
 public class scrGridMakerTilted : MonoBehaviour
 {
@@ -18,13 +18,28 @@ public class scrGridMakerTilted : MonoBehaviour
     public Color lineColor = Color.white;
     public float lineWidth = 0.05f;
 
+
     [Button("Refresh Grid")]
-    public void DrawTiltedGrid()
+    public void CreateGrid()
     {
         ClearGrid();
         GenerateGrid();
     }
 
+    public Vector3 GetWorldPositionFromGrid(Vector2 gridPos)
+    {
+        float xTiltRad = Mathf.Deg2Rad * xAxisTilt;
+        float yTiltRad = Mathf.Deg2Rad * yAxisTilt;
+
+        // Compute the basis vectors for the tilted grid
+        Vector3 xMother = new Vector3(Mathf.Cos(xTiltRad) * blockWidth, Mathf.Sin(xTiltRad) * blockWidth, 0);
+        Vector3 yMother = new Vector3(Mathf.Cos(yTiltRad) * blockHeight, Mathf.Sin(yTiltRad) * blockHeight, 0);
+
+        // Calculate world position
+        Vector3 worldPos = transform.position + (gridPos.x * xMother) + (gridPos.y * yMother);
+        return worldPos;
+    }
+    
     private void GenerateGrid()
     {
         Vector3 origin = transform.position;
@@ -68,9 +83,9 @@ public class scrGridMakerTilted : MonoBehaviour
 
     private void ClearGrid()
     {
-        while (this.transform.childCount > 0)
+        foreach (Transform child in transform)
         {
-            GameObject.DestroyImmediate(this.transform.GetChild(0).gameObject);
+            DestroyImmediate(child.gameObject);
         }
     }
 }

@@ -60,7 +60,7 @@ public class scrTileGenManager : MonoBehaviour
 
     private void fillupAPanel(scrPanel target_panel, GameObject[] tile_pool)
     {
-        Vector2 dimensions = target_panel.GetComponentInChildren<GridMaker>().dimensions;
+        Vector2 dimensions = new Vector2(target_panel.GetComponentInChildren<scrGridMakerTilted>().numBlocksX, target_panel.GetComponentInChildren<scrGridMakerTilted>().numBlocksY);
         //filling up grid row by row
         for (int i = 1; i <= dimensions.y; i++) // iterating through each column
         {

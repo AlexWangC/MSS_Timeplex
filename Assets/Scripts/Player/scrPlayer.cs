@@ -16,7 +16,7 @@ public class scrPlayer : MonoBehaviour
     void Update()
     {
         // emergency use for unknown grid bugs only. Impacts performance greatly.
-        //updatePlayerPos();
+        // updatePlayerPos();
     }
 
     public bool Move(int dir)
@@ -189,7 +189,7 @@ public class scrPlayer : MonoBehaviour
 
     private void updatePlayerPos() // helper 
     {
-        this.GetComponentInParent<scrPanel>().GetComponentInChildren<GridMaker>().CreateGrid();
+        this.GetComponentInParent<scrPanel>().GetComponentInChildren<scrGridMakerTilted>().CreateGrid();
         this.GetComponent<GridObject>().UpdatePosition();
     }
     #endregion

@@ -11,6 +11,7 @@ public class scrPanel : MonoBehaviour
     public int Time_index;  // manual initialization at spawn but managed through scripts laters.
     public bool Dead; //a bool to check if this panel is dead. If dead, disable dragging
     public GridMaker LocalGrid; // it is refreshed in the update method
+    public scrGridMakerTilted LocalGridTilted; //only if you want to use tilted grid.
     [HideInInspector] public Color originalColorPanel;
     public UnityEvent<scrPanel> OnMouseOverEvent;
     public UnityEvent<scrPanel> OnMouseExitEvent;
@@ -26,7 +27,15 @@ public class scrPanel : MonoBehaviour
 
     private void Update()
     {
-        LocalGrid.CreateGrid();
+        if (LocalGrid != null)
+        {
+            LocalGrid.CreateGrid();
+        }
+
+        else if (LocalGridTilted != null)
+        {
+            LocalGridTilted.CreateGrid();
+        }
     }
 
     public void PanelKilled() // what to do when this panel is dead.
