@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using DialogueSystem;
 using UnityEngine;
 
 [RequireComponent(typeof(GridObject))]
@@ -95,6 +96,18 @@ public class scrPlayer : MonoBehaviour
                     FindAnyObjectByType<scrResetManager>().UpdateResetStatus(); // reset if all dead.
                     // no longer returns false so player actually moves here.
                     
+                }
+
+                // here plug in richard's dialogue system
+                if (checkObject(toVector2Int(targetPosition), "dialogue"))
+                {
+                    Debug.Log("Hey it's supposed to be dialogue here");
+                    
+                    FindAnyObjectByType<DialogueDisplayer>().dialogueId = "intro";
+                    FindAnyObjectByType<DialogueDisplayer>().Open();
+                    
+                    FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
+                    return false;
                 }
 
                 if (!checkOutofBound(toVector2Int(targetPosition))) // Check if the target position is out of bound
