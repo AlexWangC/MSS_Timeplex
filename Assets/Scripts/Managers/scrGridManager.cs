@@ -53,9 +53,9 @@ public class scrGridManager : MonoBehaviour
     public bool OutOfBound(Vector2Int position)
     {
         if (position.x > this.GetComponent<scrGridMakerTilted>().numBlocksX ||
-            position.x < 1 ||
+            position.x < 0 ||
             position.y > this.GetComponent<scrGridMakerTilted>().numBlocksY ||
-            position.y < 1)
+            position.y < 0)
         {
             return true;
         }

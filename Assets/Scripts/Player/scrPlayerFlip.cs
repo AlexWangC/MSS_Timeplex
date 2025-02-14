@@ -18,15 +18,13 @@ public class scrPlayerFlip : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             facing_left = true;
-            Vector3 og_scale = transform.localScale;
-            this.transform.localScale = new Vector3(original_x, og_scale.y, og_scale.z);
+            transform.localEulerAngles = new Vector3(0, 0f, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             facing_left = false;
-            Vector3 og_scale = transform.localScale;
-            this.transform.localScale = new Vector3(original_x * -1, og_scale.y, og_scale.z);
+            transform.localEulerAngles = new Vector3(0, 180f, 0);
         }
     }
 }
