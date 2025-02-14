@@ -19,7 +19,7 @@ namespace DialogueSystem {
         public float speed = 0.2f;
         public TMP_Text mainTextBox;
 
-        public List<TMP_Text> activeOptions = new(); 
+        private List<TMP_Text> activeOptions = new(); 
 
         private void Start() {
             if (optionBoxes == null) optionBoxes = optionPrefab.toPool<TMP_Text>(optionsRoot.transform);
