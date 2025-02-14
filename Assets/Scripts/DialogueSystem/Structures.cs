@@ -19,7 +19,7 @@ namespace DialogueSystem {
     [Serializable]
     public class DialogueData {
         public string name;
-
+        
         public string getDialogueName() {
             return name;
         }

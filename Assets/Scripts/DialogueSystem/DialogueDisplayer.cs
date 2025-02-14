@@ -9,9 +9,14 @@ namespace DialogueSystem {
         private DialogueDataInfo ddi;
 
         private void Start() {
+            if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) 
+                ddi = DialogueSystem.dialogueData[dialogueId];
+        }
+        
+        private void SetDialogueId(string dialogueId) {
+            this.dialogueId = dialogueId;
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) {
                 ddi = DialogueSystem.dialogueData[dialogueId];
-                Open();
                 return;
             }
             
@@ -34,6 +39,18 @@ namespace DialogueSystem {
             csd.listOptions(this, lineId, options, mainTextBox.transform.position);
         }
 
+        public void Close() {
+            csd.clear();
+        }
+
+        // 开始(开始lineId)
+        // 点击(选中的optioncontent)
+        // 切换行(newlineid, oldlineid)
+        // TODO 添加选择选项后更新lineId的信号
+        // private Action<string> onLineUpdate;
+        
+        // Option如果指向End就结束
+        
         public string GetOptionTarget(string lineId, string optionContent) {
             string optionTarget = DialogueSystem.dialogueData[dialogueId].data.getOptionTarget(lineId, optionContent);
             if (!optionTarget.StartsWith("//")) return optionTarget;
