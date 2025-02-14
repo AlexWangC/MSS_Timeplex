@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Fries;
 using Fries.Pool;
 using TMPro;
@@ -19,6 +21,8 @@ namespace DialogueSystem {
         public float speed = 0.2f;
         public TMP_Text mainTextBox;
 
+        private TweenerCore<float, float, FloatOptions> mainTextAnim;
+        private List<TweenerCore<float, float, FloatOptions>> optionAnims = new();
         private List<TMP_Text> activeOptions = new(); 
 
         private void Start() {
@@ -37,7 +41,7 @@ namespace DialogueSystem {
         private float playTime = 0;
         public void display(string mainText) {
             float totalTime = speed * mainText.Length;
-            DOTween.To(() => playTime, x => {
+            mainTextAnim = DOTween.To(() => playTime, x => {
                 int charCount = (int)(x / speed);
                 string content = mainText.Substring(0, charCount);
                 string newContent = "";
@@ -62,6 +66,12 @@ namespace DialogueSystem {
             activeOptions.ForEach(option => optionBoxes.deactivate(option));
             activeOptions.Clear();
             
+            optionAnims.ForEach(anim => {
+                if (anim != null && anim.IsActive() && anim.IsPlaying())
+                    anim?.Kill();
+            });
+            optionAnims.Clear();
+            
             int i = 0;
             foreach (var optionContent in options) {
                 TMP_Text text = optionBoxes.activate();
@@ -76,7 +86,7 @@ namespace DialogueSystem {
                 
                 text.transform.position = transform.position + fixedXPos.f__(fixedYStart + i * fixedHeight, 0);
                 float totalTime = speed * optionContent.Length;
-                DOTween.To(() => playTime, x => {
+                var anim = DOTween.To(() => playTime, x => {
                     int charCount = (int)(x / speed);
                     string content = optionContent.Substring(0, charCount);
                     string newContent = "";
@@ -95,11 +105,20 @@ namespace DialogueSystem {
                         lastOptionContents[optionContent] = newContent;
                         text.text = newContent;
                     }).SetEase(Ease.Linear);
+                optionAnims.Add(anim);
                 i++;
             }
         }
 
         public void clear() {
+            if (mainTextAnim != null && mainTextAnim.IsActive() && mainTextAnim.IsPlaying())
+                mainTextAnim?.Kill();
+            optionAnims.ForEach(anim => {
+                if (anim != null && anim.IsActive() && anim.IsPlaying())
+                    anim?.Kill();
+            });
+            optionAnims.Clear();
+            
             mainTextBox.text = "";
             activeOptions.ForEach(option => optionBoxes.deactivate(option));
             activeOptions.Clear();
