@@ -4,11 +4,25 @@ using UnityEngine;
 
 namespace DialogueSystem {
     public class DialogueDisplayer : MonoBehaviour {
+        public string id;
+        
         public string dialogueId;
-        public CharSequenceDisplayer csd;
+        private CharSequenceDisplayer csd;
+        private SpriteRenderer sr;
         private DialogueDataInfo ddi;
 
+        private string currentLineId;
+        
+        // Start Line Id
+        public Action<string> onOpen;
+        // Selected Option Content, Old Line Id, New Line Id
+        public Action<string, string, string> onOptionClicked;
+        // Old Line Id, New Line Id
+        public Action<string, string> onLineChanged;
+
         private void Start() {
+            sr = GetComponent<SpriteRenderer>();
+            csd = GetComponent<CharSequenceDisplayer>();
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) 
                 ddi = DialogueSystem.dialogueData[dialogueId];
         }
@@ -25,31 +39,32 @@ namespace DialogueSystem {
         }
 
         public void Open(string lineId = null) {
+            sr.enabled = true;
+            
             if (lineId == null) {
                 lineId = "Start";
                 if (DialogueSystem.getStartFuncs.ContainsKey(dialogueId))
                     lineId = DialogueSystem.getStartFuncs[dialogueId]();
             }
-            var mainTextBox = csd.display(ddi.data.getLine(lineId));
-            
+            onOpen.Invoke(lineId);
+            csd.display(ddi.data.getLine(lineId));
+            onLineChanged.Invoke(currentLineId, lineId);
+            currentLineId = lineId;
+
             List<string> options = ddi.data.getOptionContents(lineId);
             string fullLineId = $"{dialogueId}.{lineId}";
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
                 options = DialogueSystem.filterOptionFuncs[fullLineId]();
-            csd.listOptions(this, lineId, options, mainTextBox.transform.position);
+            csd.listOptions(this, lineId, options);
         }
 
         public void Close() {
             csd.clear();
+            sr.enabled = false;
         }
-
-        // 开始(开始lineId)
-        // 点击(选中的optioncontent)
-        // 切换行(newlineid, oldlineid)
-        // TODO 添加选择选项后更新lineId的信号
-        // private Action<string> onLineUpdate;
         
-        // Option如果指向End就结束
+        // TODO 假设maintextbox会移动，options应该可以跟着他走
+        // TODO close后只关闭当前对话的选项
         
         public string GetOptionTarget(string lineId, string optionContent) {
             string optionTarget = DialogueSystem.dialogueData[dialogueId].data.getOptionTarget(lineId, optionContent);
@@ -60,7 +75,12 @@ namespace DialogueSystem {
             return optionTarget;
         }
 
-        public void Select(string optionTarget) {
+        public void Select(string optionContent, string optionTarget) {
+            if (optionTarget == "End") {
+                Close();
+                return;
+            }
+            
             if (optionTarget.Trim() == "") return;
             if (optionTarget.StartsWith("//")) {
                 string funcId = optionTarget.Replace("//", "");
@@ -70,13 +90,17 @@ namespace DialogueSystem {
                 }
                 optionTarget = DialogueSystem.getOptionTargetFuncs[funcId]();
             }
-            var mainTextBox = csd.display(ddi.data.getLine(optionTarget));
             
+            onOptionClicked.Invoke(optionContent, currentLineId, optionTarget);
+            csd.display(ddi.data.getLine(optionTarget));
+            onLineChanged.Invoke(currentLineId, optionTarget);
+            currentLineId = optionTarget;
+
             List<string> options = ddi.data.getOptionContents(optionTarget);
             string fullLineId = $"{dialogueId}.{optionTarget}";
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
                 options = DialogueSystem.filterOptionFuncs[fullLineId]();
-            csd.listOptions(this, optionTarget, options, mainTextBox.transform.position);
+            csd.listOptions(this, optionTarget, options);
         }
     }
 }
