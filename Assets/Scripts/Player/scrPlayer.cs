@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -98,8 +99,16 @@ public class scrPlayer : MonoBehaviour
 
                 if (!checkOutofBound(toVector2Int(targetPosition))) // Check if the target position is out of bound
                 {
-                    scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                    
+                    // play sound & check if sound manager is here.
+                    if (scrSoundManager.Instance)
+                    {
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                    }
+
                     gridObject.gridPosition = targetPosition; // Update the grid position
                     direction = Vector2.zero;
                     

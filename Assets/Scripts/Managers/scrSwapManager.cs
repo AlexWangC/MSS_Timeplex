@@ -122,7 +122,7 @@ public class scrSwapManager : MonoBehaviour
     {
         foreach (scrPanel panel_in_array in all_panels)
         {
-            panel_in_array.GetComponentInChildren<GridMaker>().CreateGrid();
+            panel_in_array.GetComponentInChildren<scrGridMakerTilted>().CreateGrid();
         }
     }
     
