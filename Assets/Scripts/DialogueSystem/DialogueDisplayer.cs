@@ -46,9 +46,9 @@ namespace DialogueSystem {
                 if (DialogueSystem.getStartFuncs.ContainsKey(dialogueId))
                     lineId = DialogueSystem.getStartFuncs[dialogueId]();
             }
-            onOpen.Invoke(lineId);
+            onOpen?.Invoke(lineId);
             csd.display(ddi.data.getLine(lineId));
-            onLineChanged.Invoke(currentLineId, lineId);
+            onLineChanged?.Invoke(currentLineId, lineId);
             currentLineId = lineId;
 
             List<string> options = ddi.data.getOptionContents(lineId);
@@ -62,9 +62,6 @@ namespace DialogueSystem {
             csd.clear();
             sr.enabled = false;
         }
-        
-        // TODO 假设maintextbox会移动，options应该可以跟着他走
-        // TODO close后只关闭当前对话的选项
         
         public string GetOptionTarget(string lineId, string optionContent) {
             string optionTarget = DialogueSystem.dialogueData[dialogueId].data.getOptionTarget(lineId, optionContent);
@@ -91,9 +88,9 @@ namespace DialogueSystem {
                 optionTarget = DialogueSystem.getOptionTargetFuncs[funcId]();
             }
             
-            onOptionClicked.Invoke(optionContent, currentLineId, optionTarget);
+            onOptionClicked?.Invoke(optionContent, currentLineId, optionTarget);
             csd.display(ddi.data.getLine(optionTarget));
-            onLineChanged.Invoke(currentLineId, optionTarget);
+            onLineChanged?.Invoke(currentLineId, optionTarget);
             currentLineId = optionTarget;
 
             List<string> options = ddi.data.getOptionContents(optionTarget);
