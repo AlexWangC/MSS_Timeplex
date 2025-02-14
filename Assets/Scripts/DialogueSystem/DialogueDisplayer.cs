@@ -13,7 +13,7 @@ namespace DialogueSystem {
                 ddi = DialogueSystem.dialogueData[dialogueId];
         }
         
-        private void SetDialogueId(string dialogueId) {
+        public void SetDialogueId(string dialogueId) {
             this.dialogueId = dialogueId;
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) {
                 ddi = DialogueSystem.dialogueData[dialogueId];
