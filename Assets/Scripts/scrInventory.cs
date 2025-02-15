@@ -1,16 +1,22 @@
+using System;
+using DialogueSystem;
 using UnityEngine;
 
 public class scrInventory : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public bool checked_already;
+
+    public DialogueDisplayer dd;
+
+    private void Start()
     {
-        
+        checked_already = false;
+        dd.onLineChanged += onLineUpdate;
     }
 
-    // Update is called once per frame
-    void Update()
+    // subscribe to onLineChanged 
+    private void onLineUpdate(string oldLineId, string newLineId)
     {
-        
+        if (newLineId == "0") checked_already = true;
     }
 }

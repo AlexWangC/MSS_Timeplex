@@ -49,6 +49,38 @@ public class scrPlayer : MonoBehaviour
             if (direction != Vector2.zero)
             {
                 Vector2 targetPosition = gridObject.gridPosition + direction;
+                
+                // here plug in richard's dialogue system or anything that checks what's ahead regardless of movement
+                /*
+                if (checkObject(toVector2Int(targetPosition), "dialogue"))
+                {
+                    Debug.Log("Hey it's supposed to be dialogue here");
+
+                    foreach (DialogueDisplayer displayer in FindObjectsByType<DialogueDisplayer>(FindObjectsSortMode.None))
+                    {
+                        if (this.GetComponentInParent<scrPanel>().Time_index == 1)
+                        {
+                            if (displayer.id == "panel0")
+                            {
+                                displayer.SetDialogueId("intro");
+                                displayer.Open();
+                            }
+                        }
+
+                        if (this.GetComponentInParent<scrPanel>().Time_index == 2)
+                        {
+                            if (displayer.id == "panel1")
+                            {
+                                displayer.SetDialogueId("intro_panel_2");
+                                displayer.Open();
+                            }
+                        }
+                    }
+                    
+                    FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
+                    return false;
+                }
+                */
 
                 if (!FindAnyObjectByType<scrMoveInheritanceManager>()
                         .Can_move) // if by this player's turn, already can't move
@@ -96,18 +128,6 @@ public class scrPlayer : MonoBehaviour
                     FindAnyObjectByType<scrResetManager>().UpdateResetStatus(); // reset if all dead.
                     // no longer returns false so player actually moves here.
                     
-                }
-
-                // here plug in richard's dialogue system
-                if (checkObject(toVector2Int(targetPosition), "dialogue"))
-                {
-                    Debug.Log("Hey it's supposed to be dialogue here");
-                    
-                    FindAnyObjectByType<DialogueDisplayer>().dialogueId = "intro";
-                    FindAnyObjectByType<DialogueDisplayer>().Open();
-                    
-                    FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
-                    return false;
                 }
 
                 if (!checkOutofBound(toVector2Int(targetPosition))) // Check if the target position is out of bound
