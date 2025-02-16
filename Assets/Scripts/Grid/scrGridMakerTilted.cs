@@ -26,6 +26,7 @@ public class scrGridMakerTilted : MonoBehaviour
         GenerateGrid();
     }
 
+    
     public Vector3 GetWorldPositionFromGrid(Vector2 gridPos)
     {
         float xTiltRad = Mathf.Deg2Rad * xAxisTilt;

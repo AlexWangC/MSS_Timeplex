@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using DialogueSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(GridObject))]
@@ -21,6 +22,8 @@ public class scrPlayer : MonoBehaviour
         // updatePlayerPos();
     }
 
+    // remember to implement a multi-tag (a thing could be both dialoguable & wall) mechanic later
+    
     public bool Move(int dir)
     {
         if (GetComponentInParent<scrPanel>().Dead == false) //if not dead
