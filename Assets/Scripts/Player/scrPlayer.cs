@@ -10,6 +10,8 @@ public class scrPlayer : MonoBehaviour
 {
     GridObject gridObject;
     
+    public int playerAgeIndex; // will be accessed when deciding within one frame how it's going to move.
+    
     void Start()
     {
         this.gridObject = GetComponent<GridObject>();
@@ -85,7 +87,7 @@ public class scrPlayer : MonoBehaviour
                 }
                 */
 
-                if (!FindAnyObjectByType<scrMoveInheritanceManager>()
+                if (!FindAnyObjectByType<scrMoveInheritanceManager>() // Note: Only MOVEMENT related code should be placed below!!
                         .Can_move) // if by this player's turn, already can't move
                 {
                     return false; // then don't move
@@ -132,7 +134,27 @@ public class scrPlayer : MonoBehaviour
                     // no longer returns false so player actually moves here.
                     
                 }
+                
+                // if running into portal
+                if (checkObject(toVector2Int(targetPosition), "portal"))
+                {
+                    // 0.1 if portal has not be used up
+                    // 0.2 use the portal by one
+                    
+                    // 1. destroy itself
+                    // 2. find corresponding portal
+                    // 3. create a new player at the specified loc de corresponding portal
+                    // 4. have moveInheritance manager obtain players again
+                }
+                
+                // (part of portal functionality) if running into player
+                if (checkObject(toVector2Int(targetPosition), "player"))
+                {
+                    // 1. destroy the other player
+                    // 2. destroy itself
+                }
 
+                    
                 if (!checkOutofBound(toVector2Int(targetPosition))) // Check if the target position is out of bound
                 {
                     // play sound & check if sound manager is here.
