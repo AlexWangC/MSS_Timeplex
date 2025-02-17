@@ -12,13 +12,6 @@ namespace DialogueSystem {
         private DialogueDataInfo ddi;
 
         private string currentLineId;
-        
-        // Start Line Id
-        public Action<string> onOpen;
-        // Selected Option Content, Old Line Id, New Line Id
-        public Action<string, string, string> onOptionClicked;
-        // Old Line Id, New Line Id
-        public Action<string, string> onLineChanged;
 
         private void Start() {
             sr = GetComponent<SpriteRenderer>();
@@ -46,15 +39,15 @@ namespace DialogueSystem {
                 if (DialogueSystem.getStartFuncs.ContainsKey(dialogueId))
                     lineId = DialogueSystem.getStartFuncs[dialogueId]();
             }
-            onOpen?.Invoke(lineId);
+            DialogueSystem.onOpen?.Invoke(dialogueId, id, lineId);
             csd.display(ddi.data.getLine(lineId));
-            onLineChanged?.Invoke(currentLineId, lineId);
+            DialogueSystem.onLineChanged?.Invoke(dialogueId, id, currentLineId, lineId);
             currentLineId = lineId;
 
             List<string> options = ddi.data.getOptionContents(lineId);
             string fullLineId = $"{dialogueId}.{lineId}";
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
-                options = DialogueSystem.filterOptionFuncs[fullLineId]();
+                options = DialogueSystem.filterOptionFuncs[fullLineId](options);
             csd.listOptions(this, lineId, options);
         }
 
@@ -88,15 +81,15 @@ namespace DialogueSystem {
                 optionTarget = DialogueSystem.getOptionTargetFuncs[funcId]();
             }
             
-            onOptionClicked?.Invoke(optionContent, currentLineId, optionTarget);
+            DialogueSystem.onOptionClicked?.Invoke(dialogueId, id, optionContent, currentLineId, optionTarget);
             csd.display(ddi.data.getLine(optionTarget));
-            onLineChanged?.Invoke(currentLineId, optionTarget);
+            DialogueSystem.onLineChanged?.Invoke(dialogueId, id, currentLineId, optionTarget);
             currentLineId = optionTarget;
 
             List<string> options = ddi.data.getOptionContents(optionTarget);
             string fullLineId = $"{dialogueId}.{optionTarget}";
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
-                options = DialogueSystem.filterOptionFuncs[fullLineId]();
+                options = DialogueSystem.filterOptionFuncs[fullLineId](options);
             csd.listOptions(this, optionTarget, options);
         }
     }
