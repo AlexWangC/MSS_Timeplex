@@ -5,6 +5,8 @@ public class scrGoal : MonoBehaviour
 {
     //public bool MovementLock; // set whether after reaching this goal locks player movement in this scene. NOT YET IMPLEMENTED
     public bool Reached;
+    public bool Locked = false;
+    public int DoorType = -1; // whether it's corresponding to key 1, 2, or 3. Default -1 means the door's not locked.
 
     private void Start()
     {
@@ -13,28 +15,26 @@ public class scrGoal : MonoBehaviour
 
     private void Update()
     {
-        checkIfReached();
     }
 
-    private bool checkIfReached()
+    // i think this is the problem. Refactor it first?
+    public bool checkIfReached()
     {
-        scrGridManager[] grid_managers = FindObjectsByType<scrGridManager>(FindObjectsSortMode.None);
-        foreach (scrGridManager grid_manager in grid_managers)
+        scrGridManager grid_manager = transform.parent.gameObject.GetComponentInChildren<scrGridManager>();
+        
+        GridObject[] objects_at_this_position = grid_manager.GetGridObjectsAtPosition(toVector2Int(GetComponent<GridObject>().gridPosition)); // getting all objects at this scrGoal's location
+        if (objects_at_this_position.Length >= 2)
         {
-            GridObject[] objects_at_this_position = grid_manager.GetGridObjectsAtPosition(toVector2Int(GetComponent<GridObject>().gridPosition)); // getting all objects at this scrGoal's location
-            if (objects_at_this_position.Length >= 2)
+            foreach (GridObject obj in objects_at_this_position)
             {
-                foreach (GridObject obj in objects_at_this_position)
+                if (obj.CompareTag("player"))
                 {
-                    if (obj.CompareTag("player"))
-                    {
-                        Reached = true;
-                        return true;
-                    }
+                    Reached = true;
+                    return true;
                 }
             }
-            
         }
+        
         Reached = false;
         return false;
     }

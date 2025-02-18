@@ -2,7 +2,7 @@ using System;
 using DialogueSystem;
 using UnityEngine;
 
-public class scrInventory : MonoBehaviour
+public class scrDialogueSampler : MonoBehaviour
 {
     public bool checked_already;
 
