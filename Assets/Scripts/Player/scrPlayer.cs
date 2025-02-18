@@ -117,41 +117,39 @@ public class scrPlayer : MonoBehaviour
 
                 if (checkObject(toVector2Int(targetPosition), "spike")) //if colliding spike... move to spike but disable panel.
                 {
-                    scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
-                    
-                    //kill all of the rest of the panels after
-                    scrPanel[] panels = FindAnyObjectByType<scrGridLocations>().panels;
-                    foreach (var panel in panels)
-                    {
-                        if (panel.Time_index >= GetComponentInParent<scrPanel>().Time_index)
-                        {
-                            panel.Dead = true;
-                            panel.PanelKilled();
-                        }
-                    }
-                    
-                    FindAnyObjectByType<scrResetManager>().UpdateResetStatus(); // reset if all dead.
-                    // no longer returns false so player actually moves here.
+                    killThisPlayer();
                     
                 }
                 
                 // if running into portal
                 if (checkObject(toVector2Int(targetPosition), "portal"))
                 {
-                    // 0.1 if portal has not be used up
-                    // 0.2 use the portal by one
+                    GameObject target_portal = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
+                        .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
                     
-                    // 1. destroy itself
-                    // 2. find corresponding portal
-                    // 3. create a new player at the specified loc de corresponding portal
-                    // 4. have moveInheritance manager obtain players again
+                    // 0.1 if portal has not be used up
+                    if (target_portal.GetComponent<scrPortal>().remainingUses > 0)
+                    {
+                        // 0.2 use the portal by one
+                        target_portal.GetComponent<scrPortal>().remainingUses--;
+
+                        // 2. find corresponding portal
+                        // 3. create a new player at the specified loc de corresponding portal
+                        GameObject clone = Instantiate(gameObject);
+                        clone.transform.SetParent(target_portal.GetComponent<scrPortal>().correspondingPortal.transform.parent, false);
+                        clone.GetComponent<GridObject>().gridPosition =
+                            target_portal.GetComponent<GridObject>().gridPosition;
+
+                        // 1. destroy itself
+                        Destroy(gameObject);
+                    }
                 }
                 
                 // (part of portal functionality) if running into player
                 if (checkObject(toVector2Int(targetPosition), "player"))
                 {
-                    // 1. destroy the other player
-                    // 2. destroy itself
+                    // 1. destroy this panel
+                    killThisPlayer();
                 }
 
                     
@@ -187,6 +185,25 @@ public class scrPlayer : MonoBehaviour
         {
             return false; 
         }
+    }
+
+    private void killThisPlayer()
+    {
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+                    
+        //kill all of the rest of the panels after
+        scrPanel[] panels = FindAnyObjectByType<scrGridLocations>().panels;
+        foreach (var panel in panels)
+        {
+            if (panel.Time_index >= GetComponentInParent<scrPanel>().Time_index)
+            {
+                panel.Dead = true;
+                panel.PanelKilled();
+            }
+        }
+                    
+        FindAnyObjectByType<scrResetManager>().UpdateResetStatus(); // reset if all dead.
+        // no longer returns false so player actually moves here.
     }
 
     // the coroutine that calls the content inside. Declared above
