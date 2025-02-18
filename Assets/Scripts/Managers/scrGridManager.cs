@@ -21,6 +21,8 @@ public class scrGridManager : MonoBehaviour
      */
     public bool CheckForObjectAtGridPosition(Vector2Int position)
     {
+        initializeGridObjects();
+        
         foreach (GridObject obj in allGridObjects)
         {
             // Check if the object's grid position matches the target position and has the specified tag
@@ -34,8 +36,10 @@ public class scrGridManager : MonoBehaviour
         return false; 
     }
     
-    public bool CheckForObjectAtGridPosition(Vector2Int position, string tag)
+    public bool CheckForObjectAtGridPosition(Vector2Int position, string tag) //right here where grid object list is not updated
     {
+        initializeGridObjects();
+        
         foreach (GridObject obj in allGridObjects)
         {
             // Check if the object's grid position matches the target position and has the specified tag
@@ -65,6 +69,8 @@ public class scrGridManager : MonoBehaviour
 
     public GridObject GetGridObjectAtPosition(Vector2Int position)
     {
+        initializeGridObjects();
+        
         foreach (GridObject obj in allGridObjects)
         {
             // Check if the object's grid position matches the target position and has the specified tag

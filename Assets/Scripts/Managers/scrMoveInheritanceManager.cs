@@ -32,6 +32,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.W))
         {
+            ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
             //while it is in delay, let's disable the panel sprite for highlight.
@@ -41,6 +42,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
+            ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(1, Move_delay));
@@ -48,6 +50,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
+            ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(2, Move_delay));
@@ -55,6 +58,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
+            ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(3, Move_delay));
@@ -86,6 +90,26 @@ public class scrMoveInheritanceManager : MonoBehaviour
                 }
             }
         }
+        
+        
+        // if the neighboring player at front is older, swap back
+        for (int k = 0; k < players.Length - 1; k++)
+        {
+            for (int l = 0; l < players.Length - 1 - k; l++)
+            {
+                //if player[l] has a bigger time index than [l+1] AND they have the same time index
+                if ((players[l].GetComponent<scrPlayer>().playerAgeIndex >
+                    players[l + 1].GetComponent<scrPlayer>().playerAgeIndex) && players[l].GetComponentInParent<scrPanel>().Time_index ==
+                    players[l + 1].GetComponentInParent<scrPanel>().Time_index)
+                {
+                    scrPlayer temp = players[l];
+                    players[l] = players[l + 1];
+                    players[l + 1] = temp;
+                }
+            }
+        }
+        
+        
 
         return players;
     }
@@ -121,11 +145,14 @@ public class scrMoveInheritanceManager : MonoBehaviour
         int current_player = 0;
         while (current_player < Players.Length)
         {
-            Players[current_player].Move(direction);
-            highlightPanelBeforeMoving(Players[current_player]);
-            yield return new WaitForSeconds(delay);
-            delightPanelAfterMoving(Players[current_player]);
-            current_player++;
+            if (Players[current_player] != null)
+            { 
+                Players[current_player].Move(direction);
+                highlightPanelBeforeMoving(Players[current_player]);
+                yield return new WaitForSeconds(delay);
+                delightPanelAfterMoving(Players[current_player]);
+                current_player++;
+            }
         }
 
         is_moving = false;
@@ -134,7 +161,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
 
     private void highlightPanelBeforeMoving(scrPlayer player)
     {
-        if (player.GetComponentInParent<scrPanel>().Dead == false)
+        if (player != null && player.GetComponentInParent<scrPanel>().Dead == false )
         {
             player.GetComponentInParent<scrPanel>().GetComponent<SpriteRenderer>().enabled = false;
         }
@@ -142,6 +169,9 @@ public class scrMoveInheritanceManager : MonoBehaviour
 
     private void delightPanelAfterMoving(scrPlayer player)
     {
-        player.GetComponentInParent<scrPanel>().GetComponent<SpriteRenderer>().enabled = true;
+        if (player != null)
+        {
+            player.GetComponentInParent<scrPanel>().GetComponent<SpriteRenderer>().enabled = true;
+        }
     }
 }

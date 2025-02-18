@@ -46,6 +46,7 @@ public class scrSwapManager : MonoBehaviour
     //this is called by panels.
     public void SwapPanels(scrPanel panel0, scrPanel panel1, float duration)
     {
+        getGridObjects();
         Vector3 panel0_position_og = getCoordinates(panel0);
         Vector3 panel1_position_og = getCoordinates(panel1);
         

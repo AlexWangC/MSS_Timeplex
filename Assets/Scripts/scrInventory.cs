@@ -11,7 +11,7 @@ public class scrInventory : MonoBehaviour
     private void Start()
     {
         checked_already = false;
-        dd.onLineChanged += onLineUpdate;
+        //dd.onLineChanged += onLineUpdate;
     }
 
     // subscribe to onLineChanged 

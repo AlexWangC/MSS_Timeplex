@@ -1,8 +1,21 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class scrResetManager : MonoBehaviour
 {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // Get the current scene's index
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            // Reload the current scene
+            SceneManager.LoadScene(currentSceneIndex); 
+        }
+    }
+
     public void UpdateResetStatus() // call this from the outside
     {
         if (checkIfAllDead())
