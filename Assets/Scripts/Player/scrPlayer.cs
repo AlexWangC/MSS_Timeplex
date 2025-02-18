@@ -95,30 +95,95 @@ public class scrPlayer : MonoBehaviour
 
                 if (checkObject(toVector2Int(targetPosition), "goal")) // if moving into scrGoal...
                 {
-                    scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.goal, this.transform, 1);
-                    
-                    StartCoroutine(checkGoalsAfterMovement(() =>
+                    GameObject target_goal = transform.parent.gameObject.GetComponentInChildren<scrGoal>().gameObject;
+                    // if the goal is not a locked goal, just move there.
+                    if (!target_goal.GetComponent<scrGoal>().Locked)
                     {
-                        FindAnyObjectByType<scrGoalManager>().GoalsReached(); //invoking goals reached here.
-                    }));
-                    // could implement something else here later...
+                        moveToGoal();
+                    }
+                    
+                    // if the goal is locked, cross-reference key.
+                    else
+                    {
+                        // have the goal check if i have the right key?
+                        switch (target_goal.GetComponent<scrGoal>().DoorType)
+                        {
+                            case -1:
+                                throw new ArgumentException("the door has no door type but is locked.");
+                                break;
+                            case 1:
+                                if (!GetComponent<scrKey1>())
+                                {
+                                    return forbidMovement();
+                                }
+                                break;
+                            case 2:
+                                /*
+                                if (!GetComponent<scrKey2>())
+                                {
+                                    return forbidMovement();
+                                }
+                                */
+                                break;
+                            case 3:
+                                /*
+                                if (!GetComponent<scrKey3>())
+                                {
+                                    return forbidMovement();
+                                }
+                                */
+                                break;
+                        }
+                        moveToGoal();
+                    }
                 }
 
                 if (checkObject(toVector2Int(targetPosition), "wall")) // if colliding into wall
                 {
-                    //play collide wall music
-                    scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
-                    
-                    wallShake();
-                    
-                    FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
-                    return false;
+                    return forbidMovement();
                 }
 
                 if (checkObject(toVector2Int(targetPosition), "spike")) //if colliding spike... move to spike but disable panel.
                 {
                     killThisPlayer();
                     
+                }
+
+                if (checkObject(toVector2Int(targetPosition), "key1"))
+                {
+                    // 0.01 check if i have scrInventory (to see if i can pick up items)
+                    if (GetComponent<scrInventory>() != null)
+                    {
+                        // 1. add key script to game object
+                        GetComponent<scrInventory>().addToInventory("key1");
+                    }
+                    
+                    // 2. delete this key from panel (remember to add it back when dropping all)
+                    GameObject KeyPickUp1 = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
+                        .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
+                    Destroy(KeyPickUp1);
+                }
+
+                // yet to be implemented.
+                if (checkObject(toVector2Int(targetPosition), "key2"))
+                {
+                    // 0.01 check if i have scrInventory (to see if i can pick up items)
+                    if (GetComponent<scrInventory>() != null)
+                    {
+                        // 1. add key script to game object
+                        GetComponent<scrInventory>().addToInventory("key2");
+                    }
+                }
+
+                // yet to be implemented.
+                if (checkObject(toVector2Int(targetPosition), "key3"))
+                {
+                    // 0.01 check if i have scrInventory (to see if i can pick up items)
+                    if (GetComponent<scrInventory>() != null)
+                    {
+                        // 1. add key script to game object
+                        GetComponent<scrInventory>().addToInventory("key3");
+                    }
                 }
                 
                 // if running into portal
@@ -206,12 +271,39 @@ public class scrPlayer : MonoBehaviour
         // no longer returns false so player actually moves here.
     }
 
+    // to use this, put it in a return statement before out of bound check.
+    private bool forbidMovement()
+    {
+        //play collide wall music
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
+                    
+        wallShake();
+                    
+        FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
+        return false;
+    }
+
+    #region GoalsRelated
+
     // the coroutine that calls the content inside. Declared above
     private IEnumerator checkGoalsAfterMovement(System.Action action)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         action?.Invoke();
     }
+
+    private void moveToGoal()
+    {
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.goal, this.transform, 1);
+
+        StartCoroutine(checkGoalsAfterMovement(() =>
+        {
+            FindAnyObjectByType<scrGoalManager>().GoalsReached(); //invoking goals reached here.
+        }));
+        // could implement something else here later...
+    }
+
+    #endregion
 
     #region MovementHelpers
     private Vector2Int toVector2Int(Vector2 vector2)

@@ -52,7 +52,7 @@ public class scrGoalManager : MonoBehaviour
         goals = FindObjectsByType<scrGoal>(FindObjectsSortMode.None);
         foreach (scrGoal goal in goals)
         {
-            if (goal.Reached == false)
+            if (!goal.checkIfReached())
             {
                 return false;
             }

@@ -15,11 +15,12 @@ using NaughtyAttributes;
 public class GridObject : MonoBehaviour
 {
     public Vector2 gridPosition;
-    public bool hasInventory; // Jingxing's Mod
     private Vector2 prevGridPosition;
 
-    [HideInInspector]public scrGridMakerTilted parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
+    [HideInInspector] public scrGridMakerTilted parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
 
+    [HideInInspector] public bool inventoryHasItem;
+    
     private void Start()
     {
         getParentGrid();
