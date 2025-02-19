@@ -19,10 +19,11 @@ public class scrSoundManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
+            Debug.Log("now we should destory ourself, there's already one");
             Destroy(gameObject); // Destroy duplicate
         }
     }

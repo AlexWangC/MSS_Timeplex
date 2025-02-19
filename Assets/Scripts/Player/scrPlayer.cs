@@ -25,6 +25,12 @@ public class scrPlayer : MonoBehaviour
     }
 
     // remember to implement a multi-tag (a thing could be both dialoguable & wall) mechanic later
+
+    private IEnumerator DelayedEnemiesMove(float delay, Vector2 dir)
+    {
+        yield return new WaitForSeconds(delay);
+        this.transform.parent.GetComponentInChildren<scrEnemyManager>().MoveEnemies(dir);
+    }
     
     public bool Move(int dir)
     {
@@ -33,6 +39,7 @@ public class scrPlayer : MonoBehaviour
 
             Vector2 direction = Vector2.zero; // Default to no movement
 
+            // translating dir to vector2
             if (dir == 0) // up
             {
                 direction = Vector2.down; // Move up
@@ -87,6 +94,11 @@ public class scrPlayer : MonoBehaviour
                 }
                 */
 
+                // here call the coroutine of a guard that replicates player's movement
+                
+                // 1. notify the enemy manager to move.
+                StartCoroutine(DelayedEnemiesMove(FindAnyObjectByType<scrMoveInheritanceManager>().First_enemy_move_delay, direction));
+                
                 if (!FindAnyObjectByType<scrMoveInheritanceManager>() // Note: Only MOVEMENT related code should be placed below!!
                         .Can_move) // if by this player's turn, already can't move
                 {
@@ -147,6 +159,12 @@ public class scrPlayer : MonoBehaviour
                 {
                     killThisPlayer();
                     
+                }
+                
+                // if going towards the enemy, kill it like how it is as spike. Because enemies move after player does.
+                if (checkObject(toVector2Int(targetPosition), "enemy"))
+                {
+                    killThisPlayer();
                 }
 
                 if (checkObject(toVector2Int(targetPosition), "key1"))
@@ -252,7 +270,7 @@ public class scrPlayer : MonoBehaviour
         }
     }
 
-    private void killThisPlayer()
+    public void killThisPlayer()
     {
         scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
                     

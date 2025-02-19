@@ -44,17 +44,19 @@ public class scrInventory : MonoBehaviour
             
             case "key2":
                 Debug.Log("what's to be added to inventory: key2");
-                throw new NotImplementedException("Key 2 script not yet ready.");
+                scrKey2 newKey2Script = gameObject.AddComponent<scrKey2>();
+                newKey2Script.keyIconSprite = key1Sprite;
                 break;
             
             case "key3":
                 Debug.Log("what's to be added to inventory: key3");
-                throw new NotImplementedException("Key 3 script not yet ready.");
+                scrKey3 newKey3Script = gameObject.AddComponent<scrKey3>();
+                newKey3Script.keyIconSprite = key1Sprite;
                 break;
         }
     }
 
-    private void inventoryDropEverything()
+    public void inventoryDropEverything()
     {
         // clear everything first
         List<string> _dic_keys = new List<string>(inventory.Keys);
@@ -66,23 +68,31 @@ public class scrInventory : MonoBehaviour
         if (GetComponent<scrKey1>() != null)
         {
             // drop it on the ground first
-            GameObject _new_key_1_pick_up =Instantiate(keyPickUp1);
+            GameObject _new_key_1_pick_up =Instantiate(keyPickUp1, transform.parent);
             _new_key_1_pick_up.GetComponent<GridObject>().gridPosition = this.GetComponent<GridObject>().gridPosition;
             
             // then delete from backpack.
             Destroy(GetComponent<scrKey1>());
         }
         
-        /*
+        
         if (GetComponent<scrKey2>() != null)
         {
+            // drop it on the ground first
+            GameObject _new_key_2_pick_up =Instantiate(keyPickUp2, transform.parent);
+            _new_key_2_pick_up.GetComponent<GridObject>().gridPosition = this.GetComponent<GridObject>().gridPosition;
+            
             Destroy(GetComponent<scrKey1>());
         }
         
         if (GetComponent<scrKey3>() != null)
         {
+            // drop it on the ground first
+            GameObject _new_key_3_pick_up =Instantiate(keyPickUp3, transform.parent);
+            _new_key_3_pick_up.GetComponent<GridObject>().gridPosition = this.GetComponent<GridObject>().gridPosition;
+            
             Destroy(GetComponent<scrKey1>());
         }
-        */
+        
     }
 }
