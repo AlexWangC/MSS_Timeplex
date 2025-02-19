@@ -6,7 +6,10 @@ using UnityEngine;
 // this script handles the movement & movement inheritance of all players
 public class scrMoveInheritanceManager : MonoBehaviour
 {
+    // for everything to work well, make sure to tune the delay well!! Move Delay should be larger than first enemy move delay + enemy move delay.
     public float Move_delay;
+    public float First_enemy_move_delay;
+    public float Enemies_move_delay;
     
     [HideInInspector] public bool Can_move;
     [HideInInspector] public scrPlayer[] Players;
