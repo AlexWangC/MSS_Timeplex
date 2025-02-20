@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7912951936945264490
+--- !u!1 &1914333804047800783
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,54 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4123341478940526037}
-  - component: {fileID: 3666528460367816092}
-  - component: {fileID: 4725486892590237464}
-  - component: {fileID: 2952063390293848289}
+  - component: {fileID: 3537689852944873463}
+  - component: {fileID: 6834577944696816813}
+  - component: {fileID: 5455310820656693042}
+  - component: {fileID: 6199819473191878907}
   m_Layer: 7
-  m_Name: prefDoor
-  m_TagString: goal
+  m_Name: prefPortalRed
+  m_TagString: portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4123341478940526037
+--- !u!4 &3537689852944873463
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
+  m_GameObject: {fileID: 1914333804047800783}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.58099306, y: 0.09202031, z: 0}
+  m_LocalPosition: {x: 3.6010425, y: -1.0326408, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3666528460367816092
+--- !u!114 &6834577944696816813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
+  m_GameObject: {fileID: 1914333804047800783}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86b28e689c9c70143a6520460a509f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPosition: {x: 1, y: 0}
+  gridPosition: {x: 5, y: 4}
   parentGrid: {fileID: 0}
   inventoryHasItem: 0
---- !u!212 &4725486892590237464
+--- !u!212 &5455310820656693042
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
+  m_GameObject: {fileID: 1914333804047800783}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_SortingLayerID: -937790731
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -595648955539636883, guid: 13305df63ef33407eb4741d99af1d379, type: 3}
+  m_Sprite: {fileID: -4510478769700919797, guid: 274624767e7e54b209996943e3f428ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,18 +104,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2952063390293848289
+--- !u!114 &6199819473191878907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
+  m_GameObject: {fileID: 1914333804047800783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4defcc163c8fc46b79256cd051c6ef3f, type: 3}
+  m_Script: {fileID: 11500000, guid: 930884a766ef54eaeb01480687f03c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Reached: 0
-  Locked: 0
-  DoorType: -1
+  remainingUses: 5
+  correspondingPortal: {fileID: 0}
+  textUIPrefab: {fileID: 6677275816576672795, guid: 887f221d85ca14836a18a85f8cccbc80, type: 3}
+  textUIOffset: {x: 2, y: 1, z: 0}
+  textUIInstance: {fileID: 0}

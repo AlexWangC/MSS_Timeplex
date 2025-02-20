@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4725486892590237464}
   - component: {fileID: 2952063390293848289}
   m_Layer: 7
-  m_Name: prefDoor
+  m_Name: prefDoorLockedType3
   m_TagString: goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_SortingLayerID: -937790731
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -595648955539636883, guid: 13305df63ef33407eb4741d99af1d379, type: 3}
+  m_Sprite: {fileID: 2143300669177168851, guid: 2d0cd4c6b747b47678f6ac57523589ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,5 +117,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Reached: 0
-  Locked: 0
-  DoorType: -1
+  Locked: 1
+  DoorType: 1

@@ -130,20 +130,16 @@ public class scrPlayer : MonoBehaviour
                                 }
                                 break;
                             case 2:
-                                /*
                                 if (!GetComponent<scrKey2>())
                                 {
                                     return forbidMovement();
                                 }
-                                */
                                 break;
                             case 3:
-                                /*
                                 if (!GetComponent<scrKey3>())
                                 {
                                     return forbidMovement();
                                 }
-                                */
                                 break;
                         }
                         moveToGoal();
