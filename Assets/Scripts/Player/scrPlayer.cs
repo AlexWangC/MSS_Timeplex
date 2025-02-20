@@ -152,11 +152,29 @@ public class scrPlayer : MonoBehaviour
 
                 if (checkObject(toVector2Int(targetPosition), "wall")) // if colliding into wall
                 {
+                    if (scrSoundManager.Instance)
+                    {
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                    }
+                    wallShake();
                     return forbidMovement();
                 }
 
                 if (checkObject(toVector2Int(targetPosition), "spike")) //if colliding spike... move to spike but disable panel.
                 {
+                    if (scrSoundManager.Instance)
+                    {
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 1);
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                    }
+                    
                     killThisPlayer();
                     
                 }
@@ -191,6 +209,11 @@ public class scrPlayer : MonoBehaviour
                         // 1. add key script to game object
                         GetComponent<scrInventory>().addToInventory("key2");
                     }
+                    
+                    // 2. delete this key from panel (remember to add it back when dropping all)
+                    GameObject KeyPickUp2 = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
+                        .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
+                    Destroy(KeyPickUp2);
                 }
 
                 // yet to be implemented.
@@ -202,6 +225,11 @@ public class scrPlayer : MonoBehaviour
                         // 1. add key script to game object
                         GetComponent<scrInventory>().addToInventory("key3");
                     }
+                    
+                    // 2. delete this key from panel (remember to add it back when dropping all)
+                    GameObject KeyPickUp3 = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
+                        .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
+                    Destroy(KeyPickUp3);
                 }
                 
                 // if running into portal
@@ -258,6 +286,17 @@ public class scrPlayer : MonoBehaviour
                 else // if is out of bound, tell manager it didn't move
                 {
                     FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
+                    
+                    if (scrSoundManager.Instance)
+                    {
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                    }
+                    
+                    wallShake();
                     return false;
                 }
             }
@@ -354,7 +393,7 @@ public class scrPlayer : MonoBehaviour
     private void wallShake()
     {
         Vector3 original_position = GetComponentInParent<scrPanel>().transform.position;
-        GetComponentInParent<scrPanel>().transform.DOShakePosition(1f, 1f, 10, 40, true).OnComplete(() =>
+        GetComponentInParent<scrPanel>().transform.DOShakePosition(0.6f, 0.5f, 5, 20, true).OnComplete(() =>
         {
             GetComponentInParent<scrPanel>().transform.position = original_position;
             updatePlayerPos();

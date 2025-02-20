@@ -6,6 +6,9 @@ public class scrInventory : MonoBehaviour
 {
     public Dictionary<string, bool> inventory;
     public Sprite key1Sprite;
+    public Sprite key2Sprite;
+    public Sprite key3Sprite;
+    
     public GameObject keyPickUp1;
     public GameObject keyPickUp2;
     public GameObject keyPickUp3;
@@ -14,8 +17,8 @@ public class scrInventory : MonoBehaviour
     {
         inventory = new Dictionary<string, bool>();
         inventory.Add("key1", false);
-        inventory.Add("Key2", false);
-        inventory.Add("Key3", false);
+        inventory.Add("key2", false);
+        inventory.Add("key3", false);
     }
 
     private void Update()
@@ -45,13 +48,13 @@ public class scrInventory : MonoBehaviour
             case "key2":
                 Debug.Log("what's to be added to inventory: key2");
                 scrKey2 newKey2Script = gameObject.AddComponent<scrKey2>();
-                newKey2Script.keyIconSprite = key1Sprite;
+                newKey2Script.keyIconSprite = key2Sprite;
                 break;
             
             case "key3":
                 Debug.Log("what's to be added to inventory: key3");
                 scrKey3 newKey3Script = gameObject.AddComponent<scrKey3>();
-                newKey3Script.keyIconSprite = key1Sprite;
+                newKey3Script.keyIconSprite = key3Sprite;
                 break;
         }
     }
