@@ -245,7 +245,7 @@ public class scrPlayer : MonoBehaviour
                         GameObject clone = Instantiate(gameObject);
                         clone.transform.SetParent(target_portal.GetComponent<scrPortal>().correspondingPortal.transform.parent, false);
                         clone.GetComponent<GridObject>().gridPosition =
-                            target_portal.GetComponent<GridObject>().gridPosition;
+                            target_portal.GetComponent<scrPortal>().correspondingPortal.GetComponent<GridObject>().gridPosition;
 
                         // 1. destroy itself
                         Destroy(gameObject);
