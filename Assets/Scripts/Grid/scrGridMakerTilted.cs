@@ -80,6 +80,10 @@ public class scrGridMakerTilted : MonoBehaviour
 
         if (lineMaterial != null)
             line.material = lineMaterial;
+        
+        // NEW: Ensure it’s on top of the floor
+        line.sortingLayerName = "panels";   // Or another Sorting Layer you prefer
+        line.sortingOrder = 10;              // Higher means it’ll be drawn on top
     }
 
     private void ClearGrid()
