@@ -42,7 +42,10 @@ public class GridObject : MonoBehaviour
     [Button("Update Position")]
     public void UpdatePosition()
     {
+        print(parentGrid);
+        print(gridPosition);
         this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
+        
         Debug.Log("Object at " + parentGrid.GetWorldPositionFromGrid(gridPosition) + "projected successfully.");
     }
 
