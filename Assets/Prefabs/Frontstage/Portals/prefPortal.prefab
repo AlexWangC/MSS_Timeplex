@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridPosition: {x: 5, y: 4}
   parentGrid: {fileID: 0}
+  inventoryHasItem: 0
 --- !u!212 &5455310820656693042
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -118,4 +119,5 @@ MonoBehaviour:
   remainingUses: 5
   correspondingPortal: {fileID: 0}
   textUIPrefab: {fileID: 6677275816576672795, guid: 887f221d85ca14836a18a85f8cccbc80, type: 3}
-  textUIOffset: {x: 2, y: 1, z: 0}
+  textUIOffset: {x: 3.5, y: -0.5, z: 0}
+  textUIInstance: {fileID: 0}
