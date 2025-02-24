@@ -99,11 +99,15 @@ public class scrPlayer : MonoBehaviour
                 // 1. notify the enemy manager to move.
                 StartCoroutine(DelayedEnemiesMove(FindAnyObjectByType<scrMoveInheritanceManager>().First_enemy_move_delay, direction));
                 
+                // Note: Only MOVEMENT related code should be placed below!!
+                // Note: Only MOVEMENT related code should be placed below!!
                 if (!FindAnyObjectByType<scrMoveInheritanceManager>() // Note: Only MOVEMENT related code should be placed below!!
                         .Can_move) // if by this player's turn, already can't move
                 {
                     return false; // then don't move
                 }
+                // Note: Only MOVEMENT related code should be placed below!!
+                // Note: Only MOVEMENT related code should be placed below!!
 
                 if (checkObject(toVector2Int(targetPosition), "goal")) // if moving into scrGoal...
                 {
