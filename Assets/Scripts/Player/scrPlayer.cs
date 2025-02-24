@@ -2,19 +2,25 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using DialogueSystem;
+using Fries;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(GridObject))]
 public class scrPlayer : MonoBehaviour
 {
     GridObject gridObject;
-    
+
     public int playerAgeIndex; // will be accessed when deciding within one frame how it's going to move.
-    
+
+
+    scrGoalManager goalManager;
     void Start()
     {
         this.gridObject = GetComponent<GridObject>();
+        goalManager = FindAnyObjectByType<scrGoalManager>();
     }
 
     // Update is called once per frame
@@ -107,7 +113,40 @@ public class scrPlayer : MonoBehaviour
 
                 if (checkObject(toVector2Int(targetPosition), "goal")) // if moving into scrGoal...
                 {
-                    GameObject target_goal = transform.parent.gameObject.GetComponentInChildren<scrGoal>().gameObject;
+                    GridObject target_goal = gameObject.GetComponentInParent<scrPanel>().GetComponentInChildren<scrGridManager>().GetGridObjectAtPosition(toVector2Int(targetPosition));
+                    switch (target_goal.GetComponent<scrGoal>().DoorType)
+                    {
+                        case -1:
+                            break;
+                        case 1:
+                            if (GetComponent<scrKey1>())
+                            {
+                                target_goal.GetComponent<scrGoal>().Locked = false;
+                            }
+                            break;
+                        case 2:
+                            if (GetComponent<scrKey2>())
+                            {
+                                target_goal.GetComponent<scrGoal>().Locked = false;
+                            }
+                            break;
+                        case 3:
+                            if (GetComponent<scrKey3>())
+                            {
+                                target_goal.GetComponent<scrGoal>().Locked = false;
+                            }
+                            break;
+                    }
+                    moveToGoal();
+                    //try load scene
+                    String nextScene = transform.parent.gameObject.GetComponentInChildren<scrGoal>().nextSceneName;
+                    print("Load Scene Player Script");
+                    goalManager.LoadScene(nextScene);
+                    
+
+                    //the old logic, if door is locked player can't step on it
+
+                    /*
                     // if the goal is not a locked goal, just move there.
                     if (!target_goal.GetComponent<scrGoal>().Locked)
                     {
@@ -126,24 +165,35 @@ public class scrPlayer : MonoBehaviour
                             case 1:
                                 if (!GetComponent<scrKey1>())
                                 {
-                                    return forbidMovement();
+                                    //return forbidMovement();
                                 }
                                 break;
                             case 2:
                                 if (!GetComponent<scrKey2>())
                                 {
-                                    return forbidMovement();
+                                    //return forbidMovement();
                                 }
                                 break;
                             case 3:
                                 if (!GetComponent<scrKey3>())
                                 {
-                                    return forbidMovement();
+                                    //return forbidMovement();
                                 }
                                 break;
                         }
                         moveToGoal();
+                    
                     }
+                    */
+
+                    //the new logic, player can step on it even if it's locked.
+                    //But won't trigger go to next level if player don't got all keys.
+
+                    
+
+                    //Go to next level
+                   //if (checkIfAllPlayerAtDoor() && lockedDoors == 0)
+                    //    endScene(nextSceneName);
                 }
 
                 if (checkObject(toVector2Int(targetPosition), "wall")) // if colliding into wall
@@ -345,16 +395,18 @@ public class scrPlayer : MonoBehaviour
         action?.Invoke();
     }
 
+
     private void moveToGoal()
     {
         scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.goal, this.transform, 1);
 
         StartCoroutine(checkGoalsAfterMovement(() =>
         {
-            FindAnyObjectByType<scrGoalManager>().GoalsReached(); //invoking goals reached here.
+            //FindAnyObjectByType<scrGoalManager>().GoalsReached(); //invoking goals reached here.
         }));
         // could implement something else here later...
     }
+
 
     #endregion
 
