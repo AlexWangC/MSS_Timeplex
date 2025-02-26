@@ -43,9 +43,9 @@ public class scrGoalManager : MonoBehaviour
     public void LoadScene(String nextSceneName)
     {
         print("Load Scene");
-        print(checkIfAllPlayerAtSameDoor());
-
-        if (!checkIfAllPlayerAtSameDoor()) return;
+        bool playerAllAtDoor = checkIfAllPlayerAtSameDoor();
+        print("are players all at door? " + playerAllAtDoor);
+        if (!playerAllAtDoor) return;
         
         SceneManager.LoadScene(nextSceneName);
     }
