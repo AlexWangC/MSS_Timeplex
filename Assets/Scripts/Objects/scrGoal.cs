@@ -28,7 +28,7 @@ public class scrGoal : MonoBehaviour
 
     private void Start()
     {
-        Reached = false;
+        Reached = false; // uwu 
     }
 
     private void Update()

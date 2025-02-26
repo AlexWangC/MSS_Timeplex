@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Net.NetworkInformation;
 using DG.Tweening;
 using DialogueSystem;
 using Fries;
@@ -138,11 +139,10 @@ public class scrPlayer : MonoBehaviour
                             break;
                     }
                     moveToGoal();
-                    //try load scene
-                    String nextScene = transform.parent.gameObject.GetComponentInChildren<scrGoal>().nextSceneName;
+
+                    String nextScene = target_goal.GetComponentInChildren<scrGoal>().nextSceneName;
                     print("Load Scene Player Script");
                     goalManager.LoadScene(nextScene);
-                    
 
                     //the old logic, if door is locked player can't step on it
 
@@ -189,10 +189,10 @@ public class scrPlayer : MonoBehaviour
                     //the new logic, player can step on it even if it's locked.
                     //But won't trigger go to next level if player don't got all keys.
 
-                    
+
 
                     //Go to next level
-                   //if (checkIfAllPlayerAtDoor() && lockedDoors == 0)
+                    //if (checkIfAllPlayerAtDoor() && lockedDoors == 0)
                     //    endScene(nextSceneName);
                 }
 
