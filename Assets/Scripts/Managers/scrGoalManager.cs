@@ -107,7 +107,7 @@ public class scrGoalManager : MonoBehaviour
 
         foreach (scrGoal goal in allGoals)
         {
-            if (goal.checkIfReached() && !goal.Locked)
+            if (goal.Reached && !goal.Locked)
             {
                 reachedGoals.Add(goal);
             }
@@ -122,14 +122,14 @@ public class scrGoalManager : MonoBehaviour
             foreach (var door in reachedGoals)
             {
                 //block if player and door are not in the same panel
-                if (player.transform.parent != door.transform.parent)
-                    continue;
+                //if (player.transform.parent != door.transform.parent)
+                    //continue;
                 //block (can't go to next level) if player is not at door
                 if (player.GetComponent<GridObject>().gridPosition != door.GetComponent<GridObject>().gridPosition)
-                    continue;
+                    break;
                 //block if door is locked
                 if (door.GetComponent<scrGoal>().Locked)
-                    continue;
+                    break;
                 reached = true;
             }
             if (!reached) return false; //if one player not reach unlocked door, then return false

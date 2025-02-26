@@ -33,6 +33,7 @@ public class scrGoal : MonoBehaviour
 
     private void Update()
     {
+        checkIfReached();
     }
 
     // i think this is the problem. Refactor it first?
@@ -47,14 +48,14 @@ public class scrGoal : MonoBehaviour
             {
                 if (obj.CompareTag("player"))
                 {
-                    print(obj.name + " Setted reached to true");
+                    print(obj.name + " Set reached to true");
                     Reached = true;
                     return true;
                 }
             }
         }
 
-        print(gameObject.name + " Setted reached to false");
+        print(gameObject.name + " Set reached to false");
         Reached = false;
         return false;
     }

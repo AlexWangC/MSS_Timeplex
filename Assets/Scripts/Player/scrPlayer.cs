@@ -143,10 +143,46 @@ public class scrPlayer : MonoBehaviour
                             }
                             break;
                     }
-                    moveToGoal(target_goal);
+                    // if the goal is not a locked goal, just move there.
+                    if (!target_goal.GetComponent<scrGoal>().Locked)
+                    {
+                        moveToGoal(target_goal);
+                    }
+                    else
+                    {
+                        return forbidMovement();
+                    }
+                    /*
+                    // have the goal check if i have the right key?
+                    switch (target_goal.GetComponent<scrGoal>().DoorType)
+                    {
+
+                        case -1:
+                            throw new ArgumentException("the door has no door type but is locked.");
+                            break;
+                        case 1:
+                            if (!GetComponent<scrKey1>())
+                            {
+                                forbidMovement();
+                            }
+                            break;
+                        case 2:
+                            if (!GetComponent<scrKey2>())
+                            {
+                                forbidMovement();
+                            }
+                            break;
+                        case 3:
+                            if (!GetComponent<scrKey3>())
+                            {
+                                forbidMovement();
+                            }
+                            break;
+                    }
+                    */
 
                     String nextScene = target_goal.GetComponentInChildren<scrGoal>().nextSceneName;
-                    print("Load Scene Player Script");
+                    // print("Load Scene Player Script");
                     
                     //goalManager.LoadScene(nextScene);
 
