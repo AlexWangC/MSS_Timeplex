@@ -1,25 +1,45 @@
 using System;
 using System.Collections.Generic;
+using Fries;
 using UnityEngine;
 
 namespace DialogueSystem {
+    [RequireComponent(typeof(GridObject))]
     public class DialogueDisplayer : MonoBehaviour {
         public string id;
-        
         public string dialogueId;
+        public string startLineId;
+
+        public bool isInteractive = true;
+        public bool drawGizmos = true;
+        
         private CharSequenceDisplayer csd;
         private SpriteRenderer sr;
         private DialogueDataInfo ddi;
+        private GridObject gridObject;
 
         private string currentLineId;
 
         private void Start() {
             sr = GetComponent<SpriteRenderer>();
             csd = GetComponent<CharSequenceDisplayer>();
+            gridObject = GetComponent<GridObject>();
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) 
                 ddi = DialogueSystem.dialogueData[dialogueId];
         }
-        
+
+        private void Update() {
+            if (!Input.GetKeyDown(DialogueSystem.interactKey)) return;
+            
+            scrPlayer[] players = FindObjectsByType<scrPlayer>(FindObjectsSortMode.InstanceID);
+            foreach (var pl in players) {
+                if (getTimeIndex(pl.transform) != getTimeIndex()) continue;
+                GridObject go = pl.getComponent<GridObject>();
+                if (go.gridPosition != gridObject.gridPosition) continue;
+                Open(startLineId);
+            }
+        }
+
         public void SetDialogueId(string dialogueId) {
             this.dialogueId = dialogueId;
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) {
@@ -32,6 +52,8 @@ namespace DialogueSystem {
         }
 
         public void Open(string lineId = null) {
+            if (lineId != null && lineId.Trim() == "") lineId = null;
+            
             sr.enabled = true;
             
             if (lineId == null) {
@@ -91,6 +113,19 @@ namespace DialogueSystem {
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
                 options = DialogueSystem.filterOptionFuncs[fullLineId](options);
             csd.listOptions(this, optionTarget, options);
+        }
+
+        private void OnDrawGizmos() {
+            // 设置 Gizmos 的颜色（例如黄色）
+            Gizmos.color = Color.yellow;
+            // 在当前 gameobject 的世界位置绘制一个半径为 0.2 的小球
+            Gizmos.DrawSphere(transform.position, 0.175f);
+        }
+
+        private int getTimeIndex(Transform t = null) {
+            if (t == null) t = this.transform;
+            scrPanel panel = t.parent.getComponent<scrPanel>();
+            return panel.Time_index;
         }
     }
 }

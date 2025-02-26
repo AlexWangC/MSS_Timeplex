@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 namespace DialogueSystem {
     public static class DialogueSystem {
+        public static KeyCode interactKey;
+        
         // Dialogue Id => Dialogue Data Info
         public static Dictionary<string, DialogueDataInfo> dialogueData = new();
         // Dialogue Id => Get Start Func
@@ -22,9 +24,6 @@ namespace DialogueSystem {
         public static Action<string, string, string, string, string> onOptionClicked;
         // Dialogue Id, Dialogue Displayer Id, Old Line Id, New Line Id
         public static Action<string, string, string, string> onLineChanged;
-        
-        // TODO 没有setDialogueId的时候给出明确的报错提示
-        // 按钮存在连点现象，点了一个之后立马吧钢弹出的新选项也点了
     }
     
     [Serializable]
