@@ -96,6 +96,7 @@ public class scrPlayer : MonoBehaviour
 
                 // here call the coroutine of a guard that replicates player's movement
                 
+                
                 // 1. notify the enemy manager to move.
                 StartCoroutine(DelayedEnemiesMove(FindAnyObjectByType<scrMoveInheritanceManager>().First_enemy_move_delay, direction));
                 
@@ -154,6 +155,7 @@ public class scrPlayer : MonoBehaviour
                 {
                     if (scrSoundManager.Instance)
                     {
+                        FindAnyObjectByType<DialogueDisplayer>().Open();
                         scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
                     }
                     else
