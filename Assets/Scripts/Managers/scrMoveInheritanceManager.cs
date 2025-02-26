@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 // this script handles the movement & movement inheritance of all players
@@ -67,6 +68,8 @@ public class scrMoveInheritanceManager : MonoBehaviour
             StartCoroutine(movePlayerDelayed(3, Move_delay));
             
         }
+
+        
     }
     /*
      * Above is the movement grand switch
