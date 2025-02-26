@@ -9,12 +9,10 @@ public class scrGoalManager : MonoBehaviour
 {
     //public bool LockAllGoals; // whether you want to have all goals be locked in the scene. NOT YET IMPLEMENTED
     private scrGoal[] allGoals;
-    List<scrGoal> reachedGoals;
 
     private void Start()
     {
         initializeGoals();
-        reachedGoals = new List<scrGoal>();
         //Debug.Log("Next Scene Index = " + (SceneManager.GetActiveScene().buildIndex + 1));
         //lockingAllGoals();
     }
@@ -45,7 +43,7 @@ public class scrGoalManager : MonoBehaviour
     public void LoadScene(String nextSceneName)
     {
         print("Load Scene");
-        print(checkIfAllPlayerAtSameDoor());
+        //print(checkIfAllPlayerAtSameDoor());
 
         if (!checkIfAllPlayerAtSameDoor()) return;
         
@@ -102,8 +100,9 @@ public class scrGoalManager : MonoBehaviour
     {
         print(0);
         //find all player and door object in scene
-        GameObject[] arrDoor = GameObject.FindGameObjectsWithTag("goal");
+        //GameObject[] arrDoor = GameObject.FindGameObjectsWithTag("goal");
         GameObject[] arrPlayer = GameObject.FindGameObjectsWithTag("player");
+        List<scrGoal> reachedGoals = new List<scrGoal>();
 
 
         foreach (scrGoal goal in allGoals)
@@ -119,26 +118,28 @@ public class scrGoalManager : MonoBehaviour
         {
             print(player + ": ");
             bool reached = false;
-            foreach (var door in arrDoor)
+            
+            foreach (var door in reachedGoals)
             {
                 //block if player and door are not in the same panel
                 if (player.transform.parent != door.transform.parent)
-                    break;
+                    continue;
                 //block (can't go to next level) if player is not at door
                 if (player.GetComponent<GridObject>().gridPosition != door.GetComponent<GridObject>().gridPosition)
-                    break;
+                    continue;
                 //block if door is locked
                 if (door.GetComponent<scrGoal>().Locked)
-                    break;
+                    continue;
                 reached = true;
-                reachedGoals.Add(door.GetComponent<scrGoal>());
             }
             if (!reached) return false; //if one player not reach unlocked door, then return false
+            
         }
 
         //block if not all reached doors connect to the same scene
         if (!reachedGoals.All(door => door.GetComponent<scrGoal>().nextSceneName == reachedGoals[0].GetComponent<scrGoal>().nextSceneName))
             return false;
+                
         return true;//all challenge passed
     }
 }

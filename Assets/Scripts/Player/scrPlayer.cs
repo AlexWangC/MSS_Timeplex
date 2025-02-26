@@ -138,11 +138,12 @@ public class scrPlayer : MonoBehaviour
                             }
                             break;
                     }
-                    moveToGoal();
+                    moveToGoal(target_goal);
 
                     String nextScene = target_goal.GetComponentInChildren<scrGoal>().nextSceneName;
                     print("Load Scene Player Script");
-                    goalManager.LoadScene(nextScene);
+                    
+                    //goalManager.LoadScene(nextScene);
 
                     //the old logic, if door is locked player can't step on it
 
@@ -188,9 +189,7 @@ public class scrPlayer : MonoBehaviour
 
                     //the new logic, player can step on it even if it's locked.
                     //But won't trigger go to next level if player don't got all keys.
-
-
-
+                    
                     //Go to next level
                     //if (checkIfAllPlayerAtDoor() && lockedDoors == 0)
                     //    endScene(nextSceneName);
@@ -389,21 +388,23 @@ public class scrPlayer : MonoBehaviour
     #region GoalsRelated
 
     // the coroutine that calls the content inside. Declared above
-    private IEnumerator checkGoalsAfterMovement(System.Action action)
+    private IEnumerator checkGoalsAfterMovement(System.Action action, GridObject target_goal)
     {
         yield return new WaitForSeconds(1f);
+        
         action?.Invoke();
+        goalManager.LoadScene(target_goal.GetComponent<scrGoal>().nextSceneName);
     }
 
 
-    private void moveToGoal()
+    private void moveToGoal(GridObject target_goal)
     {
         scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.goal, this.transform, 1);
 
         StartCoroutine(checkGoalsAfterMovement(() =>
         {
             //FindAnyObjectByType<scrGoalManager>().GoalsReached(); //invoking goals reached here.
-        }));
+        }, target_goal));
         // could implement something else here later...
     }
 
