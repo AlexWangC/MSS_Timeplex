@@ -15,9 +15,9 @@ public class scrPlayer : MonoBehaviour
     GridObject gridObject;
 
     public int playerAgeIndex; // will be accessed when deciding within one frame how it's going to move.
-
-
+    
     scrGoalManager goalManager;
+    
     void Start()
     {
         this.gridObject = GetComponent<GridObject>();
