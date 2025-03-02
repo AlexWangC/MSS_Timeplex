@@ -106,10 +106,12 @@ public class scrGoalManager : MonoBehaviour
         }
 
         //go through all doors and player, and see if each player has a unlocked + position matching door.
+        /*
         foreach (var player in arrPlayer)
         {
             print(player + ": ");
-            
+
+            bool reached = false;
             foreach (var door in reachedGoals)
             {
                 //block if player and door are not in the same panel
@@ -117,12 +119,13 @@ public class scrGoalManager : MonoBehaviour
                     //continue;
                 //block (can't go to next level) if player is not at door
                 if (player.GetComponent<GridObject>().gridPosition != door.GetComponent<GridObject>().gridPosition)
-                    return false;
+                    continue;
                 //block if door is locked
                 if (door.GetComponent<scrGoal>().Locked)
-                    return false;
+                    continue;
             }
         }
+        */
 
         //block if not all reached doors connect to the same scene
         if (!reachedGoals.All(door => door.GetComponent<scrGoal>().nextSceneName == reachedGoals[0].GetComponent<scrGoal>().nextSceneName))
