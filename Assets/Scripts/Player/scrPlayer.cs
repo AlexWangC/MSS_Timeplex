@@ -240,7 +240,7 @@ public class scrPlayer : MonoBehaviour
                 {
                     if (scrSoundManager.Instance)
                     {
-                        FindAnyObjectByType<DialogueDisplayer>().Open();
+                        //FindAnyObjectByType<DialogueDisplayer>().Open();
                         scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
                     }
                     else
