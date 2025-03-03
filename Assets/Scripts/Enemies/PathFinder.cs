@@ -6,8 +6,8 @@ This is a tool for path finding
 to find best route from a start position to a goal position
 To use this tool:
 1. Define a 2D grid, 0 = Walkable tile, 1 = Obstacle
-2. Create a Pathfinding Script
-
+2. create an FindPath list
+3. recreate the findpath list everytime the grid map/ start position/ goal position change.
 */
 public class PathFinder
 {
