@@ -30,6 +30,10 @@ public class scrEnemyManager : MonoBehaviour
                 {
                     _enemy.GetComponent<scrDumbDumb>().MoveDumbDumb(dir);
                 }
+                else if (_enemy.GetComponent<scrPatrol>())
+                {
+                    _enemy.GetComponent<scrPatrol>().MovePatrol();
+                }
 
                 yield return new WaitForSeconds(wait_time);
             }
