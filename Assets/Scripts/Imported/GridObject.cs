@@ -49,6 +49,8 @@ public class GridObject : MonoBehaviour
         //Debug.Log("Object at " + parentGrid.GetWorldPositionFromGrid(gridPosition) + "projected successfully.");
     }
 
+    
+
     private scrGridMakerTilted getParentGrid()
     {
         scrPanel parent_panel = GetComponentInParent<scrPanel>();
