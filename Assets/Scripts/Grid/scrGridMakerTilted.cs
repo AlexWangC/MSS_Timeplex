@@ -29,10 +29,17 @@ public class scrGridMakerTilted : MonoBehaviour
     public void SnapToGrid()
     {
         print("snap to grid");
-        GridObject[] gridObjects = GetComponentsInChildren<GridObject>();
+        GridObject[] gridObjects = FindObjectsByType<GridObject>(FindObjectsSortMode.None);
+        
+        print(gridObjects.Length);
         foreach(GridObject obj in gridObjects)
         {
+            print(obj.parentGrid);
+            print(gameObject.name);
+            if (obj.parentGrid.name != gameObject.name) continue;
+            print("*************" + obj.name);
             obj.gridPosition = GetGridPositionFromWorld(obj.transform.position);
+            
         }
     }
 
