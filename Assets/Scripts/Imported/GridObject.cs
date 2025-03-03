@@ -10,10 +10,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System.Collections.Specialized;
 
 [ExecuteInEditMode]
 public class GridObject : MonoBehaviour
 {
+    [System.Serializable]
+    public class Data
+    {
+        public Vector2 position;
+        public Dictionary<string, bool> inventory;
+        public bool alive;
+    }
     public Vector2 gridPosition;
     private Vector2 prevGridPosition;
 
@@ -55,5 +63,13 @@ public class GridObject : MonoBehaviour
         parentGrid = parent_panel.GetComponentInChildren<scrGridMakerTilted>();
         
         return parentGrid;
+    }
+    public Data GetData()
+    {
+        Data data = new Data();
+        data.position = gridPosition;
+        // data.alive 
+        // data.inventory
+        return data;
     }
 }

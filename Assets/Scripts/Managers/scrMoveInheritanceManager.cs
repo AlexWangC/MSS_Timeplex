@@ -16,6 +16,8 @@ public class scrMoveInheritanceManager : MonoBehaviour
 
     private bool is_moving = false;
 
+    private int turn = 0;
+
     private void Start()
     {
         Can_move = true;
@@ -61,6 +63,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
+
             ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
@@ -145,6 +148,13 @@ public class scrMoveInheritanceManager : MonoBehaviour
     //move all
     IEnumerator movePlayerDelayed(int direction, float delay)
     {
+        //record all movement historz here
+        foreach (scrPlayer player in Players)
+        {
+            player.GetComponent<movementHistory>().recordMovement(turn);
+        }
+        turn++;
+
         is_moving = true;
         
         int current_player = 0;
