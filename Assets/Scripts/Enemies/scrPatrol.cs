@@ -91,7 +91,7 @@ public class scrPatrol : MonoBehaviour
             }
             else
             {
-                if (moveIndex == -1)
+                if (moveIndex == 0)
                 {
                     isIndexIncreasing = true;//touch end, reverse
                 }
