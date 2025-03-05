@@ -10,10 +10,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System.Collections.Specialized;
 
 [ExecuteInEditMode]
 public class GridObject : MonoBehaviour
 {
+    //Class to store information in movementHistory for position inventory and if it is alive or not
+    [System.Serializable]
+    public class Data
+    {
+        public Vector2 position;
+        public Dictionary<string, bool> inventory;
+        public bool alive;
+    }
+
     public Vector2 gridPosition;
     private Vector2 prevGridPosition;
 
@@ -57,5 +67,14 @@ public class GridObject : MonoBehaviour
         parentGrid = parent_panel.GetComponentInChildren<scrGridMakerTilted>();
         
         return parentGrid;
+    }
+    // record information of gridposition, alive state and inventory state
+    public Data GetData()
+    {
+        Data data = new Data();
+        data.position = gridPosition;
+        // data.alive 
+        // data.inventory
+        return data;
     }
 }
