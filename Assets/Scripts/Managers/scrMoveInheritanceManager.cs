@@ -148,7 +148,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
     //move all
     IEnumerator movePlayerDelayed(int direction, float delay)
     {
-        //record all movement historz here
+        //record all movement history here
         foreach (scrPlayer player in Players)
         {
             player.GetComponent<movementHistory>().recordMovement(turn);
