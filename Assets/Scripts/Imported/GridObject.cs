@@ -15,7 +15,7 @@ using System.Collections.Specialized;
 [ExecuteInEditMode]
 public class GridObject : MonoBehaviour
 {
-    // mush's code.
+    /* mush's code.
     //Class to store information in movementHistory for position inventory and if it is alive or not
     [System.Serializable]
     public class Data
@@ -24,7 +24,9 @@ public class GridObject : MonoBehaviour
         public Dictionary<string, bool> inventory;
         public bool alive;
     }
+    */
 
+    public bool updated = false; // mark this as true if you want it to be reset in movement History.
     public Vector2 gridPosition;
     private Vector2 prevGridPosition;
 
@@ -70,7 +72,7 @@ public class GridObject : MonoBehaviour
         return parentGrid;
     }
     
-    //mush's code
+    /*mush's code
     // record information of gridposition, alive state and inventory state
     public Data GetData()
     {
@@ -80,4 +82,5 @@ public class GridObject : MonoBehaviour
         // data.inventory
         return data;
     }
+    */
 }

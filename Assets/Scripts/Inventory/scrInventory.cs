@@ -26,6 +26,17 @@ public class scrInventory : MonoBehaviour
         
     }
 
+    public void syncActualInventoryWithDictionary()
+    {
+        foreach (KeyValuePair<string, bool> pair in inventory)
+        {
+            if (pair.Value == true)
+            {
+                addToInventory(pair.Key);
+            }
+        }
+    }
+    
     public void addToInventory(string _what_to_add)
     {
         inventoryDropEverything();

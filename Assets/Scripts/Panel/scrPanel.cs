@@ -47,6 +47,13 @@ public class scrPanel : MonoBehaviour
         spawnDeathParticles(getPanelPlayerLocation());
     }
 
+    public void PanelRevived()
+    {
+        StartCoroutine(fadeToTargetOpaque(0.8f, 0.2f));
+    }
+    
+    //for reviving when redoing
+
     private void OnMouseExit()
     {
         Debug.Log("Mouse exit panel " + Time_index);
@@ -115,6 +122,32 @@ public class scrPanel : MonoBehaviour
 
         sprite_renderer.color = new Color(current_color.r, current_color.g, current_color.b, 1.0f);
     }
+    
+    // this is the coroutine that de-fade the panel's sprite. Could replace the above fade to max. Takes so labor tho.
+    private IEnumerator fadeToTargetOpaque(float fadeDuration, float target_a)
+    {
+        SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
+        if (sprite_renderer == null)
+        {
+            Debug.LogError("SpriteRenderer component not found!");
+            yield break;
+        }
+        
+        Color current_color = sprite_renderer.color;
+        float elapsed_time = 0f;
+
+        while (elapsed_time < fadeDuration)
+        {
+            elapsed_time += Time.deltaTime;
+            float new_alpha = Mathf.Lerp(current_color.a, target_a, elapsed_time / fadeDuration);
+            sprite_renderer.color = new Color(current_color.r, current_color.g, current_color.b, new_alpha);
+            yield return null;
+        }
+
+        sprite_renderer.color = new Color(current_color.r, current_color.g, current_color.b, target_a);
+    }
+    
+    
 
     private Vector3 getPanelPlayerLocation()
     {

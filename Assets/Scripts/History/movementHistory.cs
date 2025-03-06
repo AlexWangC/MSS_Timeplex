@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 public class movementHistory : MonoBehaviour
 {
+    /*
     public Dictionary<int, GridObject.Data> history = new Dictionary<int, GridObject.Data>();
     GridObject gridobject;
     Dictionary<string, bool> inventory;
@@ -30,6 +31,7 @@ public class movementHistory : MonoBehaviour
 
     }
     // Mushroom - record into Dictionary of Gridobject.Data Class; Use provided turnValue for index
+    /*
     public void recordMovement(int turnValue)
     {
         GridObject.Data data = gridobject.GetData();
@@ -51,5 +53,6 @@ public class movementHistory : MonoBehaviour
         //Add +1 to turnValue
         //
     }
+    */
 
 }

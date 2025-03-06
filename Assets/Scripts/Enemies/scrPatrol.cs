@@ -14,8 +14,8 @@ public class scrPatrol : MonoBehaviour
     }
     [SerializeField] private List<Direction> movementSequence = new List<Direction>();
     public bool backAndForth = true;
-    private bool isIndexIncreasing = true;
-    public int moveIndex = 0;
+    public bool isIndexIncreasing = true; // save & access this from movement history
+    public int moveIndex = 0; // save & access this from movement history
 
     public void MovePatrol()
     {
