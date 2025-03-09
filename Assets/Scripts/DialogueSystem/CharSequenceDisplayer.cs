@@ -11,6 +11,10 @@ using UnityEngine;
 namespace DialogueSystem {
     public class CharSequenceDisplayer : MonoBehaviour {
         private static CompPool<TMP_Text> optionBoxes;
+        public static void reset() {
+            
+        }
+        
         public float fixedXPos;
         public float fixedYStart;
         public float fixedHeight;
