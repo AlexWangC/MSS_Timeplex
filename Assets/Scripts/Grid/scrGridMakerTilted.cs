@@ -39,7 +39,7 @@ public class scrGridMakerTilted : MonoBehaviour
             if (obj.parentGrid.name != gameObject.name) continue;
             print("*************" + obj.name);
             obj.gridPosition = GetGridPositionFromWorld(obj.transform.position);
-            
+            obj.UpdatePosition();
         }
     }
 

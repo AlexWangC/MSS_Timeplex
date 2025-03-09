@@ -7,14 +7,17 @@ using System.Linq;
 
 public class scrGoalManager : MonoBehaviour
 {
+
     //public bool LockAllGoals; // whether you want to have all goals be locked in the scene. NOT YET IMPLEMENTED
     //private scrGoal[] allGoals;
 
+    
     private void Start()
     {
+
         //initializeGoals();
         //Debug.Log("Next Scene Index = " + (SceneManager.GetActiveScene().buildIndex + 1));
-        //lockingAllGoals();
+        //lockingAllGoals();s
     }
 
 
@@ -54,6 +57,10 @@ public class scrGoalManager : MonoBehaviour
         
         SceneManager.LoadScene(nextSceneName);
     }
+
+    
+
+
     /*
     private void lockingAllGoals() // invoke at the start to lock all goals
     {
