@@ -34,7 +34,7 @@ public class scrSwapManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("current state: " + state);
+        //Debug.Log("current state: " + state);
     }
 
     // Invoked by other functions.

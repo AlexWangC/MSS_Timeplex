@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5808608201858578323}
   - component: {fileID: 2415255021223244997}
   - component: {fileID: 7752358075726051002}
+  - component: {fileID: 6070922613797347306}
   m_Layer: 7
   m_Name: prefPlayer1
   m_TagString: player
@@ -154,10 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ee004e9b4384d4ca6d906280cabdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteUp: {fileID: 6027740625147542277, guid: 1037007ae37af43e49dba101b3e64eee, type: 3}
-  spriteDown: {fileID: 7685514309841894476, guid: 6c6f23aab8dcb48f9a540b70eaadd9a8, type: 3}
-  spriteLeft: {fileID: 7623857468245019337, guid: e203f1dcdbf4b4c8dba4a67c1218592b, type: 3}
-  spriteRight: {fileID: 7115083560848261897, guid: 517043248487747eea89f84cb458e0bd, type: 3}
+  spriteUp: {fileID: 606027454, guid: a00aa638868e71a47832632b9e8d4671, type: 3}
+  spriteDown: {fileID: -2111149415, guid: a00aa638868e71a47832632b9e8d4671, type: 3}
+  spriteLeft: {fileID: -1125289789, guid: a00aa638868e71a47832632b9e8d4671, type: 3}
+  spriteRight: {fileID: -1092877891, guid: a00aa638868e71a47832632b9e8d4671, type: 3}
 --- !u!114 &7752358075726051002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +177,15 @@ MonoBehaviour:
   keyPickUp1: {fileID: 8134307781602460442, guid: 6b4e860f7c0d346afb59d5fcc91ae98f, type: 3}
   keyPickUp2: {fileID: 8134307781602460442, guid: 7b95cc430be684501ac8ea11bf6964d4, type: 3}
   keyPickUp3: {fileID: 8134307781602460442, guid: 01847510f9c3f4e048e24b3228fe1767, type: 3}
+--- !u!114 &6070922613797347306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285815475107376624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8230ae67e2bf974b9d12925c3a7adfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

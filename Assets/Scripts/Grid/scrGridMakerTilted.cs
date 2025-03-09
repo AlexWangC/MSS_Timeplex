@@ -26,7 +26,24 @@ public class scrGridMakerTilted : MonoBehaviour
         GenerateGrid();
     }
 
-    
+    public void SnapToGrid()
+    {
+        print("snap to grid");
+        GridObject[] gridObjects = FindObjectsByType<GridObject>(FindObjectsSortMode.None);
+        
+        print(gridObjects.Length);
+        foreach(GridObject obj in gridObjects)
+        {
+            print(obj.parentGrid);
+            print(gameObject.name);
+            if (obj.parentGrid.name != gameObject.name) continue;
+            print("*************" + obj.name);
+            obj.gridPosition = GetGridPositionFromWorld(obj.transform.position);
+            
+        }
+    }
+
+
     public Vector3 GetWorldPositionFromGrid(Vector2 gridPos)
     {
         float xTiltRad = Mathf.Deg2Rad * xAxisTilt;
@@ -40,7 +57,41 @@ public class scrGridMakerTilted : MonoBehaviour
         Vector3 worldPos = transform.position + (gridPos.x * xMother) + (gridPos.y * yMother);
         return worldPos;
     }
-    
+
+    public Vector2 GetGridPositionFromWorld(Vector3 worldPos)
+    {
+        float xTiltRad = Mathf.Deg2Rad * xAxisTilt;
+        float yTiltRad = Mathf.Deg2Rad * yAxisTilt;
+
+        // Compute the basis vectors for the tilted grid
+        Vector3 xMother = new Vector3(Mathf.Cos(xTiltRad) * blockWidth, Mathf.Sin(xTiltRad) * blockWidth, 0);
+        Vector3 yMother = new Vector3(Mathf.Cos(yTiltRad) * blockHeight, Mathf.Sin(yTiltRad) * blockHeight, 0);
+
+        // Convert world position relative to grid origin
+        Vector3 relativePos = worldPos - transform.position;
+
+        // Solve for grid coordinates using determinant method
+        float determinant = (xMother.x * yMother.y - xMother.y * yMother.x);
+
+        if (Mathf.Abs(determinant) < Mathf.Epsilon) // Check for near-zero determinant
+        {
+            Debug.LogError("Grid transformation matrix is singular or nearly singular! Cannot determine grid position.");
+            return Vector2.zero;
+        }
+
+        // Compute the unrounded grid coordinates
+        float gridX = (relativePos.x * yMother.y - relativePos.y * yMother.x) / determinant;
+        float gridY = (relativePos.y * xMother.x - relativePos.x * xMother.y) / determinant;
+
+        // Round to the nearest grid coordinate for snapping
+        int snappedX = Mathf.RoundToInt(gridX);
+        int snappedY = Mathf.RoundToInt(gridY);
+
+        return new Vector2(snappedX, snappedY);
+    }
+
+
+
     private void GenerateGrid()
     {
         Vector3 origin = transform.position;
