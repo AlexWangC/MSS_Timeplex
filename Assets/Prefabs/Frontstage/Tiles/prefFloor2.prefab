@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7912951936945264490
+--- !u!1 &3436594865438737560
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,55 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4123341478940526037}
-  - component: {fileID: 3666528460367816092}
-  - component: {fileID: 4725486892590237464}
-  - component: {fileID: 2952063390293848289}
-  m_Layer: 7
-  m_Name: prefDoorLockedType2
-  m_TagString: goal
+  - component: {fileID: 8950018881155430379}
+  - component: {fileID: 8682845614792780317}
+  m_Layer: 0
+  m_Name: prefFloor2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4123341478940526037
+--- !u!4 &8950018881155430379
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
+  m_GameObject: {fileID: 3436594865438737560}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.09202031, z: 0}
-  m_LocalScale: {x: 0.072, y: 0.072, z: 0.072}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: -7.790209, y: 4.2434006, z: -0.021989673}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3666528460367816092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86b28e689c9c70143a6520460a509f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updated: 0
-  gridPosition: {x: 5, y: 2}
-  parentGrid: {fileID: 0}
-  inventoryHasItem: 0
---- !u!212 &4725486892590237464
+--- !u!212 &8682845614792780317
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
+  m_GameObject: {fileID: 3436594865438737560}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -91,34 +73,17 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -937790731
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: af02c1b60a2bc8b4e9bd0bd9a55ad334, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfd814f599d583349b986cde48ab6c8d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.678, y: 3.788}
+  m_Size: {x: 0.475, y: 0.295}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2952063390293848289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912951936945264490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4defcc163c8fc46b79256cd051c6ef3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Reached: 0
-  Locked: 1
-  DoorType: 2
-  nextSceneName: 
-  nextScene: {fileID: 0}
