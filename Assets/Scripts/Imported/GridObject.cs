@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using System.Collections.Specialized;
-using EditorSnapToGridButton;
 
 [ExecuteInEditMode]
 public class GridObject : MonoBehaviour
@@ -34,9 +33,7 @@ public class GridObject : MonoBehaviour
     [HideInInspector] public scrGridMakerTilted parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
 
     [HideInInspector] public bool inventoryHasItem;
-
     
-
     private void Start()
     {
         getParentGrid();
