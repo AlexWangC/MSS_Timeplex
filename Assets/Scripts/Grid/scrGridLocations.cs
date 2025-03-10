@@ -29,16 +29,16 @@ public class scrGridLocations : MonoBehaviour
     {
         if (panels != null && panels.Length > 0)
         {
-            Debug.Log("Finding Panels... \nNumber of Panels Found: " + panels.Length);
+            //Debug.Log("Finding Panels... \nNumber of Panels Found: " + panels.Length);
             for (int i = 0; i < panels.Length; i++)
             {
-                Debug.Log($"Panel {i}: {panels[i].name}");
+                //Debug.Log($"Panel {i}: {panels[i].name}");
             }
             return true;
         }
         else
         {
-            Debug.LogWarning("No panels found!");
+            //Debug.LogWarning("No panels found!");
             return false;
         }
     }

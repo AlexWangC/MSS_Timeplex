@@ -126,15 +126,15 @@ public class scrMoveInheritanceManager : MonoBehaviour
     {
         if (Players != null && Players.Length > 0)
         {
-            Debug.Log("Finding Players... \nNumber of Players Found: " + Players.Length);
+            //Debug.Log("Finding Players... \nNumber of Players Found: " + Players.Length);
             for (int i = 0; i < Players.Length; i++)
             {
-                Debug.Log($"Player {i}: {Players[i].name}");
+                //Debug.Log($"Player {i}: {Players[i].name}");
             }
         }
         else
         {
-            Debug.Log("No players found!");
+            //Debug.Log("No players found!");
         }
     }
 
@@ -149,11 +149,13 @@ public class scrMoveInheritanceManager : MonoBehaviour
     IEnumerator movePlayerDelayed(int direction, float delay)
     {
         //record all movement history here
+        /*
         foreach (scrPlayer player in Players)
         {
             player.GetComponent<movementHistory>().recordMovement(turn);
         }
         turn++;
+        */
 
         is_moving = true;
         

@@ -71,7 +71,7 @@ public class scrStalker : MonoBehaviour
             {
                 target = obj;
             }
-            else if (obj.tag == "wall" || obj.tag == "spike" || obj.tag == "goal")// obstacles
+            else if (obj.tag == "wall" || obj.tag == "goal")// obstacles
             {
                 grid[objGridPos.x][objGridPos.y] = 1;// set to obstacle
             }
