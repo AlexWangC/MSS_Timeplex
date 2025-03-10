@@ -7,13 +7,26 @@ public class scrUndoManager : MonoBehaviour
     // for movement history of ONE object
     private struct RecordEntry
     {
+        // 1. 
         public bool panelSwapMove; // if it is panel swap move, forget about what's below
         
+        // 2.
         public Vector2 gridPosition;
-        public Dictionary<string, bool> inventory;
+        
+        // 3.
+        public Dictionary<string, bool> inventory; // if there's no inventory, == null.
+        
+        // 4.
         public bool dead;
+        
+        // 5.
         public int patrolMoveIndex; // be -1 if not enemy: patrol
+        
+        // 6. 
         public bool patrolIndexIncreasing; // be false if not enemy: patrol
+        
+        //7.
+        public int remainingUses; // for portal. be -1 if it is not a portal.
     }
 
     // for panel swap history of ONE panel
@@ -26,8 +39,8 @@ public class scrUndoManager : MonoBehaviour
     private List<Stack<RecordEntry>> objectsMovementHistory;
     private List<Stack<PanelRecordEntry>> panelsSwapHistory;
 
-    private List<GridObject> gridObjectsWithUpdate;
-    private List<scrPanel> panels;
+    private List<GridObject> gridObjectsWithUpdate; // sorted by instance id.
+    private List<scrPanel> panels; // sorted by instance id.
     
     // step one, search for all 
     private void Start()
@@ -36,6 +49,9 @@ public class scrUndoManager : MonoBehaviour
         panels = GetAllPanels();
         objectsMovementHistory = InitializeMovementHistory();
         panelsSwapHistory = InitializePanelHistory();
+        
+        // let's check if initialization works!
+        checkObjectsWithUpdate();
     }
 
     public void Retrace()
@@ -87,32 +103,57 @@ public class scrUndoManager : MonoBehaviour
      List<Stack<RecordEntry>> InitializeMovementHistory() // returns the movement record (stack) list
     {
         List<GridObject> objects_with_updating = GetAllObjectsWithUpdated(); // sorted by instance id. use it to find correct index in stack list.
-        List<Stack<RecordEntry>> object_movement_history = new List<Stack<RecordEntry>>(); // a list of movement history of objects.
+        List<Stack<RecordEntry>> object_movement_history = new List<Stack<RecordEntry>>(); // a list of movement history of objects. Share index reference with objects_with_updating.
 
         for (int i = 0; i < objects_with_updating.Count; i++)
         {
             // setting up the init move record for the object
-            RecordEntry object_iths_entry = new RecordEntry();
-            object_iths_entry.panelSwapMove = false;
+            RecordEntry object_iths_entry = new RecordEntry(); // this is the first movement_history profile
+            
+            // 1.
+            object_iths_entry.panelSwapMove = false; // first move can't be a swap move.
+            
+            // 2. 
             object_iths_entry.gridPosition = objects_with_updating[i].gridPosition;
             
             if (objects_with_updating[i].GetComponent<scrInventory>() == null)
             {
+                //3. 
                 object_iths_entry.inventory = null;
             }
+            else
+            {
+                // 3. 
+                object_iths_entry.inventory = objects_with_updating[i].GetComponent<scrInventory>().inventory;
+            }
 
-            object_iths_entry.dead = false;
+            // 4. 
+            object_iths_entry.dead = false; // nothing is dead when setting up/
 
             if (objects_with_updating[i].GetComponent<scrPatrol>() == null)
             {
+                // 5.
                 object_iths_entry.patrolMoveIndex = -1;
+                // 6.
                 object_iths_entry.patrolIndexIncreasing = false;
             }
             else
             {
+                // 5.
                 object_iths_entry.patrolMoveIndex = objects_with_updating[i].GetComponent<scrPatrol>().moveIndex;
+                // 6.
                 object_iths_entry.patrolIndexIncreasing =
                     objects_with_updating[i].GetComponent<scrPatrol>().isIndexIncreasing;
+            }
+
+            // 7.
+            if (objects_with_updating[i].GetComponent<scrPortal>() == null) // to be done later.
+            {
+                
+            }
+            else
+            {
+                
             }
             // setting up the init move record for the object
 
@@ -134,7 +175,8 @@ public class scrUndoManager : MonoBehaviour
             panel_iths_entry.Time_index = panels[i].Time_index;
             panel_iths_entry.panelCoord = panels[i].transform.position;
             
-            panel_movement_history[i] = new Stack<PanelRecordEntry>();
+            panel_movement_history.Add(new Stack<PanelRecordEntry>());
+            panel_movement_history[i].Push(panel_iths_entry);
         }
         
         return panel_movement_history;
@@ -168,6 +210,30 @@ public class scrUndoManager : MonoBehaviour
         
         return panels;
     }
+
+    #endregion
+
+    #region Validations
+
+    void checkObjectsWithUpdate()
+    {
+        int counter = 0;
+        if (gridObjectsWithUpdate.Count <= 0)
+        {
+            Debug.Log("there is no gridObject with update.");
+        }
+        
+        foreach (GridObject gridObject in gridObjectsWithUpdate)
+        {
+            Debug.Log("GridObject "+ counter + " (with Update): " + gridObject.gridPosition);
+        }
+    }
+
+    void checkPanelsSwapHistory()
+    {
+        
+    }
+    
 
     #endregion
 }

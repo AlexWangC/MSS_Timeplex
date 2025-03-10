@@ -48,14 +48,14 @@ public class scrGoal : MonoBehaviour
             {
                 if (obj.CompareTag("player"))
                 {
-                    print(obj.name + " Set reached to true");
+                    //print(obj.name + " Set reached to true");
                     Reached = true;
                     return true;
                 }
             }
         }
 
-        print(gameObject.name + " Set reached to false");
+        //print(gameObject.name + " Set reached to false");
         Reached = false;
         return false;
     }

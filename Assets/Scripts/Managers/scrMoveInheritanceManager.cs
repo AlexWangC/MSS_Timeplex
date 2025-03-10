@@ -126,15 +126,15 @@ public class scrMoveInheritanceManager : MonoBehaviour
     {
         if (Players != null && Players.Length > 0)
         {
-            Debug.Log("Finding Players... \nNumber of Players Found: " + Players.Length);
+            //Debug.Log("Finding Players... \nNumber of Players Found: " + Players.Length);
             for (int i = 0; i < Players.Length; i++)
             {
-                Debug.Log($"Player {i}: {Players[i].name}");
+                //Debug.Log($"Player {i}: {Players[i].name}");
             }
         }
         else
         {
-            Debug.Log("No players found!");
+            //Debug.Log("No players found!");
         }
     }
 
