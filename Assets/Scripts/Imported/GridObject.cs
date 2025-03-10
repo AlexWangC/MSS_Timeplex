@@ -12,7 +12,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using System.Collections.Specialized;
 
-//[ExecuteInEditMode]
+[ExecuteInEditMode]
 public class GridObject : MonoBehaviour
 {
     /* mush's code.
@@ -38,28 +38,23 @@ public class GridObject : MonoBehaviour
     {
         getParentGrid();
         sr = GetComponent<SpriteRenderer>();
-        if(sr.sortingLayerName == "tiles")
-        sr.sortingLayerName = "objects";
+        sr.sortingLayerName = "Objects";
         //might cause bug for Text UI with grid position, need exception
     }
 
     private void Update()
     {
         //Move to the new position
-        UpdatePosition();
+        //UpdatePosition();
     }
 
     [Button("Update Position")]
     public void UpdatePosition()
     {
-        //print(parentGrid);
-        //print(gridPosition);
+        print(parentGrid);
+        print(gridPosition);
         this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
-        if(sr!= null)
-        {
-            sr.sortingOrder = Mathf.RoundToInt(gridPosition.y * 100 - gridPosition.x);
-        }
-        
+        sr.sortingOrder = Mathf.RoundToInt(gridPosition.y * 100 - gridPosition.x);
         //Debug.Log("Object at " + parentGrid.GetWorldPositionFromGrid(gridPosition) + "projected successfully.");
     }
 
