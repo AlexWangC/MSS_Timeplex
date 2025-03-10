@@ -13,7 +13,7 @@ using NaughtyAttributes;
 using System.Collections.Specialized;
 using EditorSnapToGridButton;
 
-//[ExecuteInEditMode]
+[ExecuteInEditMode]
 public class GridObject : MonoBehaviour
 {
     /* mush's code.
@@ -57,6 +57,10 @@ public class GridObject : MonoBehaviour
     {
         //print(parentGrid);
         //print(gridPosition);
+        if (parentGrid == null)
+        {
+            Debug.Log("got a null parent grid");
+        }
         this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
         if(sr!= null)
         {
