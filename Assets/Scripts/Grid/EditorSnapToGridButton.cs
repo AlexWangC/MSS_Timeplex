@@ -4,10 +4,16 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
-[InitializeOnLoad]
-public class EditorSnapToGridButton
-{
+    [InitializeOnLoad]
+    public class EditorSnapToGridButton: MonoBehaviour{
+
+    private void Awake()
+    {
+        SnapAllToGrid();
+    }
+
 #if UNITY_EDITOR
+
     static EditorSnapToGridButton()
     {
         SceneView.duringSceneGui += OnSceneGUI;
@@ -27,7 +33,7 @@ public class EditorSnapToGridButton
         Handles.EndGUI();
     }
 
-    private static void SnapAllToGrid()
+    public static void SnapAllToGrid()
     {
         scrGridMakerTilted[] panels = Object.FindObjectsByType<scrGridMakerTilted>(FindObjectsSortMode.None);
         foreach (scrGridMakerTilted panel in panels)

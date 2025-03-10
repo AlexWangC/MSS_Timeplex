@@ -26,6 +26,7 @@ public class scrGridMakerTilted : MonoBehaviour
         GenerateGrid();
     }
 
+    //[ExecuteInEditMode]
     public void SnapToGrid()
     {
         print("snap to grid");
@@ -34,8 +35,8 @@ public class scrGridMakerTilted : MonoBehaviour
         print(gridObjects.Length);
         foreach(GridObject obj in gridObjects)
         {
-            print(obj.parentGrid);
-            print(gameObject.name);
+            if (obj == null) continue;
+            if (obj.parentGrid == null) continue;
             if (obj.parentGrid.name != gameObject.name) continue;
             print("*************" + obj.name);
             obj.gridPosition = GetGridPositionFromWorld(obj.transform.position);
