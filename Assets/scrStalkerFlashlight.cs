@@ -24,83 +24,94 @@ public class scrStalkerFlashlight : scrStalker
 
     public void moveStalkerFlashlight()
     {
+        //search based on face direction (based on last move)
+
         //go through X
         //right
-        for(int i = X; i <= GridNumX - 1; i++)
+        if (GetComponent<scrEnemyFlip>().facingDirection == Vector2.right)
         {
-            if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).CompareTag("Wall"))
+            for (int i = X; i <= GridNumX - 1; i++)
             {
-                break;
-            }
-            else if(gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).GetComponent<scrPlayer>() != null)
-            {
-                //find best route to player
-                MoveStalker();
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)) == null)// search next grid in this direction
+                    continue;
 
-                //or
-
-                //Directly move toward player
-                GetComponent<scrEnemy>().Move(Vector2.right);
-                break;
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).CompareTag("wall"))// stop searching, end move
+                {
+                    break;
+                }
+                else if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).GetComponent<scrPlayer>() != null)// move twice, stop searching, end move
+                {
+                    //find best route to player
+                    MoveStalker();
+                    break;
+                }
             }
         }
         //left
-        for (int i = X; i >= 0; i--)
+        else if (GetComponent<scrEnemyFlip>().facingDirection == Vector2.left)
         {
-            if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).CompareTag("Wall"))
-            {
-                break;
-            }
-            else if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).GetComponent<scrPlayer>() != null)
-            {
-                //find best route to player
-                MoveStalker();
 
-                //or
+            for (int i = X; i >= 0; i--)
+            {
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)) == null)// search next grid in this direction
+                    continue;
 
-                //Directly move toward player
-                GetComponent<scrEnemy>().Move(Vector2.left);
-                break;
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).CompareTag("wall"))// stop searching, end move
+                {
+                    break;
+                }
+                else if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).GetComponent<scrPlayer>() != null)// move twice, stop searching, end move
+                {
+                    //find best route to player
+                    MoveStalker();
+                    break;
+                }
             }
         }
         //go through Y
         //down
-        for (int i = Y; i <= GridNumY - 1; i++)
+        else if (GetComponent<scrEnemyFlip>().facingDirection == Vector2.down)
         {
-            if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).CompareTag("Wall"))
+            for (int i = Y; i <= GridNumY - 1; i++)
             {
-                break;
-            }
-            else if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).GetComponent<scrPlayer>() != null)
-            {
-                //find best route to player
-                MoveStalker();
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(X , i)) == null)// search next grid in this direction
+                    continue;
 
-                //or
-
-                //Directly move toward player
-                GetComponent<scrEnemy>().Move(Vector2.up);
-                break;
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(X, i)).CompareTag("wall"))// stop searching, end move
+                {
+                    break;
+                }
+                else if (gridManager.GetGridObjectAtPosition(new Vector2Int(X, i)).GetComponent<scrPlayer>() != null)// move twice, stop searching, end move
+                {
+                    //find best route to player
+                    MoveStalker();
+                    break;
+                }
             }
         }
-        //up
-        for (int i = Y; i >= 0; i--)
+        else if(GetComponent<scrEnemyFlip>().facingDirection == Vector2.up)
         {
-            if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).CompareTag("Wall"))
-            {
-                break;
-            }
-            else if (gridManager.GetGridObjectAtPosition(new Vector2Int(i, Y)).GetComponent<scrPlayer>() != null)
-            {
-                //find best route to player
-                MoveStalker();
 
-                //or
+            //up
+            for (int i = Y; i >= 0; i--)
+            {
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(X, i)) == null)// search next grid in this direction
+                    continue;
 
-                //Directly move toward player
-                GetComponent<scrEnemy>().Move(Vector2.down);
-                break;
+                if (gridManager.GetGridObjectAtPosition(new Vector2Int(X, i)).CompareTag("wall"))// stop searching, end move
+                {
+                    break;
+                }
+                else if (gridManager.GetGridObjectAtPosition(new Vector2Int(X, i)).GetComponent<scrPlayer>() != null)// move twice, stop searching, end move
+                {
+                    //find best route to player
+                    MoveStalker();
+                    break;
+                }
             }
         }
+        //search end, not find player, move once
+        MoveStalker();
     }
+
 }

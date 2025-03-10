@@ -138,6 +138,10 @@ public class scrEnemy : MonoBehaviour
                     }
 
                     stepShake();
+
+                    //set flipping
+                    GetComponent<scrEnemyFlip>().facingDirection = targetPosition - _gridObject.gridPosition;
+
                     _gridObject.gridPosition = targetPosition;
                     dir = Vector2.zero;
 
