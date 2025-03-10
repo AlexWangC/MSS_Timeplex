@@ -1,10 +1,14 @@
 using NaughtyAttributes;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 [InitializeOnLoad]
 public class EditorSnapToGridButton
-{    static EditorSnapToGridButton()
+{
+#if UNITY_EDITOR
+    static EditorSnapToGridButton()
     {
         SceneView.duringSceneGui += OnSceneGUI;
     }
@@ -33,5 +37,6 @@ public class EditorSnapToGridButton
 
         Debug.Log("All objects snapped to grid!");
     }
+#endif
 }
 
