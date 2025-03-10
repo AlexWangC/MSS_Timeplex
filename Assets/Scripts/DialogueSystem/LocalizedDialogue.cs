@@ -9,7 +9,7 @@ namespace DialogueSystem {
     public class LocalizedDialogue : MonoBehaviour {
         public List<LocalizedDialogueData> dialogues;
 
-        private void Awake() {
+        private void Start() {
             dialogues.ForEach(data => {
                 if (DialogueSystem.dialogueData.TryGetValue(data.name, out var value)) {
                     Debug.LogWarning($"Global Dialogue Data already has dialogue with name {data.name}. The old one will be discarded.");

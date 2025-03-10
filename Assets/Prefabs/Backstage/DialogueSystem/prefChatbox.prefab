@@ -13,6 +13,10 @@ GameObject:
   - component: {fileID: 7965456468546463872}
   - component: {fileID: 6662064787275799154}
   - component: {fileID: 5036819732105926728}
+  - component: {fileID: 3399091274535386650}
+  - component: {fileID: 7747723597324523148}
+  - component: {fileID: 2572343395919596089}
+  - component: {fileID: 5932894492076132395}
   m_Layer: 0
   m_Name: prefChatbox
   m_TagString: Untagged
@@ -29,7 +33,7 @@ RectTransform:
   m_GameObject: {fileID: 5092821665549738939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5882353, y: 0.5882353, z: 0.5882353}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8514355924042796879}
@@ -116,7 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  dialogueId: Dialogue with Gushu
+  dialogueId: greeting
+  startLineId: 
+  isInteractive: 1
+  drawGizmos: 1
 --- !u!114 &5036819732105926728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +143,171 @@ MonoBehaviour:
   optionPrefab: {fileID: 5835072682868550747, guid: 78df2225da90b424fb7e70de873d373b, type: 3}
   speed: 0.2
   mainTextBox: {fileID: 4522819209473544891}
-  activeOptions: []
+--- !u!114 &3399091274535386650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092821665549738939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b28e689c9c70143a6520460a509f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updated: 0
+  gridPosition: {x: 0, y: 0}
+  parentGrid: {fileID: 0}
+  inventoryHasItem: 0
+--- !u!114 &7747723597324523148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092821665549738939}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1b315243e17474aa72acf4638252f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: greeting
+    lines:
+    - key: Start
+      value:
+        key: Hi welcome.
+        value: Hi -> 0 | Fuck you -> 1
+    - key: 0
+      value:
+        key: hi back
+        value: '[end dialogue] -> End'
+    - key: 1
+      value:
+        key: fuck you too
+        value: '[end dialogue] -> End'
+--- !u!114 &2572343395919596089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092821665549738939}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40f312b98d6453680c397a8b156607f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: complex_greeting
+    lines:
+    - key: Start
+      value:
+        key:
+          guid: 
+          list:
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: 5850084897640153166
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: 5850084897640153166
+        value:
+          guid: 
+          list:
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: 5850084897640153167
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: 5850084897640153167
+    - key: 0
+      value:
+        key:
+          guid: 
+          list:
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
+        value:
+          guid: 
+          list: []
+    - key: 1
+      value:
+        key:
+          guid: 
+          list: []
+        value:
+          guid: 
+          list: []
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5850084897640153166
+      type: {class: StringSso, ns: Fries.Inspector, asm: NewAssembly}
+      data:
+        guid: 
+        content: Hi welcome
+    - rid: 5850084897640153167
+      type: {class: StringSso, ns: Fries.Inspector, asm: NewAssembly}
+      data:
+        guid: 
+        content: Hi -> 0 | Fuck you -> 1
+--- !u!114 &5932894492076132395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092821665549738939}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024973753c43408192ba469df2c03fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: 
+    lines: []
+  - name: 
+    lines:
+    - key: 
+      value:
+        key:
+          guid: 
+          unityObj: {fileID: 0}
+          sysObj:
+            rid: -2
+        value:
+          guid: 
+          list:
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
+          - guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &5626200702981206465
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace DialogueSystem {
     public static class DialogueSystem {
-        public static KeyCode interactKey;
+        public static KeyCode interactKey = KeyCode.E;
         
         // Dialogue Id => Dialogue Data Info
         public static Dictionary<string, DialogueDataInfo> dialogueData = new();
