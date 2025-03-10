@@ -34,6 +34,10 @@ public class scrEnemyManager : MonoBehaviour
                 {
                     _enemy.GetComponent<scrPatrol>().MovePatrol();
                 }
+                else if (_enemy.GetComponent<scrStalkerFlashlight>())
+                {
+                    _enemy.GetComponent<scrStalkerFlashlight>().moveStalkerFlashlight();
+                }
                 else if (_enemy.GetComponent<scrStalker>())
                 {
                     _enemy.GetComponent<scrStalker>().MoveStalker();

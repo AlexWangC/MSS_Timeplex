@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: -7739529526674907215}
   - component: {fileID: -6873772061595690971}
   - component: {fileID: -3133989461075292841}
-  - component: {fileID: 8866992458207206472}
-  - component: {fileID: 4082816697652987038}
+  - component: {fileID: -4938912687461553722}
+  - component: {fileID: 2056741286520645741}
   m_Layer: 7
-  m_Name: prefPatrol
+  m_Name: prefStalkerFlashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -6807416234931857275, guid: f29edcaa0fc9b44f78c9b5bfda0f681f, type: 3}
-  m_Color: {r: 0, g: 0.33207607, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.69582754, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -138,7 +138,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8866992458207206472
+--- !u!114 &-4938912687461553722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,13 +147,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1674551921753825191}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aec3f9fe7a1e4406582a539714bb347b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bfdfa34a6c90cb4f90ebe1084bf671b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSequence: 00000000030000000100000002000000
-  backAndForth: 0
-  moveIndex: 0
---- !u!114 &4082816697652987038
+  target: {fileID: 0}
+--- !u!114 &2056741286520645741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

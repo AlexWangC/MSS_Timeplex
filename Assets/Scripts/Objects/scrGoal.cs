@@ -29,6 +29,26 @@ public class scrGoal : MonoBehaviour
     private void Start()
     {
         Reached = false; // uwu 
+        if (nextScene.name == scrSceneSequenceManager.lastScene.name)
+        {
+            //move player position
+            Transform parent = transform.parent;
+            if (parent != null)
+            {
+                // Search for a child with the "Player" tag
+                foreach (Transform child in parent)
+                {
+                    if (child.CompareTag("Player")) // Check tag
+                    {
+                        GridObject gridObject = child.GetComponent<GridObject>();
+                        if (gridObject != null)
+                        {
+                            gridObject.gridPosition = GetComponent<GridObject>().gridPosition;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void Update()
