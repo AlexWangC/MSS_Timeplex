@@ -45,7 +45,7 @@ public class GridObject : MonoBehaviour
     private void Update()
     {
         //Move to the new position
-        //UpdatePosition();
+        UpdatePosition();
     }
 
     [Button("Update Position")]
