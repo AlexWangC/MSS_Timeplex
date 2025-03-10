@@ -28,6 +28,7 @@ public class GridObject : MonoBehaviour
 
     public bool updated = false; // mark this as true if you want it to be reset in movement History.
     public Vector2 gridPosition;
+    private SpriteRenderer sr;
 
     [HideInInspector] public scrGridMakerTilted parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
 
@@ -36,6 +37,9 @@ public class GridObject : MonoBehaviour
     private void Start()
     {
         getParentGrid();
+        sr = GetComponent<SpriteRenderer>();
+        sr.sortingLayerName = "Objects";
+        //might cause bug for Text UI with grid position, need exception
     }
 
     private void Update()
@@ -50,7 +54,7 @@ public class GridObject : MonoBehaviour
         print(parentGrid);
         print(gridPosition);
         this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
-        
+        sr.sortingOrder = Mathf.RoundToInt(gridPosition.y * 100 + gridPosition.x);
         //Debug.Log("Object at " + parentGrid.GetWorldPositionFromGrid(gridPosition) + "projected successfully.");
     }
 
