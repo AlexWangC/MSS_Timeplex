@@ -62,9 +62,9 @@ public class scrTileGenManager : MonoBehaviour
     {
         Vector2 dimensions = new Vector2(target_panel.GetComponentInChildren<scrGridMakerTilted>().numBlocksX, target_panel.GetComponentInChildren<scrGridMakerTilted>().numBlocksY);
         //filling up grid row by row
-        for (int i = 1; i <= dimensions.y; i++) // iterating through each column
+        for (int i = 0; i < dimensions.y; i++) // iterating through each column
         {
-            for (int j = 1; j <= dimensions.x; j++) // iterating through each row
+            for (int j = 0; j < dimensions.x; j++) // iterating through each row
             {
                 spawnObjectOnGrid(target_panel, new Vector2(j, i), pickRandomTile(tile_pool));
             }
@@ -75,9 +75,9 @@ public class scrTileGenManager : MonoBehaviour
     {
         Vector2 dimensions = target_panel.GetComponentInChildren<GridMaker>().dimensions;
         //filling up grid row by row
-        for (int i = 1; i <= dimensions.y; i++) // iterating through each column
+        for (int i = 0; i < dimensions.y; i++) // iterating through each column
         {
-            for (int j = 1; j <= dimensions.x; j++) // iterating through each row
+            for (int j = 0; j < dimensions.x; j++) // iterating through each row
             {
                 spawnObjectOnGrid(target_panel, new Vector2(j, i), pickRandomTile());
             }
