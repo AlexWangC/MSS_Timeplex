@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class GridMaker : MonoBehaviour
 {
     [Header("Grid Settings")]
