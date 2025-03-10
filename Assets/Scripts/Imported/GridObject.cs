@@ -54,7 +54,7 @@ public class GridObject : MonoBehaviour
         print(parentGrid);
         print(gridPosition);
         this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
-        sr.sortingOrder = Mathf.RoundToInt(gridPosition.y * 100 + gridPosition.x);
+        sr.sortingOrder = Mathf.RoundToInt(gridPosition.y * 100 - gridPosition.x);
         //Debug.Log("Object at " + parentGrid.GetWorldPositionFromGrid(gridPosition) + "projected successfully.");
     }
 

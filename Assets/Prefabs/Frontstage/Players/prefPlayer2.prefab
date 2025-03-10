@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.3360054, y: -0.18914501, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.85664344}
+  m_LocalScale: {x: 0.09, y: 0.09, z: 0.22027975}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: -1382891093
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7159366230506802195, guid: 2fac4e3fd2d054479ba1323af615d2cb, type: 3}
+  m_Sprite: {fileID: 1888016179, guid: 89b573645e369b942b8eabff4df86196, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b28e689c9c70143a6520460a509f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updated: 0
   gridPosition: {x: 2, y: 1}
   parentGrid: {fileID: 0}
   inventoryHasItem: 0
@@ -155,10 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ee004e9b4384d4ca6d906280cabdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteUp: {fileID: -4483523097911991985, guid: 1fc0a9011b1124320a1c95c03f5a0f55, type: 3}
-  spriteDown: {fileID: -7159366230506802195, guid: 2fac4e3fd2d054479ba1323af615d2cb, type: 3}
-  spriteLeft: {fileID: 8673536972532763169, guid: 360e4f5feaf794445a5cd99f794889d2, type: 3}
-  spriteRight: {fileID: 2819442698301015559, guid: 64037f30a7a244e2f8c84d3040e5cbad, type: 3}
+  spriteUp: {fileID: -1179084610, guid: 89b573645e369b942b8eabff4df86196, type: 3}
+  spriteDown: {fileID: 1888016179, guid: 89b573645e369b942b8eabff4df86196, type: 3}
+  spriteLeft: {fileID: -1893874214, guid: 89b573645e369b942b8eabff4df86196, type: 3}
+  spriteRight: {fileID: -817772990, guid: 89b573645e369b942b8eabff4df86196, type: 3}
 --- !u!114 &58817186528067759
 MonoBehaviour:
   m_ObjectHideFlags: 0
