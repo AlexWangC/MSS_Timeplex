@@ -28,7 +28,8 @@ public class GridObject : MonoBehaviour
 
     public bool updated = false; // mark this as true if you want it to be reset in movement History.
     public Vector2 gridPosition;
-    private SpriteRenderer sr;
+    
+    private SpriteRenderer sr; // part of temporalProjectionFix
 
     [HideInInspector] public scrGridMakerTilted parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
 
@@ -37,10 +38,10 @@ public class GridObject : MonoBehaviour
     private void Start()
     {
         getParentGrid();
-        sr = GetComponent<SpriteRenderer>();
-        if(sr.sortingLayerName == "tiles")
-        sr.sortingLayerName = "objects";
-        //might cause bug for Text UI with grid position, need exception
+        
+        temporalProjectionFixStart();
+        
+        //mightbug for Text UI with grid position, need exception
     }
 
     private void Update()
@@ -59,10 +60,8 @@ public class GridObject : MonoBehaviour
             Debug.Log("got a null parent grid");
         }
         this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
-        if(sr!= null)
-        {
-            sr.sortingOrder = Mathf.RoundToInt(gridPosition.y * 100 - gridPosition.x);
-        }
+        
+        temporalProjectionFixUpdate();
         
         //Debug.Log("Object at " + parentGrid.GetWorldPositionFromGrid(gridPosition) + "projected successfully.");
     }
@@ -75,6 +74,23 @@ public class GridObject : MonoBehaviour
         parentGrid = parent_panel.GetComponentInChildren<scrGridMakerTilted>();
         
         return parentGrid;
+    }
+
+    private void temporalProjectionFixStart()
+    {
+        // temporal projection fix
+        sr = GetComponent<SpriteRenderer>();
+        if(sr.sortingLayerName != "tiles")
+            sr.sortingLayerName = "objects";
+        // temporal projection fix
+    }
+
+    private void temporalProjectionFixUpdate()
+    {
+        if(sr!= null)
+        {
+            sr.sortingOrder = Mathf.RoundToInt(gridPosition.y * 100 - gridPosition.x);
+        }
     }
     
     /*mush's code

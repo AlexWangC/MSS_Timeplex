@@ -130,12 +130,15 @@ public class scrGridMakerTilted : MonoBehaviour
         line.positionCount = 2;
         line.SetPositions(new Vector3[] { start, end });
 
-        if (lineMaterial != null)
-            line.material = lineMaterial;
-        
         // NEW: Ensure it’s on top of the floor
         line.sortingLayerName = "panels";   // Or another Sorting Layer you prefer
         line.sortingOrder = 10;              // Higher means it’ll be drawn on top
+        line.transform.localScale = new Vector3(1, 1, 1);
+        
+        //line.material = new Material(Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
+        // Legacy For When Line Material Was The Standard Mat
+        if (lineMaterial != null)
+            line.material = lineMaterial;
     }
 
     private void ClearGrid()

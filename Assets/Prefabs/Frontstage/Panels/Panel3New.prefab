@@ -527,8 +527,8 @@ MonoBehaviour:
   xAxisTilt: 9
   yAxisTilt: -65
   lineMaterial: {fileID: 2100000, guid: 5381aaa8e6f58974f825505f9e0165d1, type: 2}
-  lineColor: {r: 0, g: 0, b: 0, a: 1}
-  lineWidth: 0.01
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineWidth: 0.03
 --- !u!1 &2495855831318982879
 GameObject:
   m_ObjectHideFlags: 0
@@ -3173,6 +3173,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9092835172810779247}
     m_Modifications:
+    - target: {fileID: -3133989461075292841, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3133989461075292841, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 197
+      objectReference: {fileID: 0}
+    - target: {fileID: -3133989461075292841, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -937790731
+      objectReference: {fileID: 0}
     - target: {fileID: 1674551921753825191, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
       propertyPath: m_Name
       value: prefDumbDumb
@@ -3376,6 +3388,10 @@ PrefabInstance:
     - target: {fileID: 3537689852944873463, guid: 221b01d6386044f5d91514f13b6475f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5455310820656693042, guid: 221b01d6386044f5d91514f13b6475f2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 392
       objectReference: {fileID: 0}
     - target: {fileID: 6199819473191878907, guid: 221b01d6386044f5d91514f13b6475f2, type: 3}
       propertyPath: remainingUses
@@ -3625,6 +3641,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9092835172810779247}
     m_Modifications:
+    - target: {fileID: -3133989461075292841, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3133989461075292841, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 295
+      objectReference: {fileID: 0}
+    - target: {fileID: -3133989461075292841, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -937790731
+      objectReference: {fileID: 0}
     - target: {fileID: 1674551921753825191, guid: 5c2f847d0d32d43eab25d60b770c70dd, type: 3}
       propertyPath: m_Name
       value: prefDumbDumb (1)
@@ -3800,6 +3828,18 @@ PrefabInstance:
     - target: {fileID: 5985503278885789632, guid: 2cbb3affda71c461aac01e1d0d81cf03, type: 3}
       propertyPath: m_Name
       value: prefPlayer3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6040763818844647399, guid: 2cbb3affda71c461aac01e1d0d81cf03, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6040763818844647399, guid: 2cbb3affda71c461aac01e1d0d81cf03, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6040763818844647399, guid: 2cbb3affda71c461aac01e1d0d81cf03, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -937790731
       objectReference: {fileID: 0}
     - target: {fileID: 6245248654774690123, guid: 2cbb3affda71c461aac01e1d0d81cf03, type: 3}
       propertyPath: m_LocalPosition.x
