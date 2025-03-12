@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 85ba94bae4742134a910622d4ad9feb8
+guid: f18f7739f44a98f4998c663aa8fac3d5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4372876658073894607
-    second: 3door.1_0
+      213: 4600171923622020549
+    second: 2door_left_0
+  - first:
+      213: 1056536443342773846
+    second: 2door_left_1
+  - first:
+      213: 1325317637694989168
+    second: 2door_left_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +52,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.04024053, y: 0.00315944}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 3door.1_0
+      name: 2door_left_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 839
-        height: 1894
+        width: 343
+        height: 2239
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fce771be6249fac30800000000000000
-      internalID: 4372876658073894607
+      spriteID: 5c54735edf717df30800000000000000
+      internalID: 4600171923622020549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2door_left_1
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 1176
+        width: 250
+        height: 1063
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65e53b52c4299ae00800000000000000
+      internalID: 1056536443342773846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2door_left_2
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 19
+        width: 12
+        height: 1094
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 073ae51ae59746210800000000000000
+      internalID: 1325317637694989168
       vertices: []
       indices: 
       edges: []
@@ -138,8 +188,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -147,8 +197,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      3door.1_0: 4372876658073894607
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
