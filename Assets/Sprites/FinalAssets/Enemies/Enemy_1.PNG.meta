@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 02d9182f6d80dfa4c813a686ebc12911
+guid: f6ed134fd08f29e4580c04a1cc0f0f99
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7924462337581413628
-    second: patient1 on the left bed_0
+      213: 6895495282096838205
+    second: Enemy_1_0
+  - first:
+      213: 7875412785990629474
+    second: Enemy_1_1
+  - first:
+      213: -8210059557235754342
+    second: Enemy_1_2
+  - first:
+      213: -7309582927498218927
+    second: Enemy_1_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: patient1 on the left bed_0
+      name: Enemy_1_0
       rect:
         serializedVersion: 2
-        x: 399
-        y: 193
-        width: 1026
-        height: 841
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 1138
+        height: 2975
+      alignment: 9
+      pivot: {x: 0.024006668, y: 0.091971084}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cf4708ba28859fd60800000000000000
-      internalID: 7924462337581413628
+      spriteID: e8f14346c291d8342bdd08c198162d5d
+      internalID: -2146927639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_1_1
+      rect:
+        serializedVersion: 2
+        x: 1138
+        y: 0
+        width: 1138
+        height: 2975
+      alignment: 9
+      pivot: {x: 0.04694612, y: 0.09197108}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91829d497af199542ab0f3ea4697b814
+      internalID: 711942684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_1_2
+      rect:
+        serializedVersion: 2
+        x: 2276
+        y: 0
+        width: 1138
+        height: 2975
+      alignment: 9
+      pivot: {x: 0.03260908, y: 0.09197108}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbd0d42ee97d8bb44a2e64d12ff31974
+      internalID: 1048367233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_1_3
+      rect:
+        serializedVersion: 2
+        x: 3414
+        y: 0
+        width: 1138
+        height: 2975
+      alignment: 9
+      pivot: {x: 0.052680526, y: 0.09197108}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe33eb33507554f4dbb132dc2acee17e
+      internalID: -136831083
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fbaf7f4f7f6c0634f9227a617c2c3773
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      patient1 on the left bed_0: 7924462337581413628
+      Enemy_1_0: -2146927639
+      Enemy_1_1: 711942684
+      Enemy_1_2: 1048367233
+      Enemy_1_3: -136831083
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
