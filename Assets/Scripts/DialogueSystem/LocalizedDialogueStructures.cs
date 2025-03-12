@@ -21,8 +21,11 @@ namespace DialogueSystem {
                     Debug.LogError($"Unassigned localized string presents in line content of {lineId}!");
                     return;
                 }
+                
+                GameObjectBox<StringSso> ssso = pair.value.value.value;
+                DialogueSystem.processCmds(ssso, name, lineId);
 
-                GameObjectBoxes<LocalizedString> lineOptionsRaw = pair.value.value;
+                GameObjectBoxes<LocalizedString> lineOptionsRaw = pair.value.value.key;
                 List<LocalizedString> lineOptions = 
                     lineOptionsRaw.list.Select(optionRaw => {
                         if (optionRaw.sysObj == null || optionRaw.sysObj.get<LocalizedString>() == null) 
@@ -81,7 +84,13 @@ namespace DialogueSystem {
     }
     
     [Serializable]
-    public class LinePair3 : KiiValuePair<GameObjectBox<LocalizedString>, GameObjectBoxes<LocalizedString>> {
+    public class LinePair3Inner : KiiValuePair<GameObjectBoxes<LocalizedString>, GameObjectBox<StringSso>> {
+        public LinePair3Inner() : base(0.9f, 0.1f) {
+        }
+    }
+    
+    [Serializable]
+    public class LinePair3 : KiiValuePair<GameObjectBox<LocalizedString>, LinePair3Inner> {
         public LinePair3() : base(0.1f, 0.9f) {
         }
     }
