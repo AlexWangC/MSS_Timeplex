@@ -8,14 +8,17 @@ public class scrEnemy : MonoBehaviour
     
     private GridObject _gridObject;
 
+    public bool dead; // showing whether this enemy is dead. adaptation for undo manager.
+
     private void Start()
     {
+        dead = false;
         _gridObject = GetComponent<GridObject>();
     }
 
     public bool Move(Vector2 dir)
     {
-        if (GetComponentInParent<scrPanel>().Dead == false) // if panel not dead (no point in chasing if so)
+        if (GetComponentInParent<scrPanel>().Dead == false && !dead) // if panel not dead (no point in chasing if so)
         {
             if (dir != Vector2.zero)
             {
@@ -103,16 +106,26 @@ public class scrEnemy : MonoBehaviour
                     {
                         // 0.2 use the portal by one
                         target_portal.GetComponent<scrPortal>().remainingUses--;
+                        target_portal.GetComponent<scrPortal>().correspondingPortal.GetComponent<scrPortal>().remainingUses--;
+                        
+                        // play sound & check if sound manager is here.
+                        if (scrSoundManager.Instance)
+                        {
+                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                        }
+                        else
+                        {
+                            throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                        }
 
                         // 2. find corresponding portal
                         // 3. create a new player at the specified loc de corresponding portal
-                        GameObject clone = Instantiate(gameObject);
-                        clone.transform.SetParent(target_portal.GetComponent<scrPortal>().correspondingPortal.transform.parent, false);
-                        clone.GetComponent<GridObject>().gridPosition =
+                       this.transform.SetParent(target_portal.GetComponent<scrPortal>().correspondingPortal.transform.parent, false);
+                       this.GetComponent<GridObject>().gridPosition =
                             target_portal.GetComponent<GridObject>().gridPosition;
+                       GetComponent<GridObject>().getParentGrid();
 
-                        // 1. destroy itself
-                        Destroy(gameObject);
+                       return true;
                     }
                 }
 
@@ -154,18 +167,36 @@ public class scrEnemy : MonoBehaviour
 
     #region Helpers
 
-    private void killThisGuard()
+    // old way of killing the guard, where the guard instance is completed removed.
+    private void killThisGuardLegacy()
     {
         scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
         Destroy(gameObject);
     }
 
-    private void killTheOtherGuard(Vector2 _targetPosition)
+    // old way of killing the guard, where the guard instance is completed removed.
+    private void killTheOtherGuardLegacy(Vector2 _targetPosition)
     {
         GameObject _other_guard = transform.parent.gameObject.GetComponent<scrGridManager>()
             .GetGridObjectAtPosition(toVector2Int(_targetPosition)).gameObject;
         _other_guard.GetComponent<scrInventory>().inventoryDropEverything(); // have the other mf drop everything before killing them
         Destroy(_other_guard);
+    }
+    
+    private void killThisGuard()
+    {
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+        gameObject.tag = "Untagged";
+        dead = true;
+        GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    private void killTheOtherGuard(Vector2 _targetPosition)
+    {
+        GameObject _other_guard = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
+            .GetGridObjectAtPosition(toVector2Int(_targetPosition)).gameObject;
+        _other_guard.GetComponent<scrInventory>().inventoryDropEverything(); // have the other mf drop everything before killing them
+        _other_guard.GetComponent<scrEnemy>().killThisGuard();
     }
     
     private bool forbidMovement()

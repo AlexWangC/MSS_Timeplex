@@ -41,7 +41,7 @@ using UnityEngine;
             panel.SnapToGrid();
         }
 
-        Debug.Log("All objects snapped to grid!");
+        //Debug.Log("All objects snapped to grid!");
     }
 #endif
 }

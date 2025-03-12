@@ -285,6 +285,8 @@ public class scrPlayer : MonoBehaviour
                     GameObject KeyPickUp1 = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
                         .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
                     Destroy(KeyPickUp1);
+                    
+                    // undo button fix. Instead of destroying, disable sprite renderer & tag
                 }
 
                 // yet to be implemented.
@@ -301,6 +303,8 @@ public class scrPlayer : MonoBehaviour
                     GameObject KeyPickUp2 = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
                         .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
                     Destroy(KeyPickUp2);
+                    
+                    // undo button fix. Instead of destroying, disable sprite renderer & tag
                 }
 
                 // yet to be implemented.
@@ -317,6 +321,8 @@ public class scrPlayer : MonoBehaviour
                     GameObject KeyPickUp3 = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
                         .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
                     Destroy(KeyPickUp3);
+                    
+                    // undo button fix. Instead of destroying, disable sprite renderer & tag
                 }
                 
                 // if running into portal
@@ -330,16 +336,26 @@ public class scrPlayer : MonoBehaviour
                     {
                         // 0.2 use the portal by one
                         target_portal.GetComponent<scrPortal>().remainingUses--;
+                        target_portal.GetComponent<scrPortal>().correspondingPortal.GetComponent<scrPortal>().remainingUses--;
 
+                        // play sound & check if sound manager is here.
+                        if (scrSoundManager.Instance)
+                        {
+                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                        }
+                        else
+                        {
+                            throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                        }
+                        
                         // 2. find corresponding portal
                         // 3. create a new player at the specified loc de corresponding portal
-                        GameObject clone = Instantiate(gameObject);
-                        clone.transform.SetParent(target_portal.GetComponent<scrPortal>().correspondingPortal.transform.parent, false);
-                        clone.GetComponent<GridObject>().gridPosition =
+                        this.transform.SetParent(target_portal.GetComponent<scrPortal>().correspondingPortal.transform.parent, false);
+                        this.GetComponent<GridObject>().gridPosition =
                             target_portal.GetComponent<scrPortal>().correspondingPortal.GetComponent<GridObject>().gridPosition;
+                        GetComponent<GridObject>().getParentGrid();
 
-                        // 1. destroy itself
-                        Destroy(gameObject);
+                        return true;
                     }
                 }
                 

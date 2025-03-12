@@ -35,6 +35,20 @@ public class scrPortal : MonoBehaviour
         }
         
     }
+
+    public void Enable()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = true;
+        gameObject.tag = "portal";
+    }
+    
+    public void Disable()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+        gameObject.tag = "Untagged";
+    }
     
     // if portal is used up destroy itself
     public void SelfDestruct()
