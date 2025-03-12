@@ -42,8 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 13
-  m_BakeOnSceneLoad: 0
+  serializedVersion: 12
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -27680,29 +27679,70 @@ MonoBehaviour:
     - key: Start
       value:
         key: hi this is the first line
-        value: go to 0->0 | go to 1->1
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 0
       value:
         key: welcome to 0
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 1
       value:
         key: this is 1
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
   - name: intro_panel_2
     lines:
     - key: Start
       value:
         key: this is panel two
-        value: go to 0->0 | go to 1->1
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 0
       value:
         key: welcome to 0
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 1
       value:
         key: this is 1
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!4 &1817281419
 Transform:
   m_ObjectHideFlags: 0

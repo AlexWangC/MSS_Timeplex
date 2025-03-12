@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Fries;
+using UnityEditorInternal;
 # if UNITY_EDITOR
 using System.IO;
 using UnityEditor.SceneManagement;
@@ -67,8 +68,11 @@ public class scrGoal : MonoBehaviour
                     goal.nextSceneName = goal.nextScene.name;
                 });
 
-                // 等待3秒（阻塞主线程，期间编辑器可能会短暂无响应）
                 Thread.Sleep(3000);
+                InternalEditorUtility.RepaintAllViews();
+                AssetDatabase.Refresh();
+                var activeScene = EditorSceneManager.GetActiveScene();
+                EditorSceneManager.SaveScene(activeScene);
             }
 
             Debug.Log("All of the selected scenes are processed");
