@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public class scrUndoManager : MonoBehaviour
@@ -35,7 +37,25 @@ public class scrUndoManager : MonoBehaviour
         public int Time_index;
         public Vector3 panelCoord;
     }
+    
+    // for inventory update.
+    // 1. keep an pickupable object list updated.
+    // 2. keep it in a stack.
+    private struct PickuppableInfo
+    {
+        public Transform the_parent;
+        public Vector2 grid_Coordinate;
+        public String tag;
+    }
 
+    public float UndoAvailableTimer = 3;
+    private bool undoFired = false;
+    
+    public GameObject keyPickUp1;
+    public GameObject keyPickUp2;
+    public GameObject keyPickUp3;
+
+    private Stack<List<PickuppableInfo>> pickuppableInfoInThisStep; 
     private List<Stack<RecordEntry>> objectsMovementHistory;
     private List<Stack<PanelRecordEntry>> panelsSwapHistory;
 
@@ -45,6 +65,7 @@ public class scrUndoManager : MonoBehaviour
     // step one, search for all 
     private void Start()
     {
+        pickuppableInfoInThisStep = InitializePickuppableInfo();
         gridObjectsWithUpdate = GetAllObjectsWithUpdated();
         panels = GetAllPanels();
         objectsMovementHistory = InitializeMovementHistory();
@@ -52,17 +73,33 @@ public class scrUndoManager : MonoBehaviour
         
         // let's check if initialization works!
         checkObjectsWithUpdate();
+        peekObjectMovementHistoryStack(objectsMovementHistory);
     }
 
     public void Retrace()
     {
-        int foreach_counter = 0;
-        foreach (Stack<RecordEntry> record_entry in objectsMovementHistory)
+        
+        for (int foreach_counter = 0; foreach_counter < objectsMovementHistory.Count; foreach_counter++)
         {
+            Stack<RecordEntry> record_entry = objectsMovementHistory[foreach_counter];
             // if it has something to pop... Pop it
             if (record_entry.TryPop(out RecordEntry entry))
             {
                 // remember to implement a if panel swap move here
+                if (entry.panelSwapMove)
+                {
+                    // pop panel history
+                    RetracePanel();
+                    
+                    // pop this
+                    for (int i = foreach_counter + 1; i < objectsMovementHistory.Count; i++)
+                    {
+                        objectsMovementHistory[i].Pop();
+                    }
+                    
+                    return;
+                    // move on
+                }
                 
                 gridObjectsWithUpdate[foreach_counter].gridPosition = entry.gridPosition;
                 
@@ -89,15 +126,91 @@ public class scrUndoManager : MonoBehaviour
                     gridObjectsWithUpdate[foreach_counter].GetComponent<scrPatrol>().isIndexIncreasing =
                         entry.patrolIndexIncreasing;
                 }
+                
+                // if it is a portal
+                if (entry.remainingUses != -1)
+                {
+                    gridObjectsWithUpdate[foreach_counter].GetComponent<scrPortal>().remainingUses =
+                        entry.remainingUses;
+                }
             }
             // if it doesn't have anything to pop..
             else
             {
-                
+                Debug.Log("Yo stacks have been emptied out. No further movement history.");
             }
         }
     }
 
+    // called fro within retrace
+    public void RetracePanel()
+    {
+        int foreach_counter = 0;
+        foreach (Stack<PanelRecordEntry> panel_record_entry in panelsSwapHistory)
+        {
+            if (panel_record_entry.TryPop(out PanelRecordEntry entry))
+            {
+                panels[foreach_counter].Time_index = entry.Time_index;
+                panels[foreach_counter].transform.position = entry.panelCoord;
+            }
+            else
+            {
+                Debug.Log("no futher panel swap history");
+            }
+        }
+    }
+
+    // works independently
+    public void RetracePickuppable()
+    {
+        if (pickuppableInfoInThisStep.TryPop(out List<PickuppableInfo> popped_list))
+        {
+            for (int i = 0; i < popped_list.Count; i++)
+            {
+                if (popped_list[i].tag == "key1")
+                {
+                    GameObject pickuppable = Instantiate(keyPickUp1, popped_list[i].the_parent);
+                    pickuppable.GetComponent<GridObject>().gridPosition = popped_list[i].grid_Coordinate;
+                } else if (popped_list[i].tag == "key2")
+                {
+                    GameObject pickuppable = Instantiate(keyPickUp2, popped_list[i].the_parent);
+                    pickuppable.GetComponent<GridObject>().gridPosition = popped_list[i].grid_Coordinate;
+                }
+                else if (popped_list[i].tag == "key3")
+                {
+                    GameObject pickuppable = Instantiate(keyPickUp3, popped_list[i].the_parent);
+                    pickuppable.GetComponent<GridObject>().gridPosition = popped_list[i].grid_Coordinate;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("There aint no more items in pickuppable");
+        }
+        
+    }
+
+    #region Updating
+
+    // call this from the outside
+    public void UpdateMovementDriver()
+    {
+        if (!undoFired)
+        {
+            UpdateMovementHistory();
+        }
+    }
+    
+    private IEnumerator UpdateMovementHistory()
+    {
+        undoFired = true;
+        yield return new WaitForSeconds(UndoAvailableTimer);
+        
+        // code follows below. To be updated.
+    }
+    
+    #endregion
+    
     #region Initialization
     
      List<Stack<RecordEntry>> InitializeMovementHistory() // returns the movement record (stack) list
@@ -149,15 +262,15 @@ public class scrUndoManager : MonoBehaviour
             // 7.
             if (objects_with_updating[i].GetComponent<scrPortal>() == null) // to be done later.
             {
-                
+                object_iths_entry.remainingUses = -1;
             }
             else
             {
-                
+                object_iths_entry.remainingUses = objects_with_updating[i].GetComponent<scrPortal>().remainingUses;
             }
             // setting up the init move record for the object
 
-            object_movement_history[i] = new Stack<RecordEntry>();
+            object_movement_history.Add(new Stack<RecordEntry>());
             object_movement_history[i].Push(object_iths_entry);
         }
 
@@ -182,6 +295,27 @@ public class scrUndoManager : MonoBehaviour
         return panel_movement_history;
     }
 
+    // keep pickuppables updated
+    Stack<List<PickuppableInfo>> InitializePickuppableInfo()
+    {
+        List<scrPickuppable> pickuppables = new List<scrPickuppable>(FindObjectsByType<scrPickuppable>(FindObjectsSortMode.None));
+        Stack<List<PickuppableInfo>> initedPickuppableInfo = new Stack<List<PickuppableInfo>>();
+        List<PickuppableInfo> pickuppables_info = new List<PickuppableInfo>();
+
+        // translating pickuppables to pickuppables info.
+        foreach (scrPickuppable pickuppable in pickuppables)
+        {
+            PickuppableInfo this_pickuppable_info = new PickuppableInfo();
+            this_pickuppable_info.the_parent = pickuppable.transform.parent;
+            this_pickuppable_info.grid_Coordinate = pickuppable.GetComponent<GridObject>().gridPosition;
+            this_pickuppable_info.tag = pickuppable.tag;
+            pickuppables_info.Add(this_pickuppable_info);
+        }
+        
+        initedPickuppableInfo.Push(pickuppables_info);
+        
+        return initedPickuppableInfo;
+    }
     #endregion
     
     #region Helpers
@@ -217,6 +351,7 @@ public class scrUndoManager : MonoBehaviour
 
     void checkObjectsWithUpdate()
     {
+        Debug.Log("Hi. Checking gridObjectsWithUpdate.");
         int counter = 0;
         if (gridObjectsWithUpdate.Count <= 0)
         {
@@ -229,8 +364,32 @@ public class scrUndoManager : MonoBehaviour
         }
     }
 
-    void checkPanelsSwapHistory()
+    void peekObjectMovementHistoryStack(List<Stack<RecordEntry>> movableObjectList)
     {
+        Debug.Log("Hi. Checking all movement history of all objects.");
+        for (int i = 0; i < movableObjectList.Count; i++)
+        {
+            Debug.Log("------Most recent movement history for " + movableObjectList[i]);
+            RecordEntry most_recent_entry = movableObjectList[i].Peek();
+            Debug.Log("1. Is it a panel_swap move? " +  most_recent_entry.panelSwapMove);
+            Debug.Log("2. On this move, location was at " + most_recent_entry.gridPosition);
+
+            if (most_recent_entry.inventory == null)
+            {
+                Debug.Log("3. No inventory bro");
+            }
+            else
+            {
+                Debug.Log("3. Inventory Status, keys: " + most_recent_entry.inventory.Keys);
+                Debug.Log("3. Inventory Status, values: " + most_recent_entry.inventory.Values);
+            }
+
+            Debug.Log("4. Is it dead? " + most_recent_entry.dead);
+            Debug.Log("5. Patrol Move Index "+ most_recent_entry.patrolMoveIndex);
+            Debug.Log("6. Patrol Index Increasing "+most_recent_entry.patrolIndexIncreasing);
+            Debug.Log("7. How many uses remaining for it as a portal? "+most_recent_entry.remainingUses);
+            Debug.Log("------");
+        }
         
     }
     

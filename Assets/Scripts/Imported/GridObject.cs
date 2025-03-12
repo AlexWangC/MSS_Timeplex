@@ -69,7 +69,7 @@ public class GridObject : MonoBehaviour
 
     
 
-    private scrGridMakerTilted getParentGrid()
+    public scrGridMakerTilted getParentGrid()
     {
         scrPanel parent_panel = GetComponentInParent<scrPanel>();
         parentGrid = parent_panel.GetComponentInChildren<scrGridMakerTilted>();
