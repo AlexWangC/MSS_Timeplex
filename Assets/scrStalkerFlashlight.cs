@@ -25,7 +25,7 @@ public class scrStalkerFlashlight : scrStalker
     public void moveStalkerFlashlight()
     {
         //search based on face direction (based on last move)
-
+        Debug.Log(GetComponent<scrEnemyFlip>().facingDirection);
         //go through X
         //right
         if (GetComponent<scrEnemyFlip>().facingDirection == Vector2.right)

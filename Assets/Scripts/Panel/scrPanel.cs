@@ -56,13 +56,13 @@ public class scrPanel : MonoBehaviour
 
     private void OnMouseExit()
     {
-        Debug.Log("Mouse exit panel " + Time_index);
+       // Debug.Log("Mouse exit panel " + Time_index);
         OnMouseExitEvent?.Invoke(this);
     }
 
     private void OnMouseOver() //event
     {
-        Debug.Log("Mouse over panel " + Time_index);
+       // Debug.Log("Mouse over panel " + Time_index);
         OnMouseOverEvent?.Invoke(this);
         return;
     }
@@ -71,7 +71,7 @@ public class scrPanel : MonoBehaviour
     {
         if (!Dead) // if this screen is not dead
         {
-            Debug.Log("You've clicked panel " + gameObject.name);
+           // Debug.Log("You've clicked panel " + gameObject.name);
             scrSwapManager swap_manager = FindAnyObjectByType<scrSwapManager>();
             scrSwapHighlightManager swap_highlight_manager = FindAnyObjectByType<scrSwapHighlightManager>();
             if (swap_manager != null)
