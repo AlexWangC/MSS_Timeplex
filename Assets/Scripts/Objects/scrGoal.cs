@@ -1,5 +1,8 @@
 using System;
+using Fries;
+# if UNITY_EDITOR
 using UnityEditor;
+# endif
 //using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,25 +14,37 @@ public class scrGoal : MonoBehaviour
     public bool Locked = false;
     public int DoorType = -1; // whether it's corresponding to key 1, 2, or 3. Default -1 means the door's not locked.
 
-    [HideInInspector]
+    // [HideInInspector]
     public string nextSceneName;
-#if UNITY_EDITOR
     [Tooltip("Set connected scene")]
-    [SerializeField] SceneAsset nextScene; // Drag a scene here in the Inspector
-    private void OnValidate()
-    {
-        if (nextScene != null)
-        {
-            nextSceneName = nextScene.name;
-        }
+    # if UNITY_EDITOR
+    [SerializeField] public SceneAsset nextScene; // Drag a scene here in the Inspector
+    # endif
+    // private void OnValidate()
+    // {
+    //     # if UNITY_EDITOR
+    //     if (nextScene != null)
+    //     {
+    //         nextSceneName = nextScene.name;
+    //     }
+    //     # endif
+    // }
+
+    [MenuItem("Tools/Fries/Bat")]
+    public static void item() {
+        scrGoal[] goals = FindObjectsByType<scrGoal>(FindObjectsSortMode.None);
+        goals.ForEach(goal => {
+            if (goal.nextScene == null) return;
+            goal.nextSceneName = goal.nextScene.name;
+        });
     }
-#endif
     
 
     private void Start()
     {
         Reached = false; // uwu 
-        if (nextScene.name == scrSceneSequenceManager.lastScene.name)
+        // if (nextScene.name == scrSceneSequenceManager.lastScene.name)
+        if (nextSceneName == scrSceneSequenceManager.lastScene.name)
         {
             //move player position
             Transform parent = transform.parent;
