@@ -17,8 +17,12 @@ public class scrStalker : MonoBehaviour
     Vector2Int RefindPath(PathFinder pathfinder, List<List<int>> grid, Vector2Int start, Vector2Int goal)
     {
         List<Vector2Int> path = pathfinder.FindPath(start, goal, grid);
+        foreach(Vector2Int pos in path)
+        {
+            print(pos);
+        }
         if (path.Count < 2) return goal - start;
-        return path[1] - path[0];
+        return (path[1] - path[0]);
     }
 
     List<GameObject> FindAllChildGameObjects(Transform parent)
@@ -75,6 +79,17 @@ public class scrStalker : MonoBehaviour
             {
                 grid[objGridPos.x][objGridPos.y] = 1;// set to obstacle
             }
+        }
+
+        //debug
+        for (int i = 0; i < grid.Count; i++)
+        {
+            string row = "";
+            for (int j = 0; j < grid[i].Count; j++)
+            {
+                row += grid[i][j] + " ";
+            }
+            Debug.Log("Row " + i + ": " + row);
         }
 
         //find path
