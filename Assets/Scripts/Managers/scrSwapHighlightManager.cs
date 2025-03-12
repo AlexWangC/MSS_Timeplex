@@ -13,7 +13,7 @@ public class scrSwapHighlightManager : MonoBehaviour
         {
             return;
         }
-       Debug.Log("Panel hovered Invoked at panel " + panel.Time_index);
+      // Debug.Log("Panel hovered Invoked at panel " + panel.Time_index);
        panel.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
     }
 
