@@ -67,6 +67,8 @@ namespace DialogueSystem {
 
         private Dictionary<string, string> lastOptionContents = new();
         public void listOptions(DialogueDisplayer dd, string lineId, List<string> options) {
+            if (!this || !gameObject) return;
+            
             activeOptions.ForEach(option => optionBoxes.deactivate(option));
             activeOptions.Clear();
             

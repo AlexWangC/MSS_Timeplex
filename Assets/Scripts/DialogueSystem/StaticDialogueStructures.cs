@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fries.Inspector;
+using Fries.Inspector.GameObjectBoxField;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,8 +17,12 @@ namespace DialogueSystem {
             data = new();
             lines.ForEach(pair => {
                 string lineId = pair.key;
+
+                GameObjectBox<StringSso> ssso = pair.value.value.value;
+                DialogueSystem.processCmds(ssso, name, lineId);
+
                 string lineContent = pair.value.key;
-                string lineOptionsRaw = pair.value.value;
+                string lineOptionsRaw = pair.value.value.key;
                 string[] lineOptions = lineOptionsRaw.Split(" | ");
                 if (lineOptionsRaw.Trim() == "") lineOptions = Array.Empty<string>();
                 
@@ -72,8 +77,14 @@ namespace DialogueSystem {
     }
     
     [Serializable]
-    public class LinePair1 : KiiValuePair<string, string> {
-        public LinePair1() : base(0.6f, 0.4f) {
+    public class LinePair1Inner : KiiValuePair<string, GameObjectBox<StringSso>> {
+        public LinePair1Inner() : base(0.85f, 0.15f) {
+        }
+    }
+    
+    [Serializable]
+    public class LinePair1 : KiiValuePair<string, LinePair1Inner> {
+        public LinePair1() : base(0.5f, 0.5f) {
         }
     }
 
