@@ -20,7 +20,10 @@ namespace DialogueSystem {
             lines.ForEach(pair => {
                 string lineId = pair.key;
                 GameObjectBoxes<StringSso> lineContentRaw = pair.value.key;
-                GameObjectBoxes<StringSso> lineOptionsRaw = pair.value.value;
+                GameObjectBoxes<StringSso> lineOptionsRaw = pair.value.value.key;
+                
+                GameObjectBox<StringSso> ssso = pair.value.value.value;
+                DialogueSystem.processCmds(ssso, name, lineId);
 
                 List<string> lineContents = new();
                     foreach (var gob in lineContentRaw.list) {
@@ -102,8 +105,14 @@ namespace DialogueSystem {
     }
     
     [Serializable]
-    public class LinePairUnionContentNOption : KiiValuePair<GameObjectBoxes<StringSso>, GameObjectBoxes<StringSso>> {
-        public LinePairUnionContentNOption() : base(0.6f, 0.4f) {
+    public class LinePairUnionContentNOptionInner : KiiValuePair<GameObjectBoxes<StringSso>, GameObjectBox<StringSso>> {
+        public LinePairUnionContentNOptionInner() : base(0.9f, 0.1f) {
+        }
+    }
+    
+    [Serializable]
+    public class LinePairUnionContentNOption : KiiValuePair<GameObjectBoxes<StringSso>, LinePairUnionContentNOptionInner> {
+        public LinePairUnionContentNOption() : base(0.5f, 0.5f) {
         }
     }
 

@@ -6,6 +6,12 @@ using UnityEngine;
 namespace DialogueSystem {
     [RequireComponent(typeof(GridObject))]
     public class DialogueDisplayer : MonoBehaviour {
+        private static Dictionary<string, DialogueDisplayer> dialogueDisplayers = new();
+
+        public static DialogueDisplayer getDialogueDisplayer(string id) {
+            return dialogueDisplayers[id];
+        }
+        
         public string id;
         public string dialogueId;
         public string startLineId;
@@ -21,6 +27,12 @@ namespace DialogueSystem {
         private string currentLineId;
 
         private void Start() {
+            if (id.Trim() == "") {
+                Debug.LogWarning("Dialogues with empty id will not be able to use Dialogue System Events and ");
+            }
+            else {
+                dialogueDisplayers[id] = this;
+            }
             sr = GetComponent<SpriteRenderer>();
             csd = GetComponent<CharSequenceDisplayer>();
             gridObject = GetComponent<GridObject>();
@@ -108,11 +120,11 @@ namespace DialogueSystem {
             DialogueSystem.onLineChanged?.Invoke(dialogueId, id, currentLineId, optionTarget);
             currentLineId = optionTarget;
 
-            List<string> options = ddi.data.getOptionContents(optionTarget);
+            List<string> options = ddi?.data?.getOptionContents(optionTarget);
             string fullLineId = $"{dialogueId}.{optionTarget}";
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
                 options = DialogueSystem.filterOptionFuncs[fullLineId](options);
-            csd.listOptions(this, optionTarget, options);
+            csd?.listOptions(this, optionTarget, options);
         }
 
         private void OnDrawGizmos() {
