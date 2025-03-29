@@ -4,6 +4,7 @@ using System.Linq;
 using Fries;
 using Fries.Inspector;
 using Fries.Inspector.GameObjectBoxField;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -28,14 +29,14 @@ namespace DialogueSystem {
                 List<string> lineContents = new();
                     foreach (var gob in lineContentRaw.list) {
                         StringSso str = gob.sysObj as StringSso;
-                        System.Diagnostics.Debug.Assert(str != null, nameof(str) + " != null");
+                        if (str == null) continue;
                         lineContents.Add(str.get<string>());
                     }
                     
                 List<string> lineOptionsProcessedRaw = new();
                     foreach (var gob in lineOptionsRaw.list) {
                         StringSso str = gob.sysObj as StringSso;
-                        System.Diagnostics.Debug.Assert(str != null, nameof(str) + " != null");
+                        if (str == null) continue;
                         lineOptionsProcessedRaw.Add(str.get<string>());
                     }
 
@@ -48,7 +49,7 @@ namespace DialogueSystem {
                 
                 if (data.ContainsKey(lineId)) 
                     Debug.LogWarning($"{lineId} is already present in the line set! Please make sure there is no duplicate names!");
-                data[lineId] = new ComplexStaticLine(lineContents, lineOptions);
+                data[lineId] = new ComplexStaticLine(lineContents, ssso.sysObj?.get<string>(), lineOptions);
             });
         }
 
@@ -64,14 +65,35 @@ namespace DialogueSystem {
         public override string getOptionTarget(string lineId, string optionContent) {
             return data[lineId].getOptionTarget(optionContent);
         }
+        
+        public override string toString() {
+            var kvpList = data.ToList();
+            string json = JsonConvert.SerializeObject(kvpList, Formatting.Indented);
+            return $"{name} #Dialogue Name \n\n"+json;
+        }
+        
+        public static ComplexStaticDialogueData load(string raw) {
+            string[] comps = raw.Split(" #Dialogue Name \n\n");
+            var deserializedList = JsonConvert.DeserializeObject<List<KeyValuePair<string, ComplexStaticLine>>>(comps[1]);
+            Dictionary<string, ComplexStaticLine> deserializedDict = deserializedList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            return new ComplexStaticDialogueData {
+                name = comps[0],
+                data = deserializedDict
+            };
+        }
     }
 
     public class ComplexStaticLine {
+        [JsonProperty]
         private readonly List<string> lineContent;
+        [JsonProperty]
         private readonly List<Dictionary<string, string>> options = new();
+        [JsonProperty] 
+        private readonly string lineEndCommand;
 
-        public ComplexStaticLine(List<string> possibleContents, List<List<string>> possibleOptions) {
+        public ComplexStaticLine(List<string> possibleContents, string lineEndCommand, List<List<string>> possibleOptions) {
             this.lineContent = possibleContents;
+            this.lineEndCommand = lineEndCommand;
             foreach (var singleOptions in possibleOptions) {
                 Dictionary<string, string> singleOptionsProcessed = new();
                 foreach (var lineOption in singleOptions) {

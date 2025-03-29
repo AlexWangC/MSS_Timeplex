@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using Fries;
-using UnityEditorInternal;
 # if UNITY_EDITOR
 using System.IO;
+using UnityEditorInternal;
 using UnityEditor.SceneManagement;
 using UnityEditor;
 # endif
