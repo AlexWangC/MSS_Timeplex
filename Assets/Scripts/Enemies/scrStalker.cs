@@ -14,15 +14,19 @@ public class scrStalker : MonoBehaviour
 
     }
 
-    Vector2Int RefindPath(PathFinder pathfinder, List<List<int>> grid, Vector2Int start, Vector2Int goal)
+    Vector2Int FindNextMove(PathFinder pathfinder, List<List<int>> grid, Vector2Int start, Vector2Int goal)
     {
         List<Vector2Int> path = pathfinder.FindPath(start, goal, grid);
+        print("this is the path");
         foreach(Vector2Int pos in path)
         {
             print(pos);
         }
+        print("this is the path end");
+        print("path 1: " + path[1]);
+        print("path 0: " + path[0]);
         if (path.Count < 2) return goal - start;
-        return (path[1] - path[0]);
+        return (path[0] - start);
     }
 
     List<GameObject> FindAllChildGameObjects(Transform parent)
@@ -89,17 +93,16 @@ public class scrStalker : MonoBehaviour
             {
                 row += grid[i][j] + " ";
             }
-            Debug.Log("Row " + i + ": " + row);
+            //Debug.Log("Row " + i + ": " + row);
         }
 
         //find path
         Vector2 dir;
-        dir = RefindPath(pathfinder, grid,
+        dir = FindNextMove(pathfinder, grid,
             Vector2Int.RoundToInt(GetComponent<GridObject>().gridPosition),
             Vector2Int.RoundToInt(target.GetComponent<GridObject>().gridPosition));//get the first movement in priorlist
 
         //Move
         GetComponent<scrEnemy>().Move(new Vector2(dir.x, dir.y));
-
     }
 }

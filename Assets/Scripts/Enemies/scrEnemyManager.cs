@@ -71,7 +71,6 @@ public class scrEnemyManager : MonoBehaviour
                 }
             }
         }
-
         return _enemies;
     }
 }
