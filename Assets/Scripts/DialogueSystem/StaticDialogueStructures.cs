@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fries;
 using Fries.Inspector;
 using Fries.Inspector.GameObjectBoxField;
 using Newtonsoft.Json;
@@ -56,25 +57,57 @@ namespace DialogueSystem {
             string[] comps = raw.Split(" #Dialogue Name \n\n");
             var deserializedList = JsonConvert.DeserializeObject<List<KeyValuePair<string, StaticLine>>>(comps[1]);
             Dictionary<string, StaticLine> deserializedDict = deserializedList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            return new StaticDialogueData {
+            var sdd = new StaticDialogueData {
                 name = comps[0],
                 data = deserializedDict
             };
+
+            sdd.lines = new List<LinePair>();
+            foreach (var keyValuePair in sdd.data) {
+                string lineId = keyValuePair.Key;
+                string content = keyValuePair.Value.lineContent;
+                string[] optionsArr = new string[keyValuePair.Value.options.Count];
+                keyValuePair.Value.options.ForEach(((i, pair) => {
+                    string option = $"{pair.Key} -> {pair.Value}";
+                    optionsArr[i] = option;
+                }));
+                string options = string.Join(" | ", optionsArr);
+                string lineEndCommand = keyValuePair.Value.lineEndCommand;
+                var cmdSso = new StringSso(lineEndCommand);
+                cmdSso.createId();
+                
+                sdd.lines.Add(new LinePair() {
+                    key = lineId, 
+                    value = new LinePair1() {
+                        key = content,
+                        value = new LinePair1Inner() {
+                            key = options,
+                            value = new GameObjectBox<StringSso>() {
+                                sysObj = cmdSso
+                            }
+                        }
+                    }
+                });
+            }
+            
+            sdd.data.Clear();
+            return sdd;
         }
     }
 
     public class StaticLine {
         [JsonProperty]
-        private readonly string lineContent;
+        public string lineContent;
         [JsonProperty] 
-        private readonly string lineEndCommand;
+        public string lineEndCommand;
         [JsonProperty]
-        private readonly Dictionary<string, string> options = new();
+        public Dictionary<string, string> options = new();
 
+        [JsonConstructor]
         public StaticLine(string lineContent, string lineEndCommand, string[] lineOptions) {
             this.lineContent = lineContent;
             this.lineEndCommand = lineEndCommand;
-            foreach (var lineOption in lineOptions) {
+            foreach (var lineOption in lineOptions.Nullable()) {
                 if (lineOption.Trim() == "") continue;
                 if (!lineOption.Contains("->")) 
                     Debug.LogError($"Option missing -> sign, please check your option settings. Error Option: {lineOption}");

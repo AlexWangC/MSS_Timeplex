@@ -32,10 +32,11 @@ namespace DialogueSystem {
 
         public void load(string raw) {
             try {
-                // string[] comps = raw.Split(" #Dialogue Name \n\n");
+                dialogues = new List<StaticDialogueData>();
                 string[] items = raw.Split("\n=============== New Item ===============\n");
                 foreach (var item in items) {
                     StaticDialogueData sdd = StaticDialogueData.load(item);
+                    dialogues.Add(sdd);
                 }
             }
             catch (Exception e) {
