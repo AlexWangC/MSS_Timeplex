@@ -16,6 +16,15 @@ public class PathFinder
 
     public List<Vector2Int> FindPath(Vector2Int start, Vector2Int goal, List<List<int>> grid)// pass in the grid position, not world position
     {
+        //print the grid in the console
+        foreach (var row in grid)
+        {
+            foreach (var col in row)
+            {
+                //Debug.Log(col);
+            }
+        }
+        
         PriorityQueue<Vector2Int> openSet = new PriorityQueue<Vector2Int>();//Grids to be explored
         Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();//Which grid does the current grid came from/ last step
         Dictionary<Vector2Int, int> gScore = new Dictionary<Vector2Int, int>();//Cost from the start to the current node
@@ -69,6 +78,11 @@ public class PathFinder
             current = cameFrom[current];
         }
         path.Reverse();
+        //print the path in the console 
+        foreach (var pos in path)
+        {
+            //Debug.Log(pos);
+        }
         return path;
     }
 
