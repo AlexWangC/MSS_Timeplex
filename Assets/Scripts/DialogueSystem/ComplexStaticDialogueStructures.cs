@@ -76,31 +76,95 @@ namespace DialogueSystem {
             string[] comps = raw.Split(" #Dialogue Name \n\n");
             var deserializedList = JsonConvert.DeserializeObject<List<KeyValuePair<string, ComplexStaticLine>>>(comps[1]);
             Dictionary<string, ComplexStaticLine> deserializedDict = deserializedList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            return new ComplexStaticDialogueData {
+            var csdd = new ComplexStaticDialogueData() {
                 name = comps[0],
                 data = deserializedDict
             };
+
+            csdd.lines = new List<LinePairOut>();
+            foreach (var keyValuePair in csdd.data) {
+                string lineId = keyValuePair.Key;
+
+                List<string> contents = keyValuePair.Value.lineContent;
+                List<GameObjectBox<StringSso>> contentSso = contents.Select(str => {
+                    var sso = new StringSso(str);
+                    sso.createId();
+                    var box = new GameObjectBox<StringSso>();
+                    box.sysObj = sso;
+                    box.createId();
+                    return box;
+                }).ToList();
+                GameObjectBoxes<StringSso> contentBoxes = new GameObjectBoxes<StringSso>() {
+                    list = contentSso
+                };
+                contentBoxes.createId();
+
+                List<Dictionary<string, string>> options = keyValuePair.Value.options;
+                List<string> processedOptions = options.Select(dict => {
+                    string[] optionsArr = new string[dict.Count];
+                    dict.ForEach(((i, pair) => {
+                        string option = $"{pair.Key} -> {pair.Value}";
+                        optionsArr[i] = option;
+                    }));
+                    string optionsRaw = string.Join(" | ", optionsArr);
+                    return optionsRaw;
+                }).ToList();
+                List<GameObjectBox<StringSso>> optionSso = processedOptions.Select(raw1 => {
+                    var sso = new StringSso(raw1);
+                    sso.createId();
+                    var box = new GameObjectBox<StringSso>();
+                    box.sysObj = sso;
+                    box.createId();
+                    return box;
+                }).ToList();
+                GameObjectBoxes<StringSso> optionBoxes = new GameObjectBoxes<StringSso>() {
+                    list = optionSso
+                };
+                optionBoxes.createId();
+
+                string lineEndCommand = keyValuePair.Value.lineEndCommand;
+                var cmdSso = new StringSso(lineEndCommand);
+                cmdSso.createId();
+
+                csdd.lines.Add(new LinePairOut() {
+                    key = lineId,
+                    value = new LinePairUnionContentNOption() {
+                        key = contentBoxes,
+                        value = new LinePairUnionContentNOptionInner() {
+                            key = optionBoxes,
+                            value = new GameObjectBox<StringSso>() {
+                                sysObj = cmdSso
+                            }
+                        }
+                    }
+                });
+            }
+
+            csdd.data.Clear();
+            return csdd;
         }
     }
 
     public class ComplexStaticLine {
         [JsonProperty]
-        private readonly List<string> lineContent;
+        public List<string> lineContent;
         [JsonProperty]
-        private readonly List<Dictionary<string, string>> options = new();
+        public List<Dictionary<string, string>> options = new();
         [JsonProperty] 
-        private readonly string lineEndCommand;
+        public string lineEndCommand;
 
+        [JsonConstructor]
         public ComplexStaticLine(List<string> possibleContents, string lineEndCommand, List<List<string>> possibleOptions) {
             this.lineContent = possibleContents;
             this.lineEndCommand = lineEndCommand;
-            foreach (var singleOptions in possibleOptions) {
+            foreach (var singleOptions in possibleOptions.Nullable()) {
                 Dictionary<string, string> singleOptionsProcessed = new();
-                foreach (var lineOption in singleOptions) {
+                foreach (var lineOption in singleOptions.Nullable()) {
                     if (lineOption.Trim() == "") continue;
                     if (!lineOption.Contains("->")) 
                         Debug.LogError($"Option missing -> sign, please check your option settings. Error Option: {lineOption}");
                     string[] comps = lineOption.Split("->");
+                    
                     string optionContent = comps[0].Trim();
                     string optionTarget = comps[1].Trim();
                     singleOptionsProcessed[optionContent] = optionTarget;

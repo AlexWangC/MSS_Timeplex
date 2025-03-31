@@ -60,6 +60,20 @@ namespace DialogueSystem {
                 Debug.LogError(e);
             }
         }
+
+        public void load(string fileContent) {
+            try {
+                dialogues = new List<ComplexStaticDialogueData>();
+                string[] items = fileContent.Split("\n=============== New Item ===============\n");
+                foreach (var item in items) {
+                    ComplexStaticDialogueData csdd = ComplexStaticDialogueData.load(item);
+                    dialogues.Add(csdd);
+                }
+            }
+            catch (Exception e) {
+                Debug.LogError(e);
+            }
+        }
     }
     
     # if UNITY_EDITOR

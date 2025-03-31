@@ -77,6 +77,7 @@ namespace DialogueSystem {
                         sysObj = new LocalizedStringKey(ls.TableReference.TableCollectionName,
                             ls.TableEntryReference.Key)
                     };
+                    bls.sysObj.createId();
                     bls.createId();
                     return bls;
                 }).ToList();

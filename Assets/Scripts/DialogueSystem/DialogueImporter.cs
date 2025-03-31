@@ -20,10 +20,10 @@ namespace DialogueSystem {
             GameObject go = UnityExts.mkdirs(info.hierachyPath, "=SLASH=");
             if (info.type == AutoSavingSystem.STATIC) {
                 StaticDialogue sd = go.AddComponent<StaticDialogue>();
-                
+                sd.load(fileContent);
             } else if (info.type == AutoSavingSystem.COMPLEX_STATIC) {
                 ComplexStaticDialogue csd = go.AddComponent<ComplexStaticDialogue>();
-
+                csd.load(fileContent);
             } else if (info.type == AutoSavingSystem.LOCALIZED) {
                 LocalizedDialogue ld = go.AddComponent<LocalizedDialogue>();
                 ld.load(fileContent);
@@ -41,8 +41,9 @@ namespace DialogueSystem {
             // 提取文件名各部分：
             string type = fileName.Substring(0, 1);
             string time = fileName.Substring(1, 16).Trim();
-            string hierachyPath = fileName.Substring(17).Trim();
-            return (type, time, hierachyPath);
+            string hierarchyPath = fileName.Substring(17).Trim();
+            hierarchyPath = Path.GetFileNameWithoutExtension(hierarchyPath);
+            return (type, time, hierarchyPath);
         }
     }
 }
