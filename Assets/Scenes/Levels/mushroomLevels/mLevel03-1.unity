@@ -838,6 +838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefChair
       objectReference: {fileID: 0}
+    - target: {fileID: 7295902670271883559, guid: 9c6b55308077548a8a8e23f6bede9f3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4138,6 +4142,76 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1001 &1772899006
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 253743839645370453}
+    m_Modifications:
+    - target: {fileID: -6037888344731181064, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 198
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5100248
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.56233037
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4187900828178625195, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: parentGrid
+      value: 
+      objectReference: {fileID: 253743839645370452}
+    - target: {fileID: 7295902670271883559, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+      propertyPath: m_Name
+      value: prefChair 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+--- !u!4 &1772899007 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3945597880123059922, guid: 6c30f2218fc40384fb497c51d9a92ed9, type: 3}
+  m_PrefabInstance: {fileID: 1772899006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1789423868
 GameObject:
   m_ObjectHideFlags: 0
@@ -6283,6 +6357,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3468635685457384576, guid: b89c2a51839164adf9b20d5a81e59466, type: 3}
       insertIndex: -1
       addedObject: {fileID: 445839791}
+    - targetCorrespondingSourceObject: {fileID: 3468635685457384576, guid: b89c2a51839164adf9b20d5a81e59466, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1772899007}
     - targetCorrespondingSourceObject: {fileID: 3266787883838209086, guid: b89c2a51839164adf9b20d5a81e59466, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1844212060}
