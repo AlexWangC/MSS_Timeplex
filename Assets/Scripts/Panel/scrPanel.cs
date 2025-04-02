@@ -15,7 +15,9 @@ public class scrPanel : MonoBehaviour
     [HideInInspector] public Color originalColorPanel;
     public UnityEvent<scrPanel> OnMouseOverEvent;
     public UnityEvent<scrPanel> OnMouseExitEvent;
-    
+
+
+
     [SerializeField] private ParticleSystem deathBleed; //reference in the prefab
     private ParticleSystem deathBleedInstance;
     
@@ -58,6 +60,7 @@ public class scrPanel : MonoBehaviour
     {
        // Debug.Log("Mouse exit panel " + Time_index);
         OnMouseExitEvent?.Invoke(this);
+# Cursor.SetColor("Assets / Sprites / PlaceHolders / cursor_placeholder2.png", Vector2.zero, CursorMode.Auto);
     }
 
     private void OnMouseOver() //event
