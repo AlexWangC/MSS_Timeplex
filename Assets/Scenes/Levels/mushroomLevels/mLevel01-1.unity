@@ -743,6 +743,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e02b861ea982e43ea9872a42a3227996, type: 3}
+--- !u!1001 &403457643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2011832784807791472, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_Name
+      value: BGD_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736046425234975256, guid: f1901e300a29992418a771bb736c2787, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1901e300a29992418a771bb736c2787, type: 3}
 --- !u!1 &543875116
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,29 +2948,70 @@ MonoBehaviour:
     - key: Start
       value:
         key: hi this is the first line
-        value: go to 0->0 | go to 1->1
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 0
       value:
         key: welcome to 0
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 1
       value:
         key: this is 1
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
   - name: intro_panel_2
     lines:
     - key: Start
       value:
         key: this is panel two
-        value: go to 0->0 | go to 1->1
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 0
       value:
         key: welcome to 0
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
     - key: 1
       value:
         key: this is 1
-        value: DONE->End
+        value:
+          key: 
+          value:
+            guid: 
+            unityObj: {fileID: 0}
+            sysObj:
+              rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!4 &1817281419
 Transform:
   m_ObjectHideFlags: 0
@@ -4044,3 +4142,4 @@ SceneRoots:
   - {fileID: 817839785}
   - {fileID: 1505621975}
   - {fileID: 1049163279}
+  - {fileID: 403457643}
