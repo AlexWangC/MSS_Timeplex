@@ -576,7 +576,7 @@ RectTransform:
   - {fileID: 5909283947299864494}
   - {fileID: 5702615904066050018}
   - {fileID: 7300393307740870824}
-  - {fileID: 1943406208065086950}
+  - {fileID: 221094286377412728}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -647,7 +647,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1001 &1641407861239291865
+--- !u!1001 &1093902415986774599
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -699,13 +699,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: partBackground
       objectReference: {fileID: 0}
+    - target: {fileID: 8404613991977440714, guid: 7435810c51f6dc548a3eaf571af58e57, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.x
+      value: 1338.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8404613991977440714, guid: 7435810c51f6dc548a3eaf571af58e57, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.x
+      value: -1332.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8404613991977440714, guid: 7435810c51f6dc548a3eaf571af58e57, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.x
+      value: 782.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7435810c51f6dc548a3eaf571af58e57, type: 3}
---- !u!4 &1943406208065086950 stripped
+--- !u!4 &221094286377412728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 882475070204787263, guid: 7435810c51f6dc548a3eaf571af58e57, type: 3}
-  m_PrefabInstance: {fileID: 1641407861239291865}
+  m_PrefabInstance: {fileID: 1093902415986774599}
   m_PrefabAsset: {fileID: 0}
