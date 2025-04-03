@@ -46,10 +46,11 @@ public class scrPanel : MonoBehaviour
         // og code that sets the panel to black.
         // GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.5f);
         //lerp it to the color opaque to full.
-        StartCoroutine(fadeToMaxOpaque(0.8f));
+        StartCoroutine(fadeToTargetOpaque(0.8f, 0.8f));
         spawnDeathParticles(getPanelPlayerLocation());
     }
 
+    // currently visual only
     public void PanelRevived()
     {
         StartCoroutine(fadeToTargetOpaque(0.8f, 0.2f));

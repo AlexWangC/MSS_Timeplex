@@ -11,7 +11,7 @@ public class scrTileGenManager : MonoBehaviour
     
     private void Start()
     {
-        printPanelsByTimeIndexes(sortPanelsByTimeIndex(findPanels()));
+        //printPanelsByTimeIndexes(sortPanelsByTimeIndex(findPanels()));
         panels = sortPanelsByTimeIndex(findPanels());
         
         //testing spawn object on grid
@@ -153,7 +153,7 @@ public class scrTileGenManager : MonoBehaviour
         int index = 0;
         foreach (scrPanel panel_local in panels_local)
         {
-            Debug.Log(index + "th panel's time index is: " + panel_local.Time_index);
+            //Debug.Log(index + "th panel's time index is: " + panel_local.Time_index);
             index++;
         }
     }

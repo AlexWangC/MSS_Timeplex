@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class scrUndoManager : MonoBehaviour
@@ -43,12 +45,13 @@ public class scrUndoManager : MonoBehaviour
     // 2. keep it in a stack.
     private struct PickuppableInfo
     {
-        public Transform the_parent;
+        public Transform the_parent; // the panel transform
         public Vector2 grid_Coordinate;
         public String tag;
     }
 
-    public float UndoAvailableTimer = 3;
+    public float UndoAvailableTimer;
+    public bool UndoAvailable = true; // for UndoManagerController's reference.
     private bool undoFired = false;
     
     public GameObject keyPickUp1;
@@ -56,7 +59,7 @@ public class scrUndoManager : MonoBehaviour
     public GameObject keyPickUp3;
 
     private Stack<List<PickuppableInfo>> pickuppableInfoInThisStep; 
-    private List<Stack<RecordEntry>> objectsMovementHistory;
+    private List<Stack<RecordEntry>> objectsMovementHistory; // check its content.
     private List<Stack<PanelRecordEntry>> panelsSwapHistory;
 
     private List<GridObject> gridObjectsWithUpdate; // sorted by instance id.
@@ -69,76 +72,100 @@ public class scrUndoManager : MonoBehaviour
         gridObjectsWithUpdate = GetAllObjectsWithUpdated();
         panels = GetAllPanels();
         objectsMovementHistory = InitializeMovementHistory();
+        Debug.Log("Breakpoint Specifier");
         panelsSwapHistory = InitializePanelHistory();
         
         // let's check if initialization works!
         checkObjectsWithUpdate();
         peekObjectMovementHistoryStack(objectsMovementHistory);
+        
+        // move delay = delayVal * playerCount
+        UndoAvailableTimer = FindAnyObjectByType<scrMoveInheritanceManager>().Move_delay *
+            FindObjectsByType<scrPlayer>(FindObjectsSortMode.None).Length + 0.01f;
     }
 
-    public void Retrace()
+    // after pop, peek next and set value to the peeked val
+    public void Retrace() // this gets called
     {
-        
+     
+        // looping through all object's movement history stack
         for (int foreach_counter = 0; foreach_counter < objectsMovementHistory.Count; foreach_counter++)
         {
             Stack<RecordEntry> record_entry = objectsMovementHistory[foreach_counter];
-            // if it has something to pop... Pop it
-            if (record_entry.TryPop(out RecordEntry entry))
+            // if it has something to pop, check
+            if (record_entry.TryPeek(out RecordEntry entryNow))
             {
-                // remember to implement a if panel swap move here
-                if (entry.panelSwapMove)
-                {
-                    // pop panel history
-                    RetracePanel();
-                    
-                    // pop this
-                    for (int i = foreach_counter + 1; i < objectsMovementHistory.Count; i++)
+                    // remember to implement a if panel swap move here
+                    if (entryNow.panelSwapMove)
                     {
-                        objectsMovementHistory[i].Pop();
+                        // do something about the panels
+                        RetracePanel();
+
+                        for (int i = foreach_counter + 1; i < objectsMovementHistory.Count; i++)
+                        {
+                            objectsMovementHistory[i].Pop();
+
+                            // then pop this from all
+                        }
+
+                        return;
+                        // move on
                     }
-                    
-                    return;
-                    // move on
-                }
-                
-                gridObjectsWithUpdate[foreach_counter].gridPosition = entry.gridPosition;
-                
-                // if the object has an inventory
-                if (entry.inventory != null)
-                {
-                    gridObjectsWithUpdate[foreach_counter].GetComponent<scrInventory>().inventory = entry.inventory;
-                    gridObjectsWithUpdate[foreach_counter].GetComponent<scrInventory>().syncActualInventoryWithDictionary();
-                }
-                
-                // Panel Revive check: if the gridObject is player, the panel that contains the player is currently dead, but the previous entry is not dead
-                if (gridObjectsWithUpdate[foreach_counter].GetComponentInParent<scrPanel>().Dead && !entry.dead &&
-                    gridObjectsWithUpdate[foreach_counter].CompareTag("player"))
-                {
-                    // revive the panel, should probably call something here too for visuals
-                    gridObjectsWithUpdate[foreach_counter].GetComponentInParent<scrPanel>().Dead = false;
-                    gridObjectsWithUpdate[foreach_counter].GetComponentInParent<scrPanel>().PanelRevived();
-                }
-                
-                // if it is a patrol
-                if (entry.patrolMoveIndex != -1)
-                {
-                    gridObjectsWithUpdate[foreach_counter].GetComponent<scrPatrol>().moveIndex = entry.patrolMoveIndex;
-                    gridObjectsWithUpdate[foreach_counter].GetComponent<scrPatrol>().isIndexIncreasing =
-                        entry.patrolIndexIncreasing;
-                }
-                
-                // if it is a portal
-                if (entry.remainingUses != -1)
-                {
-                    gridObjectsWithUpdate[foreach_counter].GetComponent<scrPortal>().remainingUses =
-                        entry.remainingUses;
-                }
+
+                    record_entry.Pop();
+                    if (record_entry.TryPeek(out RecordEntry entry))
+                    {
+
+                        gridObjectsWithUpdate[foreach_counter].gridPosition = entry.gridPosition;
+                        // we'll worry about death reset here later.
+                        // currently death is just disabling the sprite renderer???
+                        // Oh and changing tag to untagged!!
+
+                        // if the object has an inventory
+                        if (entry.inventory != null)
+                        {
+                            gridObjectsWithUpdate[foreach_counter].GetComponent<scrInventory>().inventory = entry.inventory;
+                            gridObjectsWithUpdate[foreach_counter].GetComponent<scrInventory>()
+                                .syncActualInventoryWithDictionary();
+                        }
+
+                        // Panel Revive check: if the gridObject is player, the panel that contains the player is currently dead, but the previous entry is not dead
+                        if (gridObjectsWithUpdate[foreach_counter].GetComponentInParent<scrPanel>().Dead && !entry.dead &&
+                            gridObjectsWithUpdate[foreach_counter].CompareTag("player"))
+                        {
+                            // revive the panel, should probably call something here too for visuals
+                            gridObjectsWithUpdate[foreach_counter].GetComponentInParent<scrPanel>().Dead = false;
+                            gridObjectsWithUpdate[foreach_counter].GetComponentInParent<scrPanel>().PanelRevived();
+                        }
+
+                        // if it is a patrol
+                        if (entry.patrolMoveIndex != -1)
+                        {
+                            gridObjectsWithUpdate[foreach_counter].GetComponent<scrPatrol>().moveIndex =
+                                entry.patrolMoveIndex;
+                            gridObjectsWithUpdate[foreach_counter].GetComponent<scrPatrol>().isIndexIncreasing =
+                                entry.patrolIndexIncreasing;
+                        }
+
+                        // if it is a portal
+                        if (entry.remainingUses != -1)
+                        {
+                            gridObjectsWithUpdate[foreach_counter].GetComponent<scrPortal>().remainingUses =
+                                entry.remainingUses;
+                        }
+                    }
+
+                    else {
+                        Debug.Log("Stack emptied out at second peek");
+                    }
             }
             // if it doesn't have anything to pop..
             else
             {
-                Debug.Log("Yo stacks have been emptied out. No further movement history.");
+                Debug.Log("Yo stacks have been emptied out after first peek. No further movement history.");
             }
+            
+            // notice how it's just setting the gridpos and not respawning? that means death is probably handled through moving things to a far away place.
         }
     }
 
@@ -169,6 +196,7 @@ public class scrUndoManager : MonoBehaviour
             {
                 if (popped_list[i].tag == "key1")
                 {
+                    // this is suspicious. How is it instantiation-based.
                     GameObject pickuppable = Instantiate(keyPickUp1, popped_list[i].the_parent);
                     pickuppable.GetComponent<GridObject>().gridPosition = popped_list[i].grid_Coordinate;
                 } else if (popped_list[i].tag == "key2")
@@ -192,21 +220,101 @@ public class scrUndoManager : MonoBehaviour
 
     #region Updating
 
-    // call this from the outside
+    // call this from the outside, updated when movement key detected
     public void UpdateMovementDriver()
     {
-        if (!undoFired)
+        if (!undoFired) // this is to make sure you only fire undoFired once
         {
-            UpdateMovementHistory();
+            // let's check if this work!
+            StartCoroutine(UpdateMovementHistory());
+        }
+        
+        if (FindAnyObjectByType<scrMovementSavedText>(FindObjectsInactive.Include) != null)
+        {
+            StartCoroutine(ToggleMovementSavedText(UndoAvailableTimer, 1));
         }
     }
     
     private IEnumerator UpdateMovementHistory()
     {
+        Debug.Log("Movement History updated.");
+        
         undoFired = true;
-        yield return new WaitForSeconds(UndoAvailableTimer);
+        yield return new WaitForSeconds(UndoAvailableTimer); // after yielding, everything should be in place.
+        
+        // update pickuppables here.
+        //pickuppableInfoInThisStep.Push();
         
         // code follows below. To be updated.
+        // first of all we get all objects.
+        List<GridObject> objects_with_updating = GetAllObjectsWithUpdated(); //this method sorts through instance ID.
+        for (int i = 0; i < objects_with_updating.Count; i++)
+        {
+            RecordEntry currentRE = new RecordEntry();
+            
+            // 1. 
+            currentRE.panelSwapMove = false; // panel swap move check would be done elsewhere
+            
+            // 2.
+            currentRE.gridPosition = objects_with_updating[i].gridPosition;
+            
+            // check if objects_with_updating[i] has scrInventory
+            if (objects_with_updating[i].GetComponent<scrInventory>() != null)
+            {
+                // 3. 
+                currentRE.inventory = objects_with_updating[i].GetComponent<scrInventory>().inventory;
+            }
+            
+            // if it is scrEnemy, you have a dead bool.
+            // if it is scrPlayer, death is handled via killing panel. (a dead bool)
+            // how is panel death handled? How is time "skipping" dead panels
+            //      check if dead panel's objects inside are deleted.
+            if (objects_with_updating[i].GetComponent<scrEnemy>() != null)
+            {
+                // 4.
+                currentRE.dead = objects_with_updating[i].GetComponent<scrEnemy>().dead;
+            } else if (objects_with_updating[i].GetComponent<scrPlayer>() != null)
+            {
+                // 4.
+                currentRE.dead = objects_with_updating[i].GetComponentInParent<scrPanel>().Dead;
+            }
+            
+            // if it is patrol...
+            if (objects_with_updating[i].GetComponent<scrPatrol>() != null)
+            {
+                // 5.
+                currentRE.patrolMoveIndex = objects_with_updating[i].GetComponent<scrPatrol>().moveIndex;
+                
+                // 6.
+                currentRE.patrolIndexIncreasing = objects_with_updating[i].GetComponent<scrPatrol>().isIndexIncreasing;
+            }
+            else
+            {
+                // 5.
+                currentRE.patrolMoveIndex = -1; 
+                
+                // 6.
+                currentRE.patrolIndexIncreasing = false;
+            }
+            
+            // if it is portal...
+            if (objects_with_updating[i].GetComponent<scrPortal>() != null)
+            {
+                // 7.
+                currentRE.remainingUses = objects_with_updating[i].GetComponent<scrPortal>().remainingUses;
+            }
+            else
+            {
+                currentRE.remainingUses = -1;
+            }
+            
+            objectsMovementHistory[i].Push(currentRE);
+            Debug.Log("breakpoint specifier");
+            
+            peekObjectMovementHistoryStack(objectsMovementHistory);
+        }
+
+        undoFired = false; // set it to false so that it can fire again.
     }
     
     #endregion
@@ -393,6 +501,27 @@ public class scrUndoManager : MonoBehaviour
         
     }
     
+
+    #endregion
+
+    #region UI
+    IEnumerator ToggleMovementSavedText(float seconds_saved, float seconds_flashed)
+    {
+        FindAnyObjectByType<scrUndoAvailableText>(FindObjectsInactive.Include).GetComponent<TextMeshProUGUI>().text =
+            "Saving Movement..."; // while this, disable hit z.
+        UndoAvailable = false;
+        
+        yield return new WaitForSeconds(seconds_saved);
+        
+        FindAnyObjectByType<scrMovementSavedText>(FindObjectsInactive.Include).gameObject.SetActive(true);
+        FindAnyObjectByType<scrUndoAvailableText>(FindObjectsInactive.Include).GetComponent<TextMeshProUGUI>().text =
+            "Hit 'Z' to Undo";
+        UndoAvailable = true;
+        
+        yield return new WaitForSeconds(seconds_flashed);
+        
+        FindAnyObjectByType<scrMovementSavedText>(FindObjectsInactive.Include).gameObject.SetActive(false);
+    }
 
     #endregion
 }

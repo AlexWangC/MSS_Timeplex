@@ -37,6 +37,9 @@ public class scrMoveInheritanceManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.W))
         {
+            // Call undo manager here.
+            UpdateUndoManager();
+            
             ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
@@ -47,6 +50,9 @@ public class scrMoveInheritanceManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
+            // Call undo manager here.
+            UpdateUndoManager();
+            
             ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
@@ -55,6 +61,9 @@ public class scrMoveInheritanceManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
+            // Call undo manager here.
+            UpdateUndoManager();
+            
             ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
@@ -63,6 +72,8 @@ public class scrMoveInheritanceManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
+            // Call undo manager here.
+            UpdateUndoManager();
 
             ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
@@ -190,5 +201,10 @@ public class scrMoveInheritanceManager : MonoBehaviour
         {
             player.GetComponentInParent<scrPanel>().GetComponent<SpriteRenderer>().enabled = true;
         }
+    }
+
+    private void UpdateUndoManager()
+    {
+        FindAnyObjectByType<scrUndoManager>().UpdateMovementDriver();
     }
 }
