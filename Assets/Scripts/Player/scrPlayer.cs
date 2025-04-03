@@ -36,7 +36,7 @@ public class scrPlayer : MonoBehaviour
     private IEnumerator DelayedEnemiesMove(float delay, Vector2 dir)
     {
         yield return new WaitForSeconds(delay);
-        this.transform.parent.GetComponentInChildren<scrEnemyManager>().MoveEnemies(dir);
+        //this.transform.parent.GetComponentInChildren<scrEnemyManager>().MoveEnemies(dir);
     }
     
     public bool Move(int dir)
