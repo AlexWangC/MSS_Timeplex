@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5693793597656426676}
   - component: {fileID: -2537322047340960017}
+  - component: {fileID: 7787997302446654743}
   m_Layer: 0
   m_Name: prefUndoManager
   m_TagString: Untagged
@@ -42,5 +43,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a467ee3876a8641f3b01f3d00c20542a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UndoAvailableTimer: 2
+  keyPickUp1: {fileID: 0}
+  keyPickUp2: {fileID: 0}
+  keyPickUp3: {fileID: 0}
+--- !u!114 &7787997302446654743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2298839677018814127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fc3c17deafc439da543e656ec38e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
