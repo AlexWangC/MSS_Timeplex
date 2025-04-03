@@ -60,7 +60,7 @@ public class scrPanel : MonoBehaviour
     {
        // Debug.Log("Mouse exit panel " + Time_index);
         OnMouseExitEvent?.Invoke(this);
-# Cursor.SetColor("Assets / Sprites / PlaceHolders / cursor_placeholder2.png", Vector2.zero, CursorMode.Auto);
+        // Cursor.SetColor("Assets / Sprites / PlaceHolders / cursor_placeholder2.png", Vector2.zero, CursorMode.Auto);
     }
 
     private void OnMouseOver() //event
