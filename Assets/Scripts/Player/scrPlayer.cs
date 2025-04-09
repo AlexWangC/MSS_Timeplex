@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using System.Net.NetworkInformation;
 using DG.Tweening;
 using DialogueSystem;
 using Fries;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -499,7 +497,14 @@ public class scrPlayer : MonoBehaviour
     #region shakes
     private void wallShake()
     {
+        //GetComponentInParent<scrPanel>().Find("Grid1/partBlocked").play();
         Vector3 original_position = GetComponentInParent<scrPanel>().transform.position;
+
+        transform.parent.GetChild(0).GetChild(0).getComponent<ParticleSystem>().Play();
+        //Debug.Log("testfindchild " + transform.parent.GetChild(0).name);
+        //Debug.Log("testfindchild " + transform.parent.GetChild(0).GetChild(0).name);
+
+
         GetComponentInParent<scrPanel>().transform.DOShakePosition(0.6f, 0.5f, 5, 20, true).OnComplete(() =>
         {
             GetComponentInParent<scrPanel>().transform.position = original_position;
