@@ -46,7 +46,8 @@ public class scrMoveInheritanceManager : MonoBehaviour
             //while it is in delay, let's disable the panel sprite for highlight.
             
             StartCoroutine(movePlayerDelayed(0, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
+
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -57,7 +58,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(1, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
@@ -68,7 +69,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(2, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
@@ -79,7 +80,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(3, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
         }
 
         
@@ -206,5 +207,18 @@ public class scrMoveInheritanceManager : MonoBehaviour
     private void UpdateUndoManager()
     {
         FindAnyObjectByType<scrUndoManager>().UpdateMovementDriver();
+    }
+
+    private IEnumerator updateAutoOpaqueItems()
+    {
+        float delay = Move_delay * 4 + 0.1f;
+
+        yield return new WaitForSeconds(delay);
+        
+        scrGridObjectAutoOpaque[] objects_with_autoopaque = FindObjectsByType<scrGridObjectAutoOpaque>(FindObjectsSortMode.None);
+        foreach (scrGridObjectAutoOpaque obj in objects_with_autoopaque)
+        {
+            obj.CheckWhatsAtBack();
+        }
     }
 }
