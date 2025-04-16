@@ -885,7 +885,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1300759552}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 102900000, guid: 4791bcc1d81f746b9be2a0a806ff18c7, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1400417490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,7 +1030,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Start Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1323,22 +1335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9123b4e3e7da4451b41d892ab175716c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backgroundRect: {fileID: 0}
-  _backgroundImage: {fileID: 0}
-  _logoRect: {fileID: 0}
-  _logoImage: {fileID: 0}
-  _newGameRect: {fileID: 0}
-  _newGameImage: {fileID: 0}
-  _newGameText: {fileID: 0}
-  _newGameButton: {fileID: 0}
-  _settingRect: {fileID: 0}
-  _settingImage: {fileID: 0}
-  _settingText: {fileID: 0}
-  _settingButton: {fileID: 0}
-  _topMarginRect: {fileID: 0}
-  _logoNewGameDivider: {fileID: 0}
-  _newGameSettingDivider: {fileID: 0}
-  _bottomDivider: {fileID: 0}
   backgroundTransform:
     component: {fileID: 1400417491}
   backgroundImage:

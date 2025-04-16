@@ -3,8 +3,8 @@ using UnityEngine;
 public class scrCameraBreath : MonoBehaviour
 {
     // could be changed to public later
-    private float idleAmplitude = 1f;
-    private float frequency = 0.2f;
+    private float idleAmplitude = 0.4f;
+    private float frequency = 0.5f;
     [SerializeField] private float fadeDuration = 1f;
 
     private bool breathing;

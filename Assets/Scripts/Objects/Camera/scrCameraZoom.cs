@@ -51,7 +51,7 @@ public class scrCameraZoom : MonoBehaviour
         {
             zoomTargetCoord = panels[0].transform.position;
             // adjust the num here to adjust how much each block should shift
-            zoomTargetCoord.x = zoomTargetCoord.x + FindAnyObjectByType<scrGridMakerTilted>(FindObjectsInactive.Exclude).numBlocksX * 1f;
+            zoomTargetCoord.x = zoomTargetCoord.x + FindAnyObjectByType<scrGridMakerTilted>(FindObjectsInactive.Exclude).numBlocksX * 0.5f; // adjust the float here for how much it shifts.
             zoomTargetCoord.y = zoomTargetCoord.y - 2f;
             StartCoroutine(ZoomToTarget());
             return zoomTargetCoord;
