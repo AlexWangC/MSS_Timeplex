@@ -4,7 +4,6 @@ using Fries;
 using UnityEngine;
 
 namespace DialogueSystem {
-    [RequireComponent(typeof(GridObject))]
     public class DialogueDisplayer : MonoBehaviour {
         private static Dictionary<string, DialogueDisplayer> dialogueDisplayers = new();
 
@@ -35,7 +34,7 @@ namespace DialogueSystem {
             }
             sr = GetComponent<SpriteRenderer>();
             csd = GetComponent<CharSequenceDisplayer>();
-            gridObject = GetComponent<GridObject>();
+            gridObject = GetComponentInChildren<GridObject>();
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) 
                 ddi = DialogueSystem.dialogueData[dialogueId];
         }
