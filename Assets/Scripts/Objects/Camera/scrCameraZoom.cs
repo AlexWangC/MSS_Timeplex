@@ -76,7 +76,7 @@ public class scrCameraZoom : MonoBehaviour
 
     IEnumerator ZoomToTarget()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         if (GetComponent<scrCameraBreath>() != null)
         {
