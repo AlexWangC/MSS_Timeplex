@@ -38,9 +38,17 @@ namespace Menu {
         public FloatWrapper chooseChapterSettingMargin;
         public FloatWrapper bottomMargin;
 
+        private int getLeftPadding(VerticalLayoutGroup vlg) {
+            return vlg.padding.left;
+        }
+        
+        private void setLeftPadding(VerticalLayoutGroup vlg, int value) {
+            vlg.padding.left = value;
+        }
+        
         private void Reset() {
             VerticalLayoutGroup vlg = transform.findAll("Verticle Layout")[0].GetComponent<VerticalLayoutGroup>();
-            leftMargin = new IntWrapper(() => vlg.padding.left) {
+            leftMargin = new IntWrapper(() => getLeftPadding(vlg)) {
                 label = "Left Margin",
                 setter = value => {
                     vlg.padding.left = value;
@@ -86,6 +94,10 @@ namespace Menu {
                     rt4.sizeDelta = rt4.sizeDelta.x_(value);
                 }
             };
+        }
+
+        public void OnEnable() {
+            Reset();
         }
     }
 }

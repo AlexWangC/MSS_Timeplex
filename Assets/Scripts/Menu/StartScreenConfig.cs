@@ -65,5 +65,9 @@ namespace Menu {
                 }
             };
         }
+
+        public void OnEnable() {
+            Reset();
+        }
     }
 }
