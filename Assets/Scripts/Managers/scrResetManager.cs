@@ -14,6 +14,18 @@ public class scrResetManager : MonoBehaviour
             // Reload the current scene
             SceneManager.LoadScene(currentSceneIndex); 
         }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex - 1);
+        }
     }
 
     public void UpdateResetStatus() // call this from the outside

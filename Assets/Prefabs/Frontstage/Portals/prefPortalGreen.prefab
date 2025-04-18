@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6834577944696816813}
   - component: {fileID: 5455310820656693042}
   - component: {fileID: 6199819473191878907}
+  - component: {fileID: 5280533692662126505}
   m_Layer: 7
   m_Name: prefPortalGreen
   m_TagString: portal
@@ -122,3 +123,17 @@ MonoBehaviour:
   textUIPrefab: {fileID: 6677275816576672795, guid: 887f221d85ca14836a18a85f8cccbc80, type: 3}
   textUIOffset: {x: 2, y: 1, z: 0}
   textUIInstance: {fileID: 0}
+--- !u!114 &5280533692662126505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914333804047800783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4964ccfceb1354dc098f4137c05a3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetOpacity: 0.5
+  fadeSpeed: 1
