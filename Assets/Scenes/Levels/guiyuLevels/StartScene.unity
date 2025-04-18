@@ -1296,23 +1296,35 @@ MonoBehaviour:
   settingButton:
     component: {fileID: 0}
   leftMargin:
-    label: Left Margin
     value: 148
+    label: Left Margin
+    initLabel: 
+    setterLabel: 
   topMargin:
-    label: Top Margin
     value: 146.3
+    label: Top Margin
+    initLabel: 
+    setterLabel: 
   logoContinueMargin:
-    label: Logo Continue Margin
     value: 267
+    label: Logo Continue Margin
+    initLabel: 
+    setterLabel: 
   continueChooseMargin:
+    value: 40
     label: Continue Choose Margin
-    value: 40
+    initLabel: 
+    setterLabel: 
   chooseChapterSettingMargin:
-    label: Choose Chapter Setting Margin
     value: 40
+    label: Choose Chapter Setting Margin
+    initLabel: 
+    setterLabel: 
   bottomMargin:
-    label: Bottom Margin
     value: 100
+    label: Bottom Margin
+    initLabel: 
+    setterLabel: 
 --- !u!1 &1157394462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,7 +2609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e45a09761ffdce4d9362ce56a06ec2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: mLevel01-1
+  sceneName: mLevelTutorialMovement
 --- !u!1 &2051172738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,17 +2751,25 @@ MonoBehaviour:
   settingButton:
     component: {fileID: 1181144209}
   topMargin:
+    value: 146
     label: Top Margin
-    value: 146.3
+    initLabel: 
+    setterLabel: 
   logoNewGameSpacer:
+    value: 490.706
     label: Logo New Game Margin
-    value: 353.9
+    initLabel: 
+    setterLabel: 
   newGameSettingSpacer:
+    value: 55.9796
     label: New Game Setting Margin
-    value: 40.1
+    initLabel: 
+    setterLabel: 
   bottomMargin:
+    value: 100
     label: Bottom Margin
-    value: 100.1
+    initLabel: 
+    setterLabel: 
 --- !u!1 &2105906243
 GameObject:
   m_ObjectHideFlags: 0

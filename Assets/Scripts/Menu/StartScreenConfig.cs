@@ -2,6 +2,7 @@ using System;
 using Fries;
 using Fries.Inspector.ComponentWrapper;
 using Fries.Inspector.ValueWrapper;
+using Fries.TaskPerformer;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,7 +32,7 @@ namespace Menu {
         public FloatWrapper logoNewGameSpacer;
         public FloatWrapper newGameSettingSpacer;
         public FloatWrapper bottomMargin;
-
+        
         private void Reset() {
             RectTransform rt = (RectTransform)transform.findAll("Spacer 0")[0];
             topMargin = new FloatWrapper(() => rt.sizeDelta.y) {
@@ -66,8 +67,9 @@ namespace Menu {
             };
         }
 
-        public void OnEnable() {
-            Reset();
+        public void OnValidate() {
+            if (topMargin.setter == null)
+                Reset();
         }
     }
 }
