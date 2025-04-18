@@ -20,6 +20,7 @@ public class scrKey2 : MonoBehaviour
         // 3. Add a SpriteRenderer for the icon and set the sprite
         SpriteRenderer sr = keyIconObject.AddComponent<SpriteRenderer>();
         sr.sprite = keyIconSprite;
+        sr.sortingLayerName = "protagonist";
     }
     
    
