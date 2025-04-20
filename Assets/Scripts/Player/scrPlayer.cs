@@ -380,7 +380,7 @@ public class scrPlayer : MonoBehaviour
                     gridObject.gridPosition = targetPosition; // Update the grid position
                     direction = Vector2.zero;
                     
-                    stepShake();
+                    //stepShake();
                     
                     return true;
                 }
@@ -397,7 +397,7 @@ public class scrPlayer : MonoBehaviour
                         throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
                     }
                     
-                    wallShake();
+                    //wallShake();
                     return false;
                 }
             }
