@@ -1,9 +1,11 @@
 using System;
 using Fries;
 using Fries.Inspector.ComponentWrapper;
+using Fries.Inspector.UndoRedoEvent;
 using Fries.Inspector.ValueWrapper;
 using Fries.TaskPerformer;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,10 +30,15 @@ namespace Menu {
         public ComponentWrapper settingButton;
         
         [Header("Margins")]
+        [OnUndoRedo("margin")]   
         public FloatWrapper topMargin;
         public FloatWrapper logoNewGameSpacer;
         public FloatWrapper newGameSettingSpacer;
         public FloatWrapper bottomMargin;
+        public UndoPropertyModification[] marginUndoRedo(UndoPropertyModification[] mods) {
+            Debug.Log(1);
+            return mods;
+        }
         
         private void Reset() {
             RectTransform rt = (RectTransform)transform.findAll("Spacer 0")[0];

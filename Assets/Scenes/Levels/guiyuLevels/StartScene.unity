@@ -287,7 +287,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 146}
+  m_SizeDelta: {x: 100, y: 145.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &263232563
 GameObject:
@@ -2623,6 +2623,7 @@ GameObject:
   - component: {fileID: 2051172740}
   - component: {fileID: 2051172739}
   - component: {fileID: 2051172743}
+  - component: {fileID: 2051172744}
   m_Layer: 5
   m_Name: Start Screen
   m_TagString: Untagged
@@ -2751,7 +2752,63 @@ MonoBehaviour:
   settingButton:
     component: {fileID: 1181144209}
   topMargin:
-    value: 146
+    value: 145
+    label: Top Margin
+    initLabel: 
+    setterLabel: 
+  logoNewGameSpacer:
+    value: 490.706
+    label: Logo New Game Margin
+    initLabel: 
+    setterLabel: 
+  newGameSettingSpacer:
+    value: 55.9796
+    label: New Game Setting Margin
+    initLabel: 
+    setterLabel: 
+  bottomMargin:
+    value: 100
+    label: Bottom Margin
+    initLabel: 
+    setterLabel: 
+--- !u!114 &2051172744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051172738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9123b4e3e7da4451b41d892ab175716c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundTransform:
+    component: {fileID: 0}
+  backgroundImage:
+    component: {fileID: 0}
+  logoTransform:
+    component: {fileID: 0}
+  logoImage:
+    component: {fileID: 0}
+  newGameTransform:
+    component: {fileID: 0}
+  newGameImage:
+    component: {fileID: 0}
+  newGameText:
+    component: {fileID: 0}
+  newGameButton:
+    component: {fileID: 0}
+  settingTransform:
+    component: {fileID: 0}
+  settingImage:
+    component: {fileID: 0}
+  settingText:
+    component: {fileID: 0}
+  settingButton:
+    component: {fileID: 0}
+  topMargin:
+    value: 145
     label: Top Margin
     initLabel: 
     setterLabel: 
