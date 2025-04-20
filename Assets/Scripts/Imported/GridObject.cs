@@ -57,7 +57,7 @@ public class GridObject : MonoBehaviour
         //print(gridPosition);
         if (parentGrid == null)
         {
-            Debug.Log("got a null parent grid");
+            Debug.Log("got a null parent grid", gameObject);
         }
         this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
         

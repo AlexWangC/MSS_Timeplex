@@ -380,7 +380,7 @@ public class scrPlayer : MonoBehaviour
                     gridObject.gridPosition = targetPosition; // Update the grid position
                     direction = Vector2.zero;
                     
-                    stepShake();
+                    //stepShake();
                     
                     return true;
                 }
@@ -397,7 +397,7 @@ public class scrPlayer : MonoBehaviour
                         throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
                     }
                     
-                    wallShake();
+                    //wallShake();
                     return false;
                 }
             }
@@ -497,7 +497,7 @@ public class scrPlayer : MonoBehaviour
     #region shakes
     private void wallShake()
     {
-        //GetComponentInParent<scrPanel>().Find("Grid1/partBlocked").play();
+        
         Vector3 original_position = GetComponentInParent<scrPanel>().transform.position;
 
         //transform.parent.GetChild(0).GetChild(0).getComponent<ParticleSystem>().Play();
