@@ -55,7 +55,7 @@ public class GridObject : MonoBehaviour
     {
         //Move to the new position
         UpdatePosition();
-        if (isFirstRun) {
+        if (isFirstRun && isPlayer) {
             isFirstRun = false;
             scrMoveInheritanceManager.invokeOnPlayerMove(this.getComponent<scrPlayer>(), this);
         }
