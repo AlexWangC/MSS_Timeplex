@@ -22,6 +22,7 @@ public class scrSwapHighlightManager : MonoBehaviour
         }
         
         // generate four corners
+        SpawnCorners(findGridCorners(panel.GetComponentInChildren<scrGridMakerTilted>()));
         
         // Legacy Highlight effect of changing the color.a of a panel.
         /*
@@ -38,6 +39,7 @@ public class scrSwapHighlightManager : MonoBehaviour
         }
         
         // generate four corners
+        DestroyCorners();
         
         // Legacy Highlight effect of changing the color.a of a panel.
         /*
