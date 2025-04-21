@@ -44,6 +44,9 @@ namespace Menu {
                 label = "Left Margin",
                 setter = value => {
                     vlg.padding.left = value;
+                    Canvas.ForceUpdateCanvases(); 
+                    var rt = vlg.getComponent<RectTransform>();
+                    LayoutRebuilder.MarkLayoutForRebuild(rt);
                 }
             };
             
