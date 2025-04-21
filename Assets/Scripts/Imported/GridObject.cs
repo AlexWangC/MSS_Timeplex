@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using System.Collections.Specialized;
+using Fries;
 
 [ExecuteInEditMode]
 public class GridObject : MonoBehaviour
@@ -34,9 +35,14 @@ public class GridObject : MonoBehaviour
     [HideInInspector] public scrGridMakerTilted parentGrid; // Jingxing's mod. Using inheritance to get the corresponding grid.
 
     [HideInInspector] public bool inventoryHasItem;
+
+    private bool isPlayer = false;
     
     private void Start()
     {
+        var pl = gameObject.getComponent<scrPlayer>();
+        if (pl) isPlayer = true;
+        
         getParentGrid();
         
         temporalProjectionFixStart();
@@ -44,10 +50,15 @@ public class GridObject : MonoBehaviour
         //mightbug for Text UI with grid position, need exception
     }
 
+    private bool isFirstRun = true;
     private void Update()
     {
         //Move to the new position
         UpdatePosition();
+        if (isFirstRun) {
+            isFirstRun = false;
+            scrMoveInheritanceManager.invokeOnPlayerMove(this.getComponent<scrPlayer>(), this);
+        }
     }
 
     [Button("Update Position")]

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Fries;
 using UnityEngine;
 
 // this script handles the movement & movement inheritance of all players
@@ -175,8 +176,11 @@ public class scrMoveInheritanceManager : MonoBehaviour
         while (current_player < Players.Length)
         {
             if (Players[current_player] != null)
-            { 
-                Players[current_player].Move(direction);
+            {
+                if (Players[current_player].Move(direction))
+                {
+                    invokeOnPlayerMove(Players[current_player], Players[current_player].getComponent<GridObject>());
+                }
                 highlightPanelBeforeMoving(Players[current_player]);
                 yield return new WaitForSeconds(delay);
                 delightPanelAfterMoving(Players[current_player]);
@@ -188,6 +192,19 @@ public class scrMoveInheritanceManager : MonoBehaviour
         Can_move = true;
     }
 
+    public static Action<scrPlayer, GridObject> onPlayerMove;
+
+    public static void invokeOnPlayerMove(scrPlayer pl, GridObject go) {
+        try
+        {
+            onPlayerMove?.Invoke(pl, go);
+        }
+        catch (Exception e) 
+        {
+            Debug.LogError($"Catch error in On Player Move callback! {e}");
+        }
+    }
+    
     private void highlightPanelBeforeMoving(scrPlayer player)
     {
         if (player != null && player.GetComponentInParent<scrPanel>().Dead == false )

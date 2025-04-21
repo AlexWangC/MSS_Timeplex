@@ -15,6 +15,7 @@ namespace DialogueSystem {
         public string dialogueId;
         public string startLineId;
 
+        public bool isOpened = false;
         public bool isInteractive = true;
         public bool drawGizmos = true;
         
@@ -37,20 +38,39 @@ namespace DialogueSystem {
             gridObject = GetComponentInChildren<GridObject>();
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) 
                 ddi = DialogueSystem.dialogueData[dialogueId];
-        }
 
-        private void Update() {
-            if (!Input.GetKeyDown(DialogueSystem.interactKey)) return;
-            
-            scrPlayer[] players = FindObjectsByType<scrPlayer>(FindObjectsSortMode.InstanceID);
-            foreach (var pl in players) {
-                if (getTimeIndex(pl.transform) != getTimeIndex()) continue;
-                GridObject go = pl.getComponent<GridObject>();
-                if (go.gridPosition != gridObject.gridPosition) continue;
-                Open(startLineId);
+            if (!isInteractive) {
+                scrMoveInheritanceManager.onPlayerMove += onPlMove;
             }
         }
 
+        private void Update() {
+            if (isInteractive) {
+                try {
+                    scrMoveInheritanceManager.onPlayerMove -= onPlMove;
+                }
+                catch (Exception) {
+                    // ignored
+                }
+                
+                if (!Input.GetKeyDown(DialogueSystem.interactKey)) return;
+                
+                scrPlayer[] players = FindObjectsByType<scrPlayer>(FindObjectsSortMode.InstanceID);
+                foreach (var pl in players) {
+                    if (getTimeIndex(pl.transform) != getTimeIndex()) continue;
+                    GridObject go = pl.getComponent<GridObject>();
+                    if (go.gridPosition != gridObject.gridPosition) continue;
+                    Open(startLineId);
+                }
+            }
+        }
+
+        private void onPlMove(scrPlayer pl, GridObject entered) {
+            if (getTimeIndex(pl.transform) != getTimeIndex()) return;
+            if (entered.gridPosition != gridObject.gridPosition) return;
+            Open(startLineId);
+        }
+        
         public void SetDialogueId(string dialogueId) {
             this.dialogueId = dialogueId;
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) {
@@ -65,6 +85,9 @@ namespace DialogueSystem {
         public void Open(string lineId = null) {
             if (lineId != null && lineId.Trim() == "") lineId = null;
             
+            if (isOpened) return;
+            isOpened = true;
+
             sr.enabled = true;
             
             if (lineId == null) {
@@ -85,6 +108,7 @@ namespace DialogueSystem {
         }
 
         public void Close() {
+            isOpened = false;
             csd.clear();
             sr.enabled = false;
         }
