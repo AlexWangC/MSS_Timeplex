@@ -4,7 +4,6 @@ using Fries.Inspector.ComponentWrapper;
 using Fries.Inspector.ValueWrapper;
 using Fries.TaskPerformer;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,10 +32,6 @@ namespace Menu {
         public FloatWrapper logoNewGameSpacer;
         public FloatWrapper newGameSettingSpacer;
         public FloatWrapper bottomMargin;
-        public UndoPropertyModification[] marginUndoRedo(UndoPropertyModification[] mods) {
-            Debug.Log(1);
-            return mods;
-        }
         
         private void Reset() {
             RectTransform rt = (RectTransform)transform.findAll("Spacer 0")[0];
