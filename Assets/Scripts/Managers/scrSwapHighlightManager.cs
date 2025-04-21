@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class scrSwapHighlightManager : MonoBehaviour
@@ -20,7 +21,13 @@ public class scrSwapHighlightManager : MonoBehaviour
         {
             return;
         }
-        
+
+        if (Top_left_corner == null || Top_right_corner == null || Buttom_left_corner == null ||
+            Buttom_right_corner == null)
+        {
+            Debug.Log("Please assign corner prefabs for swap highlight manager");
+            return;
+        }
         // generate four corners
         SpawnCorners(findGridCorners(panel.GetComponentInChildren<scrGridMakerTilted>()));
         
@@ -35,6 +42,13 @@ public class scrSwapHighlightManager : MonoBehaviour
     {
         if (panel.Dead)
         {
+            return;
+        }
+        
+        if (Top_left_corner == null || Top_right_corner == null || Buttom_left_corner == null ||
+            Buttom_right_corner == null)
+        {
+            Debug.Log("Please assign corner prefabs for swap highlight manager");
             return;
         }
         
