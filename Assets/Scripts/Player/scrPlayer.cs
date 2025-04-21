@@ -500,7 +500,7 @@ public class scrPlayer : MonoBehaviour
         
         Vector3 original_position = GetComponentInParent<scrPanel>().transform.position;
 
-        //transform.parent.GetChild(0).GetChild(0).getComponent<ParticleSystem>().Play();
+        transform.parent.GetChild(0).GetChild(0).getComponent<ParticleSystem>().Play();
         //Debug.Log("testfindchild " + transform.parent.GetChild(0).name);
         //Debug.Log("testfindchild " + transform.parent.GetChild(0).GetChild(0).name);
 
