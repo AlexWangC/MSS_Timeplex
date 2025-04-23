@@ -30,6 +30,7 @@ public class scrResetManager : MonoBehaviour
 
     public void UpdateResetStatus() // call this from the outside
     {
+        /*
         if (checkIfAllDead())
         {
             // Get the current scene's index
@@ -38,6 +39,7 @@ public class scrResetManager : MonoBehaviour
             // Reload the current scene
             SceneManager.LoadScene(currentSceneIndex);
         }
+        */
     }
     
     private bool checkIfAllDead()
