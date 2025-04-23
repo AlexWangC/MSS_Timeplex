@@ -188,4 +188,17 @@ public class scrPanel : MonoBehaviour
 
         collider.offset = new Vector2(collider.size.x / 2 - top_left_left_offset, - collider.size.y / 2 + top_left_up_offset);
     }
+
+    private void initializeChildrenMaterials()
+    {
+        SpriteRenderer[] all_objects_with_sprite = GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (var object_with_sprite in all_objects_with_sprite)
+        {
+            // if the object is door...
+            if (object_with_sprite.GetComponent<scrGoal>() != null)
+            {
+                // set material to sprite lit.
+            }
+        }
+    }
 }
