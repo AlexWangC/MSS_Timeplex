@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Fries.TaskPerformer;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class scrSwapHighlightManager : MonoBehaviour
 {
@@ -22,12 +24,13 @@ public class scrSwapHighlightManager : MonoBehaviour
     public Material Panel_two_mat;
     public Material Panel_three_mat;
     public Material Panel_four_mat;
-
+    
+    [NonSerialized]
     private List<GameObject> spawnedCorners = new List<GameObject>();
     
     private float standard_aber_alpha = (float)1.0f;
     private float highlight_aber_alpha = (float) 1.5f;
-    private float highlight_duration = (float) 5.0f;
+    private float highlight_duration = (float) 1.0f;
 
     private void Start()
     {
@@ -51,9 +54,10 @@ public class scrSwapHighlightManager : MonoBehaviour
             Debug.Log("Please assign corner prefabs for swap highlight manager");
             return;
         }
+
         // generate four corners
-        SpawnCorners(findGridCorners(panel.GetComponentInChildren<scrGridMakerTilted>()));
-        
+        SpawnCorners(findGridCorners(panel.GetComponentInChildren<scrGridMakerTilted>())); 
+
         HighlightPanel(panel);
         
         // highlight effect
@@ -82,8 +86,11 @@ public class scrSwapHighlightManager : MonoBehaviour
         }
         
         // generate four corners
-        DestroyCorners();
-        
+        if (!panel.first_clicked)
+        {
+            DestroyCorners(findGridCorners(panel.GetComponentInChildren<scrGridMakerTilted>()));
+        }
+
         DelightPanel(panel);
 
         //TaskPerformer.inst().executeIEnumerator(DelightPanel(panel));
@@ -119,7 +126,7 @@ public class scrSwapHighlightManager : MonoBehaviour
     // take in a coord[] with first index topLeft, sec topRight, third buttomLeft, etc.
     private void SpawnCorners(Vector3[] target_coords)
     {
-        DestroyCorners();
+        DestroyCorners(target_coords);
         
         spawnedCorners.Add(Instantiate(Top_left_corner, target_coords[0], Quaternion.identity));
         spawnedCorners.Add(Instantiate(Top_right_corner, target_coords[1], Quaternion.identity));
@@ -136,6 +143,47 @@ public class scrSwapHighlightManager : MonoBehaviour
         
         spawnedCorners.Clear();
     }
+
+    public IEnumerator CleanCornersAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        DestroyCorners();
+        foreach (var corner in FindObjectsByType<scrCorners>(FindObjectsSortMode.None))
+        {
+            corner.GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
+
+    private void DestroyCorners(Vector3[] gridCorners)
+    {
+        float threshold = 0.1f;
+        float thrSqr = threshold * threshold;
+
+        if (spawnedCorners == null)
+        {
+            Debug.Log("No spawned corners");
+            return;
+        }
+        // walk the spawnedCorners list backwards so we can RemoveAt safely
+        for (int i = spawnedCorners.Count - 1; i >= 0; i--)
+        {
+            var corner = spawnedCorners[i];
+            if (corner == null){continue;}
+            var pos    = corner.transform.position;
+
+            // if this corner is within threshold of any gridCorner, destroy it
+            foreach (var gc in gridCorners)
+            {
+                if ((pos - gc).sqrMagnitude <= thrSqr)
+                {
+                    Destroy(corner);
+                    spawnedCorners.RemoveAt(i);
+                    break;  // move on to the next corner in spawnedCorners
+                }
+            }
+        }
+    }
+
     #endregion
 
     #region Highlight/Delight
@@ -148,11 +196,17 @@ public class scrSwapHighlightManager : MonoBehaviour
     private void HighlightPanel(scrPanel panel)
     {
         findPanelMat(panel).DOFloat(highlight_aber_alpha, Shader.PropertyToID("_AberrationAlpha"), highlight_duration);
+        findPanelMat(panel).DOFloat(Random.Range(-1.1f, -0.5f), Shader.PropertyToID("_RedShift"), highlight_duration);
+        findPanelMat(panel).DOFloat(Random.Range(0.5f, 1.1f), Shader.PropertyToID("_GreenShift"), highlight_duration);
+        findPanelMat(panel).DOFloat(Random.Range(-1.1f, -0.5f), Shader.PropertyToID("_BlueShift"), highlight_duration);
     }
 
     private void DelightPanel(scrPanel panel)
     {
         findPanelMat(panel).DOFloat(standard_aber_alpha, Shader.PropertyToID("_AberrationAlpha"), highlight_duration);
+        findPanelMat(panel).DOFloat(0f, Shader.PropertyToID("_RedShift"), highlight_duration);
+        findPanelMat(panel).DOFloat(-0.005f, Shader.PropertyToID("_GreenShift"), highlight_duration);
+        findPanelMat(panel).DOFloat(0.01f, Shader.PropertyToID("_BlueShift"), highlight_duration);
     }
 
     /*
