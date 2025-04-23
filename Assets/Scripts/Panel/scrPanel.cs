@@ -33,6 +33,7 @@ public class scrPanel : MonoBehaviour
         // initialize collider here.
         collider = GetComponent<BoxCollider2D>();
         initializeCollider();
+        StartCoroutine(initializeChildrenMaterials());
     }
 
     private void Update()
@@ -189,16 +190,21 @@ public class scrPanel : MonoBehaviour
         collider.offset = new Vector2(collider.size.x / 2 - top_left_left_offset, - collider.size.y / 2 + top_left_up_offset);
     }
 
-    private void initializeChildrenMaterials()
+    private IEnumerator initializeChildrenMaterials()
     {
+        yield return new WaitForSeconds(0.2f);
         SpriteRenderer[] all_objects_with_sprite = GetComponentsInChildren<SpriteRenderer>(true);
         foreach (var object_with_sprite in all_objects_with_sprite)
         {
             // if the object is door...
             if (object_with_sprite.GetComponent<scrGoal>() != null)
             {
-                // set material to sprite lit.
+                // set material to sprite lit, which is the default mat.
+                continue;
             }
+            object_with_sprite.material = this.GetComponent<SpriteRenderer>().material;
         }
+        
+        // now we need to do 1. highlight when selected 2. C Abbreviate when dead.
     }
 }
