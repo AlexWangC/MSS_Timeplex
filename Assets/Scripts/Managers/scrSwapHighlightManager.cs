@@ -66,14 +66,17 @@ public class scrSwapHighlightManager : MonoBehaviour
 
     private Vector3[] findGridCorners(scrGridMakerTilted grid)
     {
-        float offset_x = 2;
-        float offset_y = 2;
+        float offset_x = 1.5f; // the offset of each horizontal block width
+        float offset_y = 1.7f; // the offset of each vertical block height
+
+        float top_left_left_offset = 0.5f;
+        float top_left_up_offset = 2.5f;
         
-        Vector3 topLeft = grid.gameObject.transform.position;
+        Vector3 topLeft = grid.gameObject.transform.position - new Vector3(top_left_left_offset, 0, 0) + new Vector3(0, top_left_up_offset, 0);
         Vector3 topRight = topLeft + new Vector3(grid.numBlocksX * grid.blockWidth * offset_x, 0, 0);
-        Vector3 bottomLeft = topLeft + new Vector3(0, grid.numBlocksY * grid.blockHeight * offset_y, 0);
-        Vector3 bottomRight = topLeft + new Vector3(grid.numBlocksX * grid.blockWidth * offset_x,
-            grid.numBlocksY * grid.blockHeight * offset_y, 0);
+        Vector3 bottomLeft = topLeft - new Vector3(0, grid.numBlocksY * grid.blockHeight * offset_y, 0);
+        Vector3 bottomRight = topLeft - new Vector3(0, grid.numBlocksY * grid.blockHeight * offset_y, 0) +
+                              new Vector3(grid.numBlocksX * grid.blockWidth * offset_x, 0, 0);
 
         return new Vector3[]{topLeft, topRight, bottomLeft, bottomRight};
     }
