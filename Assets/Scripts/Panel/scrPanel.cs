@@ -15,6 +15,9 @@ public class scrPanel : MonoBehaviour
     [HideInInspector] public Color originalColorPanel;
     public UnityEvent<scrPanel> OnMouseOverEvent;
     public UnityEvent<scrPanel> OnMouseExitEvent;
+
+    private BoxCollider2D collider;
+    
     Texture2D cursorTex;
 
 
@@ -26,6 +29,10 @@ public class scrPanel : MonoBehaviour
         Dead = false;
         originalColorPanel = this.GetComponent<SpriteRenderer>().color;
         cursorTex = (Texture2D)Resources.Load("Assets/Sprites/PlaceHolders/cursor_placeholder2.png");
+        
+        // initialize collider here.
+        collider = GetComponent<BoxCollider2D>();
+        initializeCollider();
     }
 
     private void Update()
@@ -163,5 +170,22 @@ public class scrPanel : MonoBehaviour
     private void spawnDeathParticles(Vector3 player_location) // the particle for player death
     {
         deathBleedInstance = Instantiate(deathBleed, player_location, Quaternion.identity);
+    }
+
+    private void initializeCollider()
+    {
+        int num_blocks_horizontal = LocalGridTilted.numBlocksX;
+        int num_blocks_vertical = LocalGridTilted.numBlocksY;
+        
+        float offset_x = 0.9f; // the offset of each horizontal block width
+        float offset_y = 1f; // the offset of each vertical block height
+
+        float top_left_left_offset = 0.3f;
+        float top_left_up_offset = 1.5f;
+        
+        collider.size = new Vector2(num_blocks_horizontal * LocalGridTilted.blockWidth * offset_x,
+            num_blocks_vertical * LocalGridTilted.blockHeight * offset_y);
+
+        collider.offset = new Vector2(collider.size.x / 2 - top_left_left_offset, - collider.size.y / 2 + top_left_up_offset);
     }
 }
