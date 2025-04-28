@@ -44,6 +44,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
+
             //while it is in delay, let's disable the panel sprite for highlight.
             
             StartCoroutine(movePlayerDelayed(0, Move_delay));
