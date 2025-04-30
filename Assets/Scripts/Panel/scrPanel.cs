@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
 
 public class scrPanel : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class scrPanel : MonoBehaviour
     [HideInInspector] public Color originalColorPanel;
     public UnityEvent<scrPanel> OnMouseOverEvent;
     public UnityEvent<scrPanel> OnMouseExitEvent;
+    public bool first_clicked;
+    
+    private BoxCollider2D collider;
+    
     Texture2D cursorTex;
 
 
@@ -23,9 +29,16 @@ public class scrPanel : MonoBehaviour
     
     private void Start()
     {
+        first_clicked = false;
+        
         Dead = false;
         originalColorPanel = this.GetComponent<SpriteRenderer>().color;
         cursorTex = (Texture2D)Resources.Load("Assets/Sprites/PlaceHolders/cursor_placeholder2.png");
+        
+        // initialize collider here.
+        collider = GetComponent<BoxCollider2D>();
+        initializeCollider();
+        StartCoroutine(initializeChildrenMaterials());
     }
 
     private void Update()
@@ -46,14 +59,14 @@ public class scrPanel : MonoBehaviour
         // og code that sets the panel to black.
         // GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.5f);
         //lerp it to the color opaque to full.
-        StartCoroutine(fadeToTargetOpaque(0.8f, 1f));
+        fadeToTargetOpaque();
         spawnDeathParticles(getPanelPlayerLocation());
     }
 
     // currently visual only
     public void PanelRevived()
     {
-        StartCoroutine(fadeToTargetOpaque(0.8f, 0.2f));
+        //fadeToTargetOpaque();
     }
     
     //for reviving when redoing
@@ -61,16 +74,21 @@ public class scrPanel : MonoBehaviour
     private void OnMouseExit()
     {
        // Debug.Log("Mouse exit panel " + Time_index);
-        OnMouseExitEvent?.Invoke(this);
-        // Cursor.SetColor("Assets / Sprites / PlaceHolders / cursor_placeholder2.png", Vector2.zero, CursorMode.Auto);
+       if (!FindAnyObjectByType<scrSwapManager>().swapping)
+       {
+           OnMouseExitEvent?.Invoke(this);
+       }
+       // Cursor.SetColor("Assets / Sprites / PlaceHolders / cursor_placeholder2.png", Vector2.zero, CursorMode.Auto);
         //Cursor.SetCursor(cursorTex, Vector2.zero, CursorMode.Auto);
     }
 
     private void OnMouseOver() //event
     {
-       // Debug.Log("Mouse over panel " + Time_index);
-        OnMouseOverEvent?.Invoke(this);
-        return;
+        if (!FindAnyObjectByType<scrSwapManager>().swapping)
+        {
+            // Debug.Log("Mouse over panel " + Time_index);
+            OnMouseOverEvent?.Invoke(this);
+        }
     }
 
     private void OnMouseDown()
@@ -88,12 +106,17 @@ public class scrPanel : MonoBehaviour
                         break;
                     case scrSwapManager.SwappingState.FirstClick:
                         //disable panel's panel sprite, not to be affected by swap highlight
-                        GetComponent<SpriteRenderer>().enabled = false;
-                        
+                        //GetComponent<SpriteRenderer>().enabled = false;
+                        first_clicked = true;
                         swap_manager.First_clicked_panel = this;
                         swap_manager.SetState(scrSwapManager.SwappingState.SecondClick);
                         break;
                     case scrSwapManager.SwappingState.SecondClick:
+                        
+                        foreach (scrPanel panel in FindObjectsByType<scrPanel>(FindObjectsSortMode.None))
+                        {
+                            panel.first_clicked = false;
+                        }
                         swap_manager.Second_clicked_panel = this;
                         swap_manager.SwapPanels(swap_manager.First_clicked_panel, swap_manager.Second_clicked_panel, 1);
                         swap_manager.First_clicked_panel = null;
@@ -130,8 +153,9 @@ public class scrPanel : MonoBehaviour
     }
     
     // this is the coroutine that de-fade the panel's sprite. Could replace the above fade to max. Takes so labor tho.
-    private IEnumerator fadeToTargetOpaque(float fadeDuration, float target_a)
+    private void fadeToTargetOpaque()
     {
+        /*
         SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
         if (sprite_renderer == null)
         {
@@ -151,6 +175,11 @@ public class scrPanel : MonoBehaviour
         }
 
         sprite_renderer.color = new Color(current_color.r, current_color.g, current_color.b, target_a);
+        */
+        this.GetComponent<SpriteRenderer>().material.DOFloat(Random.Range(-1.1f, -0.5f),Shader.PropertyToID("_RedShift"), 2f);
+        this.GetComponent<SpriteRenderer>().material.DOFloat(Random.Range(-1.1f, -0.5f),Shader.PropertyToID("_GreenShift"), 2f);
+        this.GetComponent<SpriteRenderer>().material.DOFloat(Random.Range(-1.1f, -0.5f),Shader.PropertyToID("_BlueShift"), 2f);
+        this.GetComponent<SpriteRenderer>().material.DOFloat(0f, Shader.PropertyToID("_AberrationAlpha"), 2f);
     }
     
     
@@ -163,5 +192,40 @@ public class scrPanel : MonoBehaviour
     private void spawnDeathParticles(Vector3 player_location) // the particle for player death
     {
         deathBleedInstance = Instantiate(deathBleed, player_location, Quaternion.identity);
+    }
+
+    private void initializeCollider()
+    {
+        int num_blocks_horizontal = LocalGridTilted.numBlocksX;
+        int num_blocks_vertical = LocalGridTilted.numBlocksY;
+        
+        float offset_x = 0.9f; // the offset of each horizontal block width
+        float offset_y = 1f; // the offset of each vertical block height
+
+        float top_left_left_offset = 0.3f;
+        float top_left_up_offset = 1.5f;
+        
+        collider.size = new Vector2(num_blocks_horizontal * LocalGridTilted.blockWidth * offset_x,
+            num_blocks_vertical * LocalGridTilted.blockHeight * offset_y);
+
+        collider.offset = new Vector2(collider.size.x / 2 - top_left_left_offset, - collider.size.y / 2 + top_left_up_offset);
+    }
+
+    private IEnumerator initializeChildrenMaterials()
+    {
+        yield return new WaitForSeconds(0.2f);
+        SpriteRenderer[] all_objects_with_sprite = GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (var object_with_sprite in all_objects_with_sprite)
+        {
+            // if the object is door...
+            if (object_with_sprite.GetComponent<scrGoal>() != null)
+            {
+                // set material to sprite lit, which is the default mat.
+                continue;
+            }
+            object_with_sprite.material = this.GetComponent<SpriteRenderer>().material;
+        }
+        
+        // now we need to do 1. highlight when selected 2. C Abbreviate when dead.
     }
 }

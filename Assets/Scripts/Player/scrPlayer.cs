@@ -66,7 +66,7 @@ public class scrPlayer : MonoBehaviour
             if (direction != Vector2.zero)
             {
                 Vector2 targetPosition = gridObject.gridPosition + direction;
-                
+
                 // here plug in richard's dialogue system or anything that checks what's ahead regardless of movement
                 /*
                 if (checkObject(toVector2Int(targetPosition), "dialogue"))
@@ -98,7 +98,7 @@ public class scrPlayer : MonoBehaviour
                     return false;
                 }
                 */
-
+                
                 // here call the coroutine of a guard that replicates player's movement
                 
                 

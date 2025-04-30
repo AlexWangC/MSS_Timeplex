@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -18,6 +19,8 @@ public class scrSwapManager : MonoBehaviour
     [HideInInspector] public scrPanel First_clicked_panel;
     [HideInInspector] public scrPanel Second_clicked_panel;
 
+    public bool swapping;
+
     private scrGridLocations grid_locations;
     private scrPanel[] all_panels;
     private GridObject[] all_grid_objects;
@@ -27,6 +30,8 @@ public class scrSwapManager : MonoBehaviour
         state = SwappingState.FirstClick;
         First_clicked_panel = null;
         Second_clicked_panel = null;
+
+        swapping = false;
 
         getPanels();
         getGridObjects();
@@ -62,10 +67,11 @@ public class scrSwapManager : MonoBehaviour
         panel1.Time_index = temp;
         
         //reenable all panel sprites, no highlight
+        /*
         foreach (scrPanel panel in all_panels)
         {
             panel.GetComponent<SpriteRenderer>().enabled = true;
-        }
+        }*/
     }
     //this is called by panels.
 
@@ -98,6 +104,7 @@ public class scrSwapManager : MonoBehaviour
     //these two go hand-in-hand, helpers
     private bool movePanel(Vector3 destination, float duration, scrPanel panel)
     {
+        swapping = true;
         StartCoroutine(smoothMove(destination, duration, panel));
         return true;
     }
@@ -109,6 +116,8 @@ public class scrSwapManager : MonoBehaviour
 
         while (elapsedTime < duration)
         {
+            //FindAnyObjectByType<scrSwapHighlightManager>().DestroyCorners();
+            
             updateAllPanelsPosition();
             updateAllGridObjectPosition();
             panel.transform.position = Vector3.Lerp(startPosition, destination, elapsedTime / duration);
@@ -116,7 +125,11 @@ public class scrSwapManager : MonoBehaviour
             yield return null; // Wait until the next frame
         }
 
+        swapping = false;
+        FindAnyObjectByType<scrSwapHighlightManager>().PanelExited(panel);
         panel.transform.position = destination; // Ensure the position is set to the exact destination
+
+        StartCoroutine(GetComponent<scrSwapHighlightManager>().CleanCornersAfter(0.2f));
     }
 
     private void updateAllPanelsPosition()
