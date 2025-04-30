@@ -76,9 +76,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea293a252c06346f4a5c06725aff1040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Move_delay: 0.1
-  First_enemy_move_delay: 0.02
-  Enemies_move_delay: 0.02
+  Move_delay: 0.5
+  First_enemy_move_delay: 0.2
+  Enemies_move_delay: 0.2
   Can_move: 0
   Players: []
 --- !u!114 &-6191491624274236859
@@ -103,3 +103,15 @@ MonoBehaviour:
   Panel_two_mat: {fileID: 2100000, guid: d18d3be82a72dc34b9bdb832b09a2e76, type: 2}
   Panel_three_mat: {fileID: 2100000, guid: 3332b1d55a55b824cb772492975a37bb, type: 2}
   Panel_four_mat: {fileID: 2100000, guid: b532385e7acb6f64683cd5fd14d5ebaa, type: 2}
+  standard_aber_alpha: 1
+  highlight_aber_alpha: 1.5
+  highlight_duration: 1
+  default_r_shift: 0
+  default_g_shift: -0.005
+  default_b_shift: 0.01
+  random_r_shift_min: 0
+  random_r_shift_max: 0
+  random_g_shift_min: -0.005
+  random_g_shift_max: -0.005
+  random_b_shift_min: 0.9
+  random_b_shift_max: 1
