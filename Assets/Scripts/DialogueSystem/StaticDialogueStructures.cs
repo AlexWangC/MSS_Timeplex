@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using Fries.Inspector;
 using Fries.Inspector.GameObjectBoxField;
-using Unity.VisualScripting;
 using UnityEngine;
+using static Fries.LinQ;
 
 namespace DialogueSystem {
 
     [Serializable]
     public class StaticDialogueData : DialogueData {
         public List<LinePair> lines;
+        private List<string> lineIds;
         private Dictionary<string, StaticLine> data;
 
         public override void init() {
             data = new();
+            lineIds = new();
             lines.ForEach(pair => {
                 string lineId = pair.key;
+                lineIds.Add(lineId);
 
                 GameObjectBox<StringSso> ssso = pair.value.value.value;
                 DialogueSystem.processCmds(ssso, name, lineId);
@@ -43,6 +46,19 @@ namespace DialogueSystem {
 
         public override string getOptionTarget(string lineId, string optionContent) {
             return data[lineId].getOptionTarget(optionContent);
+        }
+
+        public override string getLineId(int index) {
+            return lineIds[index];
+        }
+        
+        public override int getLineIndex(string lineId) {
+            int result = -1;
+            lineIds.ForEach((i, str, b) => {
+                if (str == lineId) result = i;
+                b.@break();
+            });
+            return result;
         }
     }
 

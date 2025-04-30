@@ -20,6 +20,12 @@ public class LevelSelectorController : MonoBehaviour {
 
     [Tooltip("Arc Angle Range")] [SerializeField]
     private float arcAngleRange = 60f;
+    
+    [Tooltip("Slope")] [SerializeField] [Range(0,1)]
+    private float slope = 0.5f;
+    
+    [Tooltip("Height Offset")] [SerializeField]
+    private float heightOffset = 0f;
 
     [Header("Size Configuration")] 
     [Tooltip("Center Widget Scale")] [SerializeField]
@@ -35,7 +41,16 @@ public class LevelSelectorController : MonoBehaviour {
 
     [Tooltip("Grey Decay Rate")] [SerializeField] [Range(0, 1)]
     private float greyDecayRate = 0.85f;
+    
+    [Tooltip("Edge Alpha Level")] [SerializeField] [Range(0, 1)]
+    private float edgeAlphaLevel = 0.8f;
 
+    [Tooltip("Alpha Decay Rate")] [SerializeField] [Range(0, 1)]
+    private float alphaDecayRate = 0.85f;
+
+    [Tooltip("Alpha Shift")] [SerializeField]
+    private float alphaShift = 0.85f;
+    
     [Header("Animation Configuration")] [Tooltip("Scroll Animation Duration")] [SerializeField]
     private float scrollAnimDuration = 0.3f;
 
@@ -118,7 +133,7 @@ public class LevelSelectorController : MonoBehaviour {
             levelWidgets.Add(widget);
         }
     }
-
+    
     /// <summary>
     /// 按圆弧排列关卡按钮
     /// </summary>
@@ -156,7 +171,7 @@ public class LevelSelectorController : MonoBehaviour {
 
             // 计算位置
             float x = Mathf.Sin(angle) * radius;
-            float y = (1 - Mathf.Cos(angle)) * radius * 0.5f; // 使用半高以使圆弧更平缓
+            float y = (1 - Mathf.Cos(angle)) * radius * slope + heightOffset; // 使用半高以使圆弧更平缓
 
             // 设置位置
             widget.transform.localPosition = new Vector3(x, y, 0);
@@ -164,24 +179,32 @@ public class LevelSelectorController : MonoBehaviour {
             // 计算缩放
             float scale;
             float greyLevel;
+            float alphaLevel;
             if (distanceFromCenter <= 0.01f) // 中心按钮
             {
                 scale = centerScale;
                 greyLevel = 0f;
+                alphaLevel = 1f;
             }
             else // 边缘按钮
             {
                 // 使用指数衰减计算缩放
-                scale = Mathf.Lerp(centerScale, edgeScale,
-                    1 - Mathf.Pow(scaleDecayRate, distanceFromCenter));
-                greyLevel = Mathf.Lerp(0, edgeGreyLevel,
-                    1 - Mathf.Pow(greyDecayRate, distanceFromCenter));
+                scale = Mathf.Lerp(centerScale, edgeScale, 1 - Mathf.Pow(scaleDecayRate, distanceFromCenter));
+                greyLevel = Mathf.Lerp(0, edgeGreyLevel, 1 - Mathf.Pow(greyDecayRate, distanceFromCenter));
+                alphaLevel = Mathf.Lerp(0, edgeAlphaLevel, 1 - Mathf.Pow(alphaDecayRate, (distanceFromCenter + alphaShift)));
+                alphaLevel = 1 - alphaLevel;
             }
 
             // 设置缩放
             widget.transform.localScale = new Vector3(scale, scale, scale);
             var color = widget.grayMask.color;
-            widget.grayMask.color = new Color(color.r, color.g, color.b, greyLevel);
+            widget.grayMask.color = new Color(color.r, color.g, color.b, greyLevel * alphaLevel);
+            color = widget.mainImage.color;
+            widget.mainImage.color = new Color(color.r, color.g, color.b, alphaLevel);
+            color = widget.thumbnail.color;
+            widget.thumbnail.color = new Color(color.r, color.g, color.b, alphaLevel);
+            color = widget.text.color;
+            widget.text.color = new Color(color.r, color.g, color.b, alphaLevel);
 
             // 设置高亮状态
             bool isHighlighted = (i == centerIndex);

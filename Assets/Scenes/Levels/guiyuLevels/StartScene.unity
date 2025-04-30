@@ -1124,13 +1124,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelWidgetPrefab: {fileID: 7679964622693268184, guid: cc807468ab6b86c4f93bd54b72de2fbb, type: 3}
   levelCount: 30
-  radius: 1462.3
-  arcAngleRange: 33
+  radius: 808.5
+  arcAngleRange: 875
+  slope: 0.2
+  heightOffset: 0
   centerScale: 0.82
   edgeScale: 0.1
   scaleDecayRate: 0.9
   edgeGreyLevel: 1
   greyDecayRate: 0.66
+  edgeAlphaLevel: 1
+  alphaDecayRate: 0.16
+  alphaShift: -2.25
   scrollAnimDuration: 0.3
   scrollEase: 6
   scrollSensitivity: 0.1

@@ -2,18 +2,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
+using TMPro;
 
 /// <summary>
 /// 单个关卡选择按钮的组件
 /// </summary>
 public class LevelWidget : MonoBehaviour {
-    [Header("组件引用")] [Tooltip("灰色遮罩图层，用于非高亮状态")] [SerializeField]
+    
+    [SerializeField]
     public Image grayMask;
+    public Image mainImage;
+    public Image thumbnail;
+    public TMP_Text text;
 
-    [Header("配置")] [Tooltip("点击时的缩放动画大小")] [SerializeField]
+    [SerializeField]
     private float clickScaleSize = 0.9f;
 
-    [Tooltip("点击时的缩放动画时长")] [SerializeField]
+    [SerializeField]
     private float clickScaleDuration = 0.1f;
 
     // 当前是否为高亮状态

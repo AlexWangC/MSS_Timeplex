@@ -76,6 +76,15 @@ namespace DialogueSystem {
         public virtual string getOptionTarget(string lineId, string optionContent) {
             return null;
         }
+
+        public virtual string getLineId(int index) {
+            return null;
+        }
+        
+        public virtual int getLineIndex(string lineId) {
+            return -1;
+        }
+
     }
 
     public class DialogueDataInfo {

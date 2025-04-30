@@ -13,12 +13,16 @@ namespace DialogueSystem {
     public class ComplexStaticDialogueData : DialogueData {
         [FieldAnchor]
         public List<LinePairOut> lines;
+
+        private List<string> lineIds;
         private Dictionary<string, ComplexStaticLine> data;
 
         public override void init() {
             data = new();
+            lineIds = new();
             lines.ForEach(pair => {
                 string lineId = pair.key;
+                lineIds.Add(lineId);
                 GameObjectBoxes<StringSso> lineContentRaw = pair.value.key;
                 GameObjectBoxes<StringSso> lineOptionsRaw = pair.value.value.key;
                 
@@ -63,6 +67,20 @@ namespace DialogueSystem {
 
         public override string getOptionTarget(string lineId, string optionContent) {
             return data[lineId].getOptionTarget(optionContent);
+        }
+        
+        public override string getLineId(int index) {
+            return lineIds[index];
+        }
+        
+        
+        public override int getLineIndex(string lineId) {
+            int result = -1;
+            lineIds.ForEach((i, str, b) => {
+                if (str == lineId) result = i;
+                b.@break();
+            });
+            return result;
         }
     }
 

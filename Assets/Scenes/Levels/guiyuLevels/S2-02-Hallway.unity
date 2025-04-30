@@ -1186,6 +1186,10 @@ PrefabInstance:
       propertyPath: startLineId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6662064787275799154, guid: 678b3aecb76394caea0ed312064b8e38, type: 3}
+      propertyPath: isInteractive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6802007081181996969, guid: 678b3aecb76394caea0ed312064b8e38, type: 3}
       propertyPath: m_SortingLayer
       value: 6
@@ -1294,6 +1298,50 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 678b3aecb76394caea0ed312064b8e38, type: 3}
+--- !u!1 &328523380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328523382}
+  - component: {fileID: 328523381}
+  m_Layer: 0
+  m_Name: Task Performer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &328523381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328523380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2abb45fca4e4a14aa9db4f1c691c300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &328523382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328523380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.2119627, y: 5.304191, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &336395248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5783109942938112847, guid: 482d7d3eba5d8f7498567abdaef30929, type: 3}
@@ -2011,6 +2059,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5783109942938112847, guid: 965a0d17e8d2b644c93c1581fe9ca15a, type: 3}
   m_PrefabInstance: {fileID: 1344621652}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &669049532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 669049533}
+  - component: {fileID: 669049534}
+  m_Layer: 6
+  m_Name: Raycast Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &669049533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669049532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1463011742}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &669049534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669049532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c46d5ba6eec4fa6a73c0d04894d0152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dimension: 3
+  objects: []
+  raycastInterval: 0.1
 --- !u!1 &698884474
 GameObject:
   m_ObjectHideFlags: 0
@@ -6119,6 +6214,7 @@ Transform:
   m_Children:
   - {fileID: 191823525}
   - {fileID: 1817281419}
+  - {fileID: 669049533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1491927893
@@ -9551,6 +9647,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1463011742}
+  - {fileID: 328523382}
   - {fileID: 4818874262065716809}
   - {fileID: 8661788752491048488}
   - {fileID: 9023910512421681265}
