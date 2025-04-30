@@ -36,6 +36,12 @@ public class LevelWidget : MonoBehaviour {
         }
     }
 
+    public void init(string levelName) {
+        Sprite sp = Resources.Load<Sprite>($"LevelThumbnails/{levelName}");
+        thumbnail.sprite = sp;
+        text.text = levelName;
+    }
+    
     /// <summary>
     /// 播放点击动画
     /// </summary>
