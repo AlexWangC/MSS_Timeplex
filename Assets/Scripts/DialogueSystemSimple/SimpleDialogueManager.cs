@@ -44,14 +44,15 @@ public class SimpleDialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Could not find dialogue data for scene: {SceneManager.GetActiveScene().name}");
-            Destroy(this);
         }
         currentDialogueIndex = 0;
     }
 
     public void StartDialogue(GameObject panelObject, scrPlayer player)
     {
+
+        if (dialogueData == null) return;
+        if (dialogueDatas.Length == 0) return;
         if (isDialogueActive) return;
         foreach (DialogueDataList.DialogueData data in dialogueDatas)
         {

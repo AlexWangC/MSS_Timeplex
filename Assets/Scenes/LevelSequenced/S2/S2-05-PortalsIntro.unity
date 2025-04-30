@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -3480,6 +3481,30 @@ PrefabInstance:
     - target: {fileID: 7526969038997532854, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
       propertyPath: m_Name
       value: ===MANAGERS=== (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952123547672471238, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
+      propertyPath: random_b_shift_max
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952123547672471238, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
+      propertyPath: random_b_shift_min
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952123547672471238, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
+      propertyPath: random_g_shift_max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952123547672471238, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
+      propertyPath: random_g_shift_min
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952123547672471238, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
+      propertyPath: random_r_shift_max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8952123547672471238, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
+      propertyPath: random_r_shift_min
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
