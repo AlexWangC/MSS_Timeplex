@@ -74,25 +74,7 @@ public class GridObject : MonoBehaviour
             Debug.Log("got a null parent grid", gameObject);
         }
 
-        //if the object is close enough to the grid position, set the position to the grid position 
-        //and if the object is wall or tile, set the position to the grid position  
-        if (Vector3.Distance(this.transform.position, parentGrid.GetWorldPositionFromGrid(gridPosition)) < 0.01f ||
-        this.gameObject.tag == "wall" || this.gameObject.tag == "tiles")
-        {
-            this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
-        }
-        //if it's actual position is not the same as the grid position, update the position
-        if (this.transform.position != parentGrid.GetWorldPositionFromGrid(gridPosition)) 
-        {
-            //move the object transform to the grid position smoothly
-            //use a sqeeze and stretch effect to make the object move smoothly
-            StartCoroutine(LerpMoveWithAnimation(
-                this.transform.position,      // The original world position
-                parentGrid.GetWorldPositionFromGrid(gridPosition),     // The target world position
-                5f * Time.deltaTime            // Duration of the lerp
-            ));
-            //this.transform.position = Vector3.Lerp(this.transform.position, parentGrid.GetWorldPositionFromGrid(gridPosition), 5f * Time.deltaTime);
-        }
+        this.transform.position = parentGrid.GetWorldPositionFromGrid(gridPosition);
         
         temporalProjectionFixUpdate();
         
