@@ -182,9 +182,9 @@ public class scrMoveInheritanceManager : MonoBehaviour
                 {
                     invokeOnPlayerMove(Players[current_player], Players[current_player].getComponent<GridObject>());
                 }
-                highlightPanelBeforeMoving(Players[current_player]);
+                //highlightPanelBeforeMoving(Players[current_player]);
                 yield return new WaitForSeconds(delay);
-                delightPanelAfterMoving(Players[current_player]);
+                //delightPanelAfterMoving(Players[current_player]);
                 current_player++;
             }
         }
