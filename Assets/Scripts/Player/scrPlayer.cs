@@ -379,6 +379,7 @@ public class scrPlayer : MonoBehaviour
 
                     gridObject.gridPosition = targetPosition; // Update the grid position
                     direction = Vector2.zero;
+                    FindAnyObjectByType<SimpleDialogueManager>().StartDialogue(GetComponentInParent<scrPanel>().gameObject, this);
                     
                     //stepShake();
                     
