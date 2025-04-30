@@ -12,6 +12,9 @@ public class scrCameraZoom : MonoBehaviour
     public float targetOrthoSize = 5f;
     public float ZoomDuration = 1f;
 
+    public float OverallOffsetLeft = 2.0f;
+    public float OverallOffsetUp = 0f;
+    
     private float initOrthoSize;
     private Vector3 zoomTargetCoord;
     private Vector3 cameraOriginalCoord;
@@ -20,8 +23,9 @@ public class scrCameraZoom : MonoBehaviour
     void Start()
     {
         mainCamera = GetComponent<Camera>();
+        cameraOriginalCoord = mainCamera.transform.position;
         initOrthoSize = mainCamera.orthographicSize;
-
+        targetOrthoSize = initOrthoSize;
         CalculateTargetCoord();
     }
     
@@ -68,6 +72,17 @@ public class scrCameraZoom : MonoBehaviour
             return zoomTargetCoord;
         }
 
+
+        if (panel_count > 2)
+        {
+            zoomTargetCoord.x = (cameraOriginalCoord - new Vector3(OverallOffsetLeft, 0, 0)).x;
+            zoomTargetCoord.y = (cameraOriginalCoord + new Vector3(0, OverallOffsetUp, 0)).y;
+            zoomTargetCoord.z = panels[0].transform.position.z;
+            StartCoroutine(ZoomToTarget());
+            return zoomTargetCoord;
+        }
+        
+        
         else
         {
             return new Vector3(-1, -1, -1);
