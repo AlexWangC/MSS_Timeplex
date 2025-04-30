@@ -4,12 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Fries;
+using Fries.Data;
 using UnityEngine.Rendering;
 
 /// <summary>
 /// 滚动式关卡选择界面控制器
 /// </summary>
 public class LevelSelectorController : MonoBehaviour {
+    public static StringList<string> levels;
+    public static void addLevel(string levelName) {
+        levels.Add(levelName);
+        PlayerPrefs.SetString("LevelSelectorController.Levels", levels.export());
+    }
+    
     [Header("Level Configuration")] [Tooltip("Level Button Prefab")] [SerializeField]
     private GameObject levelWidgetPrefab;
 
@@ -80,6 +87,11 @@ public class LevelSelectorController : MonoBehaviour {
 
         // 初始布局
         ArrangeLevelWidgets(0);
+
+        levels = new StringList<string>(
+            PlayerPrefs.GetString("LevelSelectorController.Levels"),
+            s => s, s => s
+        );
     }
 
     private void Update() {
@@ -115,21 +127,17 @@ public class LevelSelectorController : MonoBehaviour {
         levelWidgets.Clear();
 
         // 创建新按钮
-        for (int i = 0; i < levelCount; i++) {
+        for (int i = 0; i < levels.Count; i++) {
+            string levelName = levels[i];
             GameObject widgetObj = Instantiate(levelWidgetPrefab, widgetsContainer);
             LevelWidget widget = widgetObj.GetComponent<LevelWidget>();
+            widget.init(levelName);
 
             if (widget == null) {
                 widget = widgetObj.AddComponent<LevelWidget>();
             }
 
-            // 设置按钮名称
-            widgetObj.name = $"LevelWidget_{i + 1}";
-
-            // 添加点击事件
-            int index = i; // 捕获当前索引
-
-            // 添加到列表
+            widgetObj.name = levelName;
             levelWidgets.Add(widget);
         }
     }
