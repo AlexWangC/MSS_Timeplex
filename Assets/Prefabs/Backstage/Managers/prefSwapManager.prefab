@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8251684388941194332}
   - component: {fileID: 2795804206989754334}
   - component: {fileID: 1863772177875147751}
-  - component: {fileID: -3807230282087698135}
   - component: {fileID: -6191491624274236859}
   m_Layer: 0
   m_Name: prefSwapManager
@@ -64,6 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   First_clicked_panel: {fileID: 0}
   Second_clicked_panel: {fileID: 0}
+  swapping: 0
 --- !u!114 &1863772177875147751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,18 +81,6 @@ MonoBehaviour:
   Enemies_move_delay: 0.02
   Can_move: 0
   Players: []
---- !u!114 &-3807230282087698135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2561017082467148811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a75249f24404db0b902b2b9872d3c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-6191491624274236859
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4220,6 +4220,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 562547738}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &745898862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2091134771206028714, guid: 105e5229f8c9844909784728daf4d8d1, type: 3}
+  m_PrefabInstance: {fileID: 1610076156}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a75249f24404db0b902b2b9872d3c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &749823875
 GameObject:
   m_ObjectHideFlags: 0
@@ -13271,6 +13282,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4389119406500117541, guid: b896a4beaaf9c4208809af0a28b01d73, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 745898862}
     - target: {fileID: 5417432747964941457, guid: b896a4beaaf9c4208809af0a28b01d73, type: 3}
       propertyPath: m_Name
       value: Canvas

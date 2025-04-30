@@ -28,9 +28,19 @@ public class scrSwapHighlightManager : MonoBehaviour
     [NonSerialized]
     private List<GameObject> spawnedCorners = new List<GameObject>();
     
-    private float standard_aber_alpha = (float)1.0f;
-    private float highlight_aber_alpha = (float) 1.5f;
-    private float highlight_duration = (float) 1.0f;
+    public float standard_aber_alpha = (float)1.0f; // 
+    public float highlight_aber_alpha = (float) 1.5f;
+    public float highlight_duration = (float) 1.0f;
+
+    public float default_r_shift = 0f;
+    public float default_g_shift = -0.05f;
+    public float default_b_shift = 0.01f;
+    public float random_r_shift_min = -1.1f;
+    public float random_r_shift_max = -0.5f;
+    public float random_g_shift_min = 0.5f;
+    public float random_g_shift_max = 1.1f;
+    public float random_b_shift_min = -1.1f;
+    public float random_b_shift_max = -0.5f;
 
     private void Start()
     {
@@ -196,17 +206,17 @@ public class scrSwapHighlightManager : MonoBehaviour
     private void HighlightPanel(scrPanel panel)
     {
         findPanelMat(panel).DOFloat(highlight_aber_alpha, Shader.PropertyToID("_AberrationAlpha"), highlight_duration);
-        findPanelMat(panel).DOFloat(Random.Range(-1.1f, -0.5f), Shader.PropertyToID("_RedShift"), highlight_duration);
-        findPanelMat(panel).DOFloat(Random.Range(0.5f, 1.1f), Shader.PropertyToID("_GreenShift"), highlight_duration);
-        findPanelMat(panel).DOFloat(Random.Range(-1.1f, -0.5f), Shader.PropertyToID("_BlueShift"), highlight_duration);
+        findPanelMat(panel).DOFloat(Random.Range(random_r_shift_min, random_r_shift_max), Shader.PropertyToID("_RedShift"), highlight_duration); // change the values inside range here. default -1.1 -0.5
+        findPanelMat(panel).DOFloat(Random.Range(random_g_shift_min, random_g_shift_max), Shader.PropertyToID("_GreenShift"), highlight_duration); // change the values inside range here. default 0.5, 1.1
+        findPanelMat(panel).DOFloat(Random.Range(random_b_shift_min, random_b_shift_max), Shader.PropertyToID("_BlueShift"), highlight_duration); // change the values inside range here. default -1.1 -0.5
     }
 
     private void DelightPanel(scrPanel panel)
     {
         findPanelMat(panel).DOFloat(standard_aber_alpha, Shader.PropertyToID("_AberrationAlpha"), highlight_duration);
-        findPanelMat(panel).DOFloat(0f, Shader.PropertyToID("_RedShift"), highlight_duration);
-        findPanelMat(panel).DOFloat(-0.005f, Shader.PropertyToID("_GreenShift"), highlight_duration);
-        findPanelMat(panel).DOFloat(0.01f, Shader.PropertyToID("_BlueShift"), highlight_duration);
+        findPanelMat(panel).DOFloat(default_r_shift, Shader.PropertyToID("_RedShift"), highlight_duration); // change the value here.
+        findPanelMat(panel).DOFloat(default_g_shift, Shader.PropertyToID("_GreenShift"), highlight_duration); // change the value here.
+        findPanelMat(panel).DOFloat(default_b_shift, Shader.PropertyToID("_BlueShift"), highlight_duration); // change the value here.
     }
 
     /*
