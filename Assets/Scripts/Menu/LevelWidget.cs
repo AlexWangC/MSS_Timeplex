@@ -44,7 +44,8 @@ public class LevelWidget : MonoBehaviour {
         Sprite sp = Resources.Load<Sprite>($"LevelThumbnails/{levelName}");
         this.screenEffect = screenEffect;
         thumbnail.sprite = sp;
-        text.text = levelName;
+        var v = levelName.Split("\u00a6")[^1].Split(".unity")[0];
+        text.text = v;
         sceneName = levelName;
     }
     

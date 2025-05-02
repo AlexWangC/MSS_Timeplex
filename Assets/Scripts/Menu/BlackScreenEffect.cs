@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Fries.TaskPerformer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,7 +13,8 @@ namespace Menu {
         public bool hasStarted = false;
         private void Start() {
             originalSceneName = SceneManager.GetActiveScene().name;
-            DontDestroyOnLoad(gameObject);
+            gameObject.transform.parent.gameObject.transform.parent = null;
+            DontDestroyOnLoad(gameObject.transform.parent.gameObject);
         }
 
         public void turnBlack(string sceneName) {
@@ -20,6 +22,7 @@ namespace Menu {
             color.a = 1;
             blackSprite.DOColor(color, duration).OnComplete(() => {
                 hasStarted = true;
+                sceneName = sceneName.Replace("\u00a6", "/");
                 SceneManager.LoadScene(sceneName);
             });
         }
@@ -34,8 +37,10 @@ namespace Menu {
 
         private void Update() {
             if (!hasStarted) return;
-            if (SceneManager.GetActiveScene().name != originalSceneName)
-                turnTransparent();
+            TaskPerformer.inst().scheduleTask((Action)(() => {
+                if (SceneManager.GetActiveScene().name != originalSceneName)
+                    turnTransparent();
+            }), 1);
         }
     }
 }

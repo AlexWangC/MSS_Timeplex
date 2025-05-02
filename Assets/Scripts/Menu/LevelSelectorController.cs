@@ -85,16 +85,15 @@ public class LevelSelectorController : MonoBehaviour {
             widgetsContainer = GetComponent<RectTransform>();
         }
 
+        levels = new StringList<string>(
+            PlayerPrefs.GetString("LevelSelectorController.Levels"),
+            s => s, s => s
+        );
         // 初始化关卡按钮
         InitializeLevelWidgets();
 
         // 初始布局
         ArrangeLevelWidgets(0);
-
-        levels = new StringList<string>(
-            PlayerPrefs.GetString("LevelSelectorController.Levels"),
-            s => s, s => s
-        );
     }
 
     private void Update() {
