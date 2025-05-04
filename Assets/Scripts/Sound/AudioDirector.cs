@@ -5,19 +5,11 @@ using UnityEngine.Audio;
 
 public class AudioDirector : MonoBehaviour
 {
-    [Header("You Should Not Need to Edit These")]
-    //we make this a "singleton" because we know that there is only one of it
-    //this is an often-overused programming pattern, but it can work ok for sound
     public static AudioDirector Instance;
 
-    //an audio mixer snapshot contains volume levels and effect parameters
-    //we can transition to a snapshot, which changes the levels over time
-    //right now we have 2 snapshots - for the gameplay, and for gameOver
     public AudioMixerSnapshot gameplaySnapshot, gameOverSnapshot;
-
     //you can have as many mixer groups as you want, but keep in mind that you need to assign audio sources to them
     public AudioMixerGroup actionSFX, gameStateSFX;
-
     //there are many ways to manage sound objects.  
     //this particular one incurs a small performance overhead, because we are instantiating and destroying a prefab
     //if I were to make this more efficient, I might start by making an object pool equal to the number of "real" voices
@@ -26,18 +18,16 @@ public class AudioDirector : MonoBehaviour
 
     //We have 2 looping sources at the moment, which we keep as children of this game object
     public AudioSource musicSource;
-    public AudioSource dangerSource;
+    public AudioSource openSource;
 
-
-    [Header("Start Editing Stuff Here")]
-    [Tooltip("Adjust this for panning intensity (0 is 'centered', 1 is 'full panning')")]
-    [Range(0f, 1f)] public float PanningSpread = 0.5f;
+    public float PanningSpread = 0.5f;
 
     [Tooltip("Uncheck this if you don't want any sounds to have pitch randomization")]
     public bool pitchRandEnabled = true;
 
 
-    [Header("Game Sound Effects")] public AudioClip gameStartSound;
+    [Header("Game Sound Effects")] 
+    public AudioClip gameStartSound;
     [Range(0f, 1f)] public float gameStartVolume = 1.0f;
     [Space(10)]
     [Tooltip("for scoring sounds, we have an array, and will pick a sound at random when we score")]
