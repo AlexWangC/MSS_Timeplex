@@ -143,9 +143,13 @@ public class scrGridMakerTilted : MonoBehaviour
 
     private void ClearGrid()
     {
-        while (this.transform.childCount > 0)
+        while (this.transform.childCount > 1)
         {
-            GameObject.DestroyImmediate(this.transform.GetChild(0).gameObject);
+            //if (this.transform.GetChild(0).name != "partBlocked")
+            //{
+                GameObject.DestroyImmediate(this.transform.GetChild(1).gameObject);
+
+            //}
         }
     }
 }

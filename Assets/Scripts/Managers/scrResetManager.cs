@@ -8,16 +8,23 @@ public class scrResetManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            // Get the current scene's index
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            Reset();
+        }
 
-            // Reload the current scene
-            SceneManager.LoadScene(currentSceneIndex); 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NextScene();
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            PreviousScene();
         }
     }
 
     public void UpdateResetStatus() // call this from the outside
     {
+        /*
         if (checkIfAllDead())
         {
             // Get the current scene's index
@@ -26,6 +33,28 @@ public class scrResetManager : MonoBehaviour
             // Reload the current scene
             SceneManager.LoadScene(currentSceneIndex);
         }
+        */
+    }
+
+    public void Reset()
+    {
+        // Get the current scene's index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Reload the current scene
+        SceneManager.LoadScene(currentSceneIndex); 
+    }
+
+    public void NextScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    public void PreviousScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex - 1);
     }
     
     private bool checkIfAllDead()

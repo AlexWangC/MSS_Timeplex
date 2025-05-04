@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Fries;
+using Fries.TaskPerformer;
 using UnityEngine;
 
 namespace DialogueSystem {
-    [RequireComponent(typeof(GridObject))]
     public class DialogueDisplayer : MonoBehaviour {
+        public static KeyCode nextLineKey = KeyCode.Return;
         private static Dictionary<string, DialogueDisplayer> dialogueDisplayers = new();
 
         public static DialogueDisplayer getDialogueDisplayer(string id) {
@@ -16,6 +17,7 @@ namespace DialogueSystem {
         public string dialogueId;
         public string startLineId;
 
+        public bool isOpened = false;
         public bool isInteractive = true;
         public bool drawGizmos = true;
         
@@ -23,9 +25,7 @@ namespace DialogueSystem {
         private SpriteRenderer sr;
         private DialogueDataInfo ddi;
         private GridObject gridObject;
-
-        private string currentLineId;
-
+        
         private void Start() {
             if (id.Trim() == "") {
                 Debug.LogWarning("Dialogues with empty id will not be able to use Dialogue System Events and ");
@@ -35,23 +35,44 @@ namespace DialogueSystem {
             }
             sr = GetComponent<SpriteRenderer>();
             csd = GetComponent<CharSequenceDisplayer>();
-            gridObject = GetComponent<GridObject>();
+            gridObject = GetComponentInChildren<GridObject>();
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) 
                 ddi = DialogueSystem.dialogueData[dialogueId];
+            
+            scrMoveInheritanceManager.onPlayerMove += onPlMove;
         }
 
+        private string currentLineId = null;
         private void Update() {
-            if (!Input.GetKeyDown(DialogueSystem.interactKey)) return;
+            if (isCatchingInput && ddi != null) {
+                if (Input.GetKeyDown(nextLineKey)) {
+                    string id = ddi.data.getLineId(ddi.data.getLineIndex(currentLineId) + 1);
+                    TaskPerformer.inst().scheduleTask((Action)(() => {
+                        Select(null, id);
+                    }));
+                }
+            }
             
-            scrPlayer[] players = FindObjectsByType<scrPlayer>(FindObjectsSortMode.InstanceID);
-            foreach (var pl in players) {
-                if (getTimeIndex(pl.transform) != getTimeIndex()) continue;
-                GridObject go = pl.getComponent<GridObject>();
-                if (go.gridPosition != gridObject.gridPosition) continue;
-                Open(startLineId);
+            if (isInteractive) {
+                if (!Input.GetKeyDown(DialogueSystem.interactKey)) return;
+                
+                scrPlayer[] players = FindObjectsByType<scrPlayer>(FindObjectsSortMode.InstanceID);
+                foreach (var pl in players) {
+                    if (getTimeIndex(pl.transform) != getTimeIndex()) continue;
+                    GridObject go = pl.getComponent<GridObject>();
+                    if (go.gridPosition != gridObject.gridPosition) continue;
+                    Open(startLineId);
+                }
             }
         }
 
+        private void onPlMove(scrPlayer pl, GridObject entered) {
+            if (isInteractive) return;
+            if (getTimeIndex(pl.transform) != getTimeIndex()) return;
+            if (entered.gridPosition != gridObject.gridPosition) return;
+            Open(startLineId);
+        }
+        
         public void SetDialogueId(string dialogueId) {
             this.dialogueId = dialogueId;
             if (DialogueSystem.dialogueData.ContainsKey(dialogueId)) {
@@ -63,9 +84,15 @@ namespace DialogueSystem {
             Destroy(this);
         }
 
+        private bool isCatchingInput = false;
+        
         public void Open(string lineId = null) {
             if (lineId != null && lineId.Trim() == "") lineId = null;
             
+            if (isOpened) return;
+            isOpened = true;
+            isCatchingInput = false;
+
             sr.enabled = true;
             
             if (lineId == null) {
@@ -82,10 +109,13 @@ namespace DialogueSystem {
             string fullLineId = $"{dialogueId}.{lineId}";
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
                 options = DialogueSystem.filterOptionFuncs[fullLineId](options);
-            csd.listOptions(this, lineId, options);
+            
+            if (options.Nullable().Count == 0) isCatchingInput = true;
+            else csd.listOptions(this, lineId, options);
         }
 
         public void Close() {
+            isOpened = false;
             csd.clear();
             sr.enabled = false;
         }
@@ -106,6 +136,8 @@ namespace DialogueSystem {
             }
             
             if (optionTarget.Trim() == "") return;
+            
+            isCatchingInput = false;
             if (optionTarget.StartsWith("//")) {
                 string funcId = optionTarget.Replace("//", "");
                 if (!DialogueSystem.getOptionTargetFuncs.ContainsKey(funcId)) {
@@ -115,7 +147,8 @@ namespace DialogueSystem {
                 optionTarget = DialogueSystem.getOptionTargetFuncs[funcId]();
             }
             
-            DialogueSystem.onOptionClicked?.Invoke(dialogueId, id, optionContent, currentLineId, optionTarget);
+            if (optionContent != null)
+                DialogueSystem.onOptionClicked?.Invoke(dialogueId, id, optionContent, currentLineId, optionTarget);
             csd.display(ddi.data.getLine(optionTarget));
             DialogueSystem.onLineChanged?.Invoke(dialogueId, id, currentLineId, optionTarget);
             currentLineId = optionTarget;
@@ -124,7 +157,9 @@ namespace DialogueSystem {
             string fullLineId = $"{dialogueId}.{optionTarget}";
             if (DialogueSystem.filterOptionFuncs.ContainsKey(fullLineId))
                 options = DialogueSystem.filterOptionFuncs[fullLineId](options);
-            csd?.listOptions(this, optionTarget, options);
+            
+            if (options.Nullable().Count == 0) isCatchingInput = true;
+            else csd?.listOptions(this, optionTarget, options);
         }
 
         private void OnDrawGizmos() {

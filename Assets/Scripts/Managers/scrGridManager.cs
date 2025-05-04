@@ -98,7 +98,7 @@ public class scrGridManager : MonoBehaviour
         }
 
         //debugging
-        /*
+        
         Debug.Log("GridObjects at position " + position.x + ", " + position.y);
         foreach (GridObject obj in obj_list.ToArray())
         {
@@ -109,7 +109,7 @@ public class scrGridManager : MonoBehaviour
         {
             Debug.Log("No grid object at position");
         }
-        */
+        
         //debugging
         
         return obj_list.ToArray();

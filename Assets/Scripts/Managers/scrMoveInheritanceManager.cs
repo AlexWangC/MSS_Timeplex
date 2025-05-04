@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Fries;
 using UnityEngine;
 
 // this script handles the movement & movement inheritance of all players
@@ -43,10 +44,12 @@ public class scrMoveInheritanceManager : MonoBehaviour
             ObtainPlayers();
             Players = sortPlayerByPanelTimeIndex(Players);
             
+
             //while it is in delay, let's disable the panel sprite for highlight.
             
             StartCoroutine(movePlayerDelayed(0, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
+
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -57,7 +60,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(1, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
@@ -68,7 +71,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(2, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
@@ -79,7 +82,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             Players = sortPlayerByPanelTimeIndex(Players);
             
             StartCoroutine(movePlayerDelayed(3, Move_delay));
-            
+            StartCoroutine(updateAutoOpaqueItems());
         }
 
         
@@ -174,11 +177,14 @@ public class scrMoveInheritanceManager : MonoBehaviour
         while (current_player < Players.Length)
         {
             if (Players[current_player] != null)
-            { 
-                Players[current_player].Move(direction);
-                highlightPanelBeforeMoving(Players[current_player]);
+            {
+                if (Players[current_player].Move(direction))
+                {
+                    invokeOnPlayerMove(Players[current_player], Players[current_player].getComponent<GridObject>());
+                }
+                //highlightPanelBeforeMoving(Players[current_player]);
                 yield return new WaitForSeconds(delay);
-                delightPanelAfterMoving(Players[current_player]);
+                //delightPanelAfterMoving(Players[current_player]);
                 current_player++;
             }
         }
@@ -187,6 +193,19 @@ public class scrMoveInheritanceManager : MonoBehaviour
         Can_move = true;
     }
 
+    public static Action<scrPlayer, GridObject> onPlayerMove;
+
+    public static void invokeOnPlayerMove(scrPlayer pl, GridObject go) {
+        try
+        {
+            onPlayerMove?.Invoke(pl, go);
+        }
+        catch (Exception e) 
+        {
+            Debug.LogError($"Catch error in On Player Move callback! {e}");
+        }
+    }
+    
     private void highlightPanelBeforeMoving(scrPlayer player)
     {
         if (player != null && player.GetComponentInParent<scrPanel>().Dead == false )
@@ -206,5 +225,18 @@ public class scrMoveInheritanceManager : MonoBehaviour
     private void UpdateUndoManager()
     {
         FindAnyObjectByType<scrUndoManager>().UpdateMovementDriver();
+    }
+
+    private IEnumerator updateAutoOpaqueItems()
+    {
+        float delay = Move_delay * 4 + 0.1f;
+
+        yield return new WaitForSeconds(delay);
+        
+        scrGridObjectAutoOpaque[] objects_with_autoopaque = FindObjectsByType<scrGridObjectAutoOpaque>(FindObjectsSortMode.None);
+        foreach (scrGridObjectAutoOpaque obj in objects_with_autoopaque)
+        {
+            obj.CheckWhatsAtBack();
+        }
     }
 }

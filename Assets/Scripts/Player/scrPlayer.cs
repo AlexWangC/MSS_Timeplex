@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using System.Net.NetworkInformation;
 using DG.Tweening;
 using DialogueSystem;
 using Fries;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -68,7 +66,7 @@ public class scrPlayer : MonoBehaviour
             if (direction != Vector2.zero)
             {
                 Vector2 targetPosition = gridObject.gridPosition + direction;
-                
+
                 // here plug in richard's dialogue system or anything that checks what's ahead regardless of movement
                 /*
                 if (checkObject(toVector2Int(targetPosition), "dialogue"))
@@ -100,7 +98,7 @@ public class scrPlayer : MonoBehaviour
                     return false;
                 }
                 */
-
+                
                 // here call the coroutine of a guard that replicates player's movement
                 
                 
@@ -381,8 +379,9 @@ public class scrPlayer : MonoBehaviour
 
                     gridObject.gridPosition = targetPosition; // Update the grid position
                     direction = Vector2.zero;
+                    FindAnyObjectByType<SimpleDialogueManager>().StartDialogue(GetComponentInParent<scrPanel>().gameObject, this);
                     
-                    stepShake();
+                    //stepShake();
                     
                     return true;
                 }
@@ -399,7 +398,7 @@ public class scrPlayer : MonoBehaviour
                         throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
                     }
                     
-                    wallShake();
+                    //wallShake();
                     return false;
                 }
             }
@@ -499,7 +498,14 @@ public class scrPlayer : MonoBehaviour
     #region shakes
     private void wallShake()
     {
+        
         Vector3 original_position = GetComponentInParent<scrPanel>().transform.position;
+
+        transform.parent.GetChild(0).GetChild(0).getComponent<ParticleSystem>().Play();
+        //Debug.Log("testfindchild " + transform.parent.GetChild(0).name);
+        //Debug.Log("testfindchild " + transform.parent.GetChild(0).GetChild(0).name);
+
+
         GetComponentInParent<scrPanel>().transform.DOShakePosition(0.6f, 0.5f, 5, 20, true).OnComplete(() =>
         {
             GetComponentInParent<scrPanel>().transform.position = original_position;

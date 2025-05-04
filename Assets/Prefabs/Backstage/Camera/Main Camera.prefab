@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9196193335500962289}
   - component: {fileID: 616065631364611164}
+  - component: {fileID: 9206480938939618650}
   - component: {fileID: 2424202650010436995}
-  - component: {fileID: 4390232105661970239}
-  - component: {fileID: 844380104121750126}
+  - component: {fileID: 6543002668377337040}
+  - component: {fileID: -391681318638723543}
+  - component: {fileID: -1815126986785260426}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -86,6 +88,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &9206480938939618650
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853848335051773638}
+  m_Enabled: 1
 --- !u!114 &2424202650010436995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,21 +156,7 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &4390232105661970239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853848335051773638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nonRigidbodyVelocity: 0
-  attenuationObject: {fileID: 0}
---- !u!114 &844380104121750126
+--- !u!114 &6543002668377337040
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,3 +200,33 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &-391681318638723543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853848335051773638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8fe90c71a1e436bb848a547fd0633a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetOrthoSize: 5
+  ZoomDuration: 1
+  OverallOffsetLeft: 2
+  OverallOffsetUp: 0
+--- !u!114 &-1815126986785260426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853848335051773638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0acb9a29cbf6418aaf07abf44016d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 1
+  initialPosition: {x: 0, y: 0, z: 0}

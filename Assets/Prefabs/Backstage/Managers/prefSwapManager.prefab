@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8251684388941194332}
   - component: {fileID: 2795804206989754334}
   - component: {fileID: 1863772177875147751}
-  - component: {fileID: -3807230282087698135}
   - component: {fileID: -6191491624274236859}
   m_Layer: 0
   m_Name: prefSwapManager
@@ -64,6 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   First_clicked_panel: {fileID: 0}
   Second_clicked_panel: {fileID: 0}
+  swapping: 0
 --- !u!114 &1863772177875147751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,23 +76,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea293a252c06346f4a5c06725aff1040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Move_delay: 0.1
-  First_enemy_move_delay: 0.02
-  Enemies_move_delay: 0.02
+  Move_delay: 0.5
+  First_enemy_move_delay: 0.2
+  Enemies_move_delay: 0.2
   Can_move: 0
   Players: []
---- !u!114 &-3807230282087698135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2561017082467148811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a75249f24404db0b902b2b9872d3c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-6191491624274236859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +95,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   First_Clicked_Panel: {fileID: 0}
   swap_manager: {fileID: 2795804206989754334}
+  Top_left_corner: {fileID: 8985165818001168249, guid: 27438b8494a1645c9a3d7a7678bad0dc, type: 3}
+  Top_right_corner: {fileID: 1747153020451657733, guid: d8b2589fcdf5c446aa489073cd866d1f, type: 3}
+  Buttom_left_corner: {fileID: 9164627664933970532, guid: 74675e6a22b6243fe800ae18c80b2606, type: 3}
+  Buttom_right_corner: {fileID: 895695162950120452, guid: 973a18ad5bb9a4d83929004532bc2cf7, type: 3}
+  Panel_one_mat: {fileID: 2100000, guid: 04ead467bcb170a4ea0f037fa686b8dc, type: 2}
+  Panel_two_mat: {fileID: 2100000, guid: d18d3be82a72dc34b9bdb832b09a2e76, type: 2}
+  Panel_three_mat: {fileID: 2100000, guid: 3332b1d55a55b824cb772492975a37bb, type: 2}
+  Panel_four_mat: {fileID: 2100000, guid: b532385e7acb6f64683cd5fd14d5ebaa, type: 2}
+  standard_aber_alpha: 1
+  highlight_aber_alpha: 1.5
+  highlight_duration: 1
+  default_r_shift: 0
+  default_g_shift: -0.005
+  default_b_shift: 0.01
+  random_r_shift_min: 0
+  random_r_shift_max: 0
+  random_g_shift_min: -0.005
+  random_g_shift_max: -0.005
+  random_b_shift_min: 0.9
+  random_b_shift_max: 1
