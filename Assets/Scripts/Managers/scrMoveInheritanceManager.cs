@@ -49,7 +49,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(0, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-
+            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.down);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -61,6 +61,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(1, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
+            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.up);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
@@ -72,6 +73,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(2, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
+            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.left);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
@@ -83,6 +85,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(3, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
+            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.right);
         }
 
         

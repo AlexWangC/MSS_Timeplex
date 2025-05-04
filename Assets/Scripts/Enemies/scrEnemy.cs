@@ -28,13 +28,13 @@ public class scrEnemy : MonoBehaviour
 
                 if (checkObject(toVector2Int(targetPosition), "goal"))
                 {
-                    wallShake();
+                    //wallShake();
                     return forbidMovement();
                 }
                 
                 if (checkObject(toVector2Int(targetPosition), "wall"))
                 {
-                    wallShake();
+                    //wallShake();
                     return forbidMovement();
                 }
                 
@@ -150,7 +150,7 @@ public class scrEnemy : MonoBehaviour
                         throw new NullReferenceException("Hey you might wanna throw sound manager in. scrDumbDumb needs it for movement sound");
                     }
 
-                    stepShake();
+                    //stepShake();
 
                     //set flipping
                     GetComponent<scrEnemyFlip>().facingDirection = targetPosition - _gridObject.gridPosition;
