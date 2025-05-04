@@ -135,10 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ee004e9b4384d4ca6d906280cabdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteUp: {fileID: 5095664442999664044, guid: 81ed0b47c2d3d8f4696ee8ba7dff6e19, type: 3}
-  spriteDown: {fileID: 5524233839362002097, guid: b85f0df63dd62a84ebdd3564bc0dfb02, type: 3}
-  spriteLeft: {fileID: 3672925806129054621, guid: 6d1dfd749a7de89418e061e33f68d876, type: 3}
-  spriteRight: {fileID: -7834249994413490321, guid: d17c04cf88197364685b685a5224c9d0, type: 3}
 --- !u!114 &7752358075726051002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +410,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 0}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

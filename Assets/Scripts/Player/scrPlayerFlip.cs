@@ -25,7 +25,7 @@ public class scrPlayerFlip : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            ChangeState("Child_Up");
+            ChangeState("Child_Right");
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -37,7 +37,7 @@ public class scrPlayerFlip : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            ChangeState("Child_Right");
+            ChangeState("Child_Up");
         }
     }
     private void ChangeState(string newState)
