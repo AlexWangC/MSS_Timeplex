@@ -11,6 +11,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
     public float Move_delay;
     public float First_enemy_move_delay;
     public float Enemies_move_delay;
+    public PauseMenuManager pauseMenuManager;
     
     [HideInInspector] public bool Can_move;
     [HideInInspector] public scrPlayer[] Players;
@@ -27,6 +28,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
         checkPlayersContent();
         Players = sortPlayerByPanelTimeIndex(Players);
         checkPlayersContent();
+        pauseMenuManager = FindAnyObjectByType<PauseMenuManager>();
     }
     
     /*
@@ -35,6 +37,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
     private void Update()
     {
         if (is_moving) return;
+        if (pauseMenuManager.isPaused) return;
         
         if (Input.GetKeyDown(KeyCode.W))
         {
