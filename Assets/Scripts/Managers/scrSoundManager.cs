@@ -14,6 +14,9 @@ public class scrSoundManager : MonoBehaviour
     [SerializeField] public AudioClip level_clear;
     [SerializeField] public AudioClip goal; //yes 
 
+    public FMODUnity.EventReference titleMusic;
+    public FMODUnity.EventReference backgroundMusic;
+
     private void Awake()
     {
         if (Instance == null)
@@ -31,25 +34,26 @@ public class scrSoundManager : MonoBehaviour
     private void Start()
     {
         //plays the main theme
-        PlaySound(theme, transform, 0.8f, true);
+        //PlaySound(theme, transform, 0.8f, true);
+        FMODUnity.RuntimeManager.PlayOneShot(backgroundMusic);
     }
 
     public void PlaySound(AudioClip audio_clip, Transform spawn_transform, float volume, bool on_loop)
     {
         // spawn game object
-        AudioSource audio_source = Instantiate(this.audio_source, spawn_transform.position, Quaternion.identity);
+        //AudioSource audio_source = Instantiate(this.audio_source, spawn_transform.position, Quaternion.identity);
 
         // assign the audioClip
-        audio_source.clip = audio_clip;
+        //audio_source.clip = audio_clip;
         
         // assign volume
-        audio_source.volume = volume;
+        //audio_source.volume = volume;
         
         // assign on repeat
-        audio_source.loop = on_loop;
+        //audio_source.loop = on_loop;
 
         // play sound
-        audio_source.Play();
+        //audio_source.Play();
 
         if (on_loop)
         {

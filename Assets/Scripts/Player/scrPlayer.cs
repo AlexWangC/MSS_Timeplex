@@ -19,6 +19,7 @@ public class scrPlayer : MonoBehaviour
     public FMODUnity.EventReference footstepSound;
     public FMODUnity.EventReference blockSound;
     public FMODUnity.EventReference hurtSound;
+    public FMODUnity.EventReference levelclearSound;
 
     void Start()
     {
@@ -347,11 +348,12 @@ public class scrPlayer : MonoBehaviour
                         target_portal.GetComponent<scrPortal>().correspondingPortal.GetComponent<scrPortal>().remainingUses--;
 
                         // play sound & check if sound manager is here.
-                        
-                            //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                           
-                      
-                        
+
+                        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                        FMODUnity.RuntimeManager.PlayOneShot(footstepSound);
+
+
+
                         // 2. find corresponding portal
                         // 3. create a new player at the specified loc de corresponding portal
                         this.transform.SetParent(target_portal.GetComponent<scrPortal>().correspondingPortal.transform.parent, false);
@@ -458,7 +460,8 @@ public class scrPlayer : MonoBehaviour
 
     private void moveToGoal(GridObject target_goal)
     {
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.goal, this.transform, 1);
+        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.goal, this.transform, 1);
+        FMODUnity.RuntimeManager.PlayOneShot(levelclearSound);
 
         StartCoroutine(checkGoalsAfterMovement(() =>
         {

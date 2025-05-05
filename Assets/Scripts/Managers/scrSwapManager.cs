@@ -8,6 +8,7 @@ using Debug = UnityEngine.Debug;
 
 public class scrSwapManager : MonoBehaviour
 {
+    public FMODUnity.EventReference timeswapSound;
     public enum SwappingState
     {
         NotSwapping,
@@ -54,10 +55,11 @@ public class scrSwapManager : MonoBehaviour
         getGridObjects();
         Vector3 panel0_position_og = getCoordinates(panel0);
         Vector3 panel1_position_og = getCoordinates(panel1);
-        
+
         //play sound
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.time_swap, this.transform, 30f);
-        
+        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.time_swap, this.transform, 30f);
+        FMODUnity.RuntimeManager.PlayOneShot(timeswapSound);
+
         movePanel(panel1_position_og, duration, panel0);
         movePanel(panel0_position_og, duration, panel1);
         
