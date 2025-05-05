@@ -7,8 +7,6 @@ public class AudioDirector : MonoBehaviour
 {
     public static AudioDirector Instance;
 
-    public GameObject SoundPrefab;
-
     public AudioSource musicSource;
     public AudioSource titleSource;
 

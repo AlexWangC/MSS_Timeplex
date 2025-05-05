@@ -15,7 +15,11 @@ public class scrPlayer : MonoBehaviour
     public int playerAgeIndex; // will be accessed when deciding within one frame how it's going to move.
     
     scrGoalManager goalManager;
-    
+
+    public FMODUnity.EventReference footstepSound;
+    public FMODUnity.EventReference blockSound;
+    public FMODUnity.EventReference hurtSound;
+
     void Start()
     {
         this.gridObject = GetComponent<GridObject>();
@@ -25,6 +29,7 @@ public class scrPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         // emergency use for unknown grid bugs only. Impacts performance greatly.
         // updatePlayerPos();
     }
@@ -61,11 +66,14 @@ public class scrPlayer : MonoBehaviour
             {
                 direction = Vector2.right; // Move right
             }
+            
+
 
             // Check if a movement key was pressed and handle movement
             if (direction != Vector2.zero)
             {
                 Vector2 targetPosition = gridObject.gridPosition + direction;
+               
 
                 // here plug in richard's dialogue system or anything that checks what's ahead regardless of movement
                 /*
@@ -98,10 +106,10 @@ public class scrPlayer : MonoBehaviour
                     return false;
                 }
                 */
-                
+
                 // here call the coroutine of a guard that replicates player's movement
-                
-                
+
+
                 // 1. notify the enemy manager to move.
                 StartCoroutine(DelayedEnemiesMove(FindAnyObjectByType<scrMoveInheritanceManager>().First_enemy_move_delay, direction));
                 
@@ -236,30 +244,32 @@ public class scrPlayer : MonoBehaviour
 
                 if (checkObject(toVector2Int(targetPosition), "wall")) // if colliding into wall
                 {
-                    if (scrSoundManager.Instance)
-                    {
-                        //FindAnyObjectByType<DialogueDisplayer>().Open();
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
-                    }
-                    else
-                    {
-                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
-                    }
+                    //if (scrSoundManager.Instance)
+                    //{
+                    //    //FindAnyObjectByType<DialogueDisplayer>().Open();
+                    //    //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
+                        
+                    //}
+                    //else
+                    //{
+                    //    throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                    //}
+                    FMODUnity.RuntimeManager.PlayOneShot(blockSound);
                     wallShake();
                     return forbidMovement();
                 }
 
                 if (checkObject(toVector2Int(targetPosition), "spike")) //if colliding spike... move to spike but disable panel.
                 {
-                    if (scrSoundManager.Instance)
-                    {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 1);
-                    }
-                    else
-                    {
-                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
-                    }
-                    
+                    //if (scrSoundManager.Instance)
+                    //{
+                    //    scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 1);
+                    //}
+                    //else
+                    //{
+                    //    throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                    //}
+                    FMODUnity.RuntimeManager.PlayOneShot(hurtSound);
                     killThisPlayer();
                     
                 }
@@ -337,14 +347,10 @@ public class scrPlayer : MonoBehaviour
                         target_portal.GetComponent<scrPortal>().correspondingPortal.GetComponent<scrPortal>().remainingUses--;
 
                         // play sound & check if sound manager is here.
-                        if (scrSoundManager.Instance)
-                        {
-                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                        }
-                        else
-                        {
-                            throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
-                        }
+                        
+                            //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                           
+                      
                         
                         // 2. find corresponding portal
                         // 3. create a new player at the specified loc de corresponding portal
@@ -368,14 +374,9 @@ public class scrPlayer : MonoBehaviour
                 if (!checkOutofBound(toVector2Int(targetPosition))) // Check if the target position is out of bound
                 {
                     // play sound & check if sound manager is here.
-                    if (scrSoundManager.Instance)
-                    {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                    }
-                    else
-                    {
-                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
-                    }
+                    FMODUnity.RuntimeManager.PlayOneShot(footstepSound);
+
+                    
 
                     gridObject.gridPosition = targetPosition; // Update the grid position
                     direction = Vector2.zero;
@@ -388,16 +389,16 @@ public class scrPlayer : MonoBehaviour
                 else // if is out of bound, tell manager it didn't move
                 {
                     FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
-                    
-                    if (scrSoundManager.Instance)
-                    {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
-                    }
-                    else
-                    {
-                        throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
-                    }
-                    
+
+                    //if (scrSoundManager.Instance)
+                    //{
+                    //    scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
+                    //}
+                    //else
+                    //{
+                    //    throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
+                    //}
+                    FMODUnity.RuntimeManager.PlayOneShot(blockSound);
                     //wallShake();
                     return false;
                 }
@@ -413,8 +414,8 @@ public class scrPlayer : MonoBehaviour
 
     public void killThisPlayer()
     {
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
-                    
+        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+        FMODUnity.RuntimeManager.PlayOneShot(hurtSound);
         //kill all of the rest of the panels after
         scrPanel[] panels = FindAnyObjectByType<scrGridLocations>().panels;
         foreach (var panel in panels)
@@ -434,8 +435,9 @@ public class scrPlayer : MonoBehaviour
     private bool forbidMovement()
     {
         //play collide wall music
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
-                    
+        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
+        FMODUnity.RuntimeManager.PlayOneShot(blockSound);
+
         wallShake();
                     
         FindAnyObjectByType<scrMoveInheritanceManager>().Can_move = false;
