@@ -7,13 +7,14 @@ public class scrPlayerFlip : MonoBehaviour
 {
     private Animator animator;
     private string currentState;
-
+    private PauseMenuManager pauseMenuManager;
     // Legacy Code.
     //private bool facing_left = true;
     //private float original_x;
 
     private void Awake()
     {
+        pauseMenuManager = FindAnyObjectByType<PauseMenuManager>();
         animator = GetComponent<Animator>();
         /*if (spriteUp == null || spriteDown == null || spriteLeft == null || spriteRight == null)
         {
@@ -23,6 +24,8 @@ public class scrPlayerFlip : MonoBehaviour
 
     private void Update()
     {
+        if (pauseMenuManager.isPaused) return;
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             ChangeState("Child_Right");

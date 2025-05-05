@@ -13,11 +13,13 @@ public class SimpleDialogueManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     //public TextMeshProUGUI dialogueText;
-    bool isDialogueActive = false;
+    bool[] isDialogueActive = new bool[100];
     int currentDialogueIndex = 0;
     private DialogueDataList dialogueData;
     private DialogueDataList.DialogueData[] dialogueDatas;
     public GameObject dialogueTextPrefab;
+    public GameObject chatboxPrefab;
+    private const float MAX_CHATBOX_WIDTH = 200f; // Maximum width for chatbox in pixels
 
     void Start()
     {
@@ -37,6 +39,7 @@ public class SimpleDialogueManager : MonoBehaviour
                     {
                         data.panelObject = pn;
                         dialogueDatas[i] = data;
+                        isDialogueActive[i] = false;
                         break;
                     }
                 }
@@ -44,6 +47,7 @@ public class SimpleDialogueManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Dialogue data not found for scene: " + SceneManager.GetActiveScene().name);
         }
         currentDialogueIndex = 0;
     }
@@ -53,34 +57,78 @@ public class SimpleDialogueManager : MonoBehaviour
 
         if (dialogueData == null) return;
         if (dialogueDatas.Length == 0) return;
-        if (isDialogueActive) return;
+        //if (isDialogueActive) return;
         foreach (DialogueDataList.DialogueData data in dialogueDatas)
         {
+            if (isDialogueActive[data.panelIndex]) return; //if the dialogue is already active, return
             if (data.panelObject != null && 
                 data.panelObject.gameObject == panelObject && 
                 data.gridPosition == player.GetComponent<GridObject>().gridPosition)
             {
-                isDialogueActive = true;
+                //isDialogueActive = true;
+                isDialogueActive[data.panelIndex] = true;
                 currentDialogueIndex = 0;
+
+                //calculate position deviation, deviate one unit from player's position to the center of the screen
+                Vector3 deviation = (Camera.main.WorldToScreenPoint(player.transform.position) - player.transform.position).normalized;
+
+                //instantiate chatbox
+                GameObject chatbox = Instantiate(chatboxPrefab);
+                chatbox.transform.SetParent(GameObject.Find("Canvas").transform);
+                chatbox.transform.position = Camera.main.WorldToScreenPoint(player.transform.position) + (new Vector3(10 * deviation.x - 100, 10 * deviation.y, 0));
+
+                //instantiate dialogue text
                 GameObject dialogueText = Instantiate(dialogueTextPrefab);
                 dialogueText.transform.SetParent(GameObject.Find("Canvas").transform);
-                dialogueText.transform.position = Camera.main.WorldToScreenPoint(player.transform.position) + new Vector3(1, 1, 0);
-                StartCoroutine(UpdateDialogueText(data, player, dialogueText));
+                dialogueText.transform.position = Camera.main.WorldToScreenPoint(player.transform.position) + (new Vector3(10 * deviation.x - 100, 10 * deviation.y, 0));
+                StartCoroutine(UpdateDialogueText(data, player, dialogueText, chatbox));
                 break;
             }
         }
     }
 
-    IEnumerator UpdateDialogueText(DialogueDataList.DialogueData data, scrPlayer player, GameObject dialogueText)
+    // recursion to go through all dialogue lines
+    IEnumerator UpdateDialogueText(DialogueDataList.DialogueData data, scrPlayer player, GameObject dialogueText, GameObject chatbox)
     {
         string currentText = data.dialogueText[currentDialogueIndex];
         TextMeshProUGUI textComponent = dialogueText.GetComponent<TextMeshProUGUI>();
         textComponent.text = ""; // Clear the text initially
-        
+        // type one line
         // Type out the text character by character
+        int archivedTextLength = 0;
         foreach (char c in currentText)
         {
             textComponent.text += c;
+
+            /*
+            //update chatbox size
+            var rt = chatbox.GetComponent<RectTransform>();
+            textComponent.ForceMeshUpdate();// Force TMP to update so we get accurate layout info
+            float currentTextWidth = textComponent.preferredWidth;// Use preferred width 
+            float chatboxWidth = Mathf.Min(currentTextWidth, MAX_CHATBOX_WIDTH);
+            */
+            // Resize current chatbox
+
+            var rt = chatbox.GetComponent<RectTransform>();
+            float width = Mathf.Min(textComponent.preferredWidth, textComponent.rectTransform.rect.width);
+            rt.sizeDelta = new Vector2(width, textComponent.preferredHeight);
+
+            /*
+            // If new text exceeds max width, spawn a new chatbox
+            if (currentTextWidth > MAX_CHATBOX_WIDTH)
+            {
+                chatboxes.Add(chatbox); // archive current
+                GameObject newChatbox = Instantiate(chatboxPrefab, chatbox.transform.parent);
+                chatbox = newChatbox;
+
+                // Move it down by one line
+                chatbox.transform.localPosition = chatboxes[chatboxes.Count - 1].transform.localPosition + Vector3.down * textComponent.fontSize;
+
+                // Reset width for new chatbox
+                chatbox.GetComponent<RectTransform>().sizeDelta = new Vector2(0, textComponent.fontSize);
+            }
+            */
+
             yield return new WaitForSeconds(0.05f);
         }
 
@@ -88,18 +136,19 @@ public class SimpleDialogueManager : MonoBehaviour
         currentDialogueIndex++;
         if (currentDialogueIndex < data.dialogueText.Length)
         {
-            StartCoroutine(UpdateDialogueText(data, player, dialogueText));
+            StartCoroutine(UpdateDialogueText(data, player, dialogueText, chatbox));
         }
         else
         {
-            EndDialogue(dialogueText);
+            EndDialogue(dialogueText, data, chatbox);
         }
     }
 
-    void EndDialogue(GameObject dialogueText)
+    void EndDialogue(GameObject dialogueText, DialogueDataList.DialogueData data, GameObject chatbox)
     {
-        isDialogueActive = false;
+        isDialogueActive[data.panelIndex] = false;
         currentDialogueIndex = 0;
         Destroy(dialogueText);
+        Destroy(chatbox);
     }
 }
