@@ -20,9 +20,8 @@ public class scrPanel : MonoBehaviour
     public bool first_clicked;
     
     private BoxCollider2D collider;
-    private PauseMenuManager pauseMenuManager;
+    
     Texture2D cursorTex;
-
 
 
     [SerializeField] private ParticleSystem deathBleed; //reference in the prefab
@@ -30,8 +29,6 @@ public class scrPanel : MonoBehaviour
     
     private void Start()
     {
-        pauseMenuManager = FindAnyObjectByType<PauseMenuManager>();
-
         first_clicked = false;
         
         Dead = false;
@@ -76,7 +73,6 @@ public class scrPanel : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (FindAnyObjectByType<PauseMenuManager>().isPaused) return;
        // Debug.Log("Mouse exit panel " + Time_index);
        if (!FindAnyObjectByType<scrSwapManager>().swapping)
        {
@@ -88,7 +84,6 @@ public class scrPanel : MonoBehaviour
 
     private void OnMouseOver() //event
     {
-        if (FindAnyObjectByType<PauseMenuManager>().isPaused) return;
         if (!FindAnyObjectByType<scrSwapManager>().swapping)
         {
             // Debug.Log("Mouse over panel " + Time_index);
@@ -98,7 +93,6 @@ public class scrPanel : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (FindAnyObjectByType<PauseMenuManager>().isPaused) return;
         if (!Dead) // if this screen is not dead
         {
            // Debug.Log("You've clicked panel " + gameObject.name);

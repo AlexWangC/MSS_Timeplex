@@ -3,16 +3,8 @@ using UnityEngine;
 
 public class scrUndoManagerController : MonoBehaviour
 {
-    public PauseMenuManager pauseMenuManager;
-
-    void Start()
-    {
-        pauseMenuManager = FindAnyObjectByType<PauseMenuManager>();
-    }
     private void Update()
     {
-        if (pauseMenuManager.isPaused) return;
-
         if (Input.GetKeyDown(KeyCode.Z))
         {
             // if you can retrace..

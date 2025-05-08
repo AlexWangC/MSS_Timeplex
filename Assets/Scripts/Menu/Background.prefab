@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 8279435333108672047}
   - component: {fileID: 3002957343709176321}
   - component: {fileID: 8249477429990009789}
+  - component: {fileID: 1830236259513505961}
   - component: {fileID: 5042270509985173649}
   - component: {fileID: 5243931437549796945}
   m_Layer: 0
@@ -310,6 +311,18 @@ MonoBehaviour:
   text: {fileID: 7786570068345688016}
   clickScaleSize: 0.9
   clickScaleDuration: 0.1
+--- !u!114 &1830236259513505961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679964622693268184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af73434030d04026ab4f48dac5453113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5042270509985173649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,10 +367,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8249477429990009789}
-        m_TargetAssemblyTypeName: LevelWidget, Assembly-CSharp
-        m_MethodName: onClick
-        m_Mode: 1
+      - m_Target: {fileID: 1830236259513505961}
+        m_TargetAssemblyTypeName: Fries.TestMonoBehaviour, NewAssembly
+        m_MethodName: debugLog
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -445,9 +458,9 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 0}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 0
+  m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

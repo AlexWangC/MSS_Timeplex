@@ -5,56 +5,43 @@ using UnityEngine;
 
 public class scrPlayerFlip : MonoBehaviour
 {
-    private Animator animator;
-    private string currentState;
-    private PauseMenuManager pauseMenuManager;
+    public Sprite spriteUp;
+    public Sprite spriteDown;
+    public Sprite spriteLeft;
+    public Sprite spriteRight;
+    
     // Legacy Code.
     //private bool facing_left = true;
     //private float original_x;
 
-    private void Awake()
+    private void Start()
     {
-        pauseMenuManager = FindAnyObjectByType<PauseMenuManager>();
-        animator = GetComponent<Animator>();
-        /*if (spriteUp == null || spriteDown == null || spriteLeft == null || spriteRight == null)
+        if (spriteUp == null || spriteDown == null || spriteLeft == null || spriteRight == null)
         {
             throw new NullReferenceException("bruh scrPlayerFlip needs all 4 sprites assigned to work. You lazy ass.");
-        }*/
+        }
     }
 
     private void Update()
     {
-        if (pauseMenuManager.isPaused) return;
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            GetComponent<SpriteRenderer>().sprite = spriteLeft;
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            GetComponent<SpriteRenderer>().sprite =　spriteRight;
+        }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            ChangeState("Child_Right");
+            GetComponent<SpriteRenderer>().sprite = spriteUp;
         }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            ChangeState("Child_Down");
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            ChangeState("Child_Left");
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            ChangeState("Child_Up");
-        }
-    }
-    private void ChangeState(string newState)
-    {
-        if (currentState == newState) return; 
 
-        if (animator.HasState(0, Animator.StringToHash(newState)))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            animator.Play(newState);
-            currentState = newState;
-        }
-        else
-        {
-            Debug.LogWarning($"Animator state '{newState}' not found on {gameObject.name}");
+            GetComponent<SpriteRenderer>().sprite = spriteDown;
         }
     }
 }

@@ -11,7 +11,6 @@ public class scrMoveInheritanceManager : MonoBehaviour
     public float Move_delay;
     public float First_enemy_move_delay;
     public float Enemies_move_delay;
-    public PauseMenuManager pauseMenuManager;
     
     [HideInInspector] public bool Can_move;
     [HideInInspector] public scrPlayer[] Players;
@@ -28,7 +27,6 @@ public class scrMoveInheritanceManager : MonoBehaviour
         checkPlayersContent();
         Players = sortPlayerByPanelTimeIndex(Players);
         checkPlayersContent();
-        pauseMenuManager = FindAnyObjectByType<PauseMenuManager>();
     }
     
     /*
@@ -37,7 +35,6 @@ public class scrMoveInheritanceManager : MonoBehaviour
     private void Update()
     {
         if (is_moving) return;
-        if (pauseMenuManager.isPaused) return;
         
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -52,7 +49,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(0, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.down);
+
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -64,7 +61,6 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(1, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.up);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
@@ -76,7 +72,6 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(2, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.left);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
@@ -88,7 +83,6 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(3, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.right);
         }
 
         

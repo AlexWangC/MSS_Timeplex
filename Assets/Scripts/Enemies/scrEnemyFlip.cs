@@ -36,12 +36,12 @@ public class scrEnemyFlip : MonoBehaviour
 
         if (facingDirection == Vector2.up)
         {
-            GetComponent<SpriteRenderer>().sprite = spriteDown;
+            GetComponent<SpriteRenderer>().sprite = spriteUp;
         }
 
         if (facingDirection == Vector2.down)
         {
-            GetComponent<SpriteRenderer>().sprite = spriteUp;
+            GetComponent<SpriteRenderer>().sprite = spriteDown;
         }
     }
 }
