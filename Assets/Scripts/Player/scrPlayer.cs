@@ -20,6 +20,7 @@ public class scrPlayer : MonoBehaviour
     public FMODUnity.EventReference blockSound;
     public FMODUnity.EventReference hurtSound;
     public FMODUnity.EventReference levelclearSound;
+    public 
 
     void Start()
     {
@@ -293,6 +294,7 @@ public class scrPlayer : MonoBehaviour
                     // 2. delete this key from panel (remember to add it back when dropping all)
                     GameObject KeyPickUp1 = transform.parent.gameObject.GetComponentInChildren<scrGridManager>()
                         .GetGridObjectAtPosition(toVector2Int(targetPosition)).gameObject;
+                    
                     Destroy(KeyPickUp1);
                     
                     // undo button fix. Instead of destroying, disable sprite renderer & tag
