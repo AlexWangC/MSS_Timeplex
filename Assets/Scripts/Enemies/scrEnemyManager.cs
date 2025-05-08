@@ -10,11 +10,13 @@ public class scrEnemyManager : MonoBehaviour
     // 3. THIS IS THE FUNCTION called from somewhere else when WE, EnemyManager, IS ABOUT TO MOVE 
     public void MoveEnemies(Vector2 dir)
     {
-        StartCoroutine(MoveEnemiesCoroutine(dir, FindAnyObjectByType<scrMoveInheritanceManager>().Enemies_move_delay));
+        StartCoroutine(MoveEnemiesCoroutine(dir, FindAnyObjectByType<scrMoveInheritanceManager>().First_enemy_move_delay, FindAnyObjectByType<scrMoveInheritanceManager>().Enemies_move_delay));
     }
 
-    private IEnumerator MoveEnemiesCoroutine(Vector2 dir, float wait_time)
+    private IEnumerator MoveEnemiesCoroutine(Vector2 dir, float initial_wait_time, float wait_time)
     {
+        yield return new WaitForSeconds(initial_wait_time);
+        
         // 1. Update enemies field
         RetrieveAllEnemies();
 

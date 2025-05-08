@@ -2,14 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
+using Menu;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 单个关卡选择按钮的组件
 /// </summary>
 public class LevelWidget : MonoBehaviour {
-    
-    [SerializeField]
+
+    private BlackScreenEffect screenEffect;
     public Image grayMask;
     public Image mainImage;
     public Image thumbnail;
@@ -24,6 +26,8 @@ public class LevelWidget : MonoBehaviour {
     // 当前是否为高亮状态
     private bool _isHighlighted = false;
 
+    private string sceneName;
+
     /// <summary>
     /// 设置高亮状态
     /// </summary>
@@ -36,16 +40,16 @@ public class LevelWidget : MonoBehaviour {
         }
     }
 
-    public void init(string levelName) {
+    public void init(string levelName, BlackScreenEffect screenEffect) {
         Sprite sp = Resources.Load<Sprite>($"LevelThumbnails/{levelName}");
+        this.screenEffect = screenEffect;
         thumbnail.sprite = sp;
-        text.text = levelName;
+        var v = levelName.Split("\u00a6")[^1].Split(".unity")[0];
+        text.text = v;
+        sceneName = levelName;
     }
     
-    /// <summary>
-    /// 播放点击动画
-    /// </summary>
-    private void PlayClickAnimation() {
+    private void playClickAnimation() {
         // 使用DOTween创建点击时的缩放动画
         transform.DOScale(transform.localScale * clickScaleSize, clickScaleDuration)
             .SetEase(Ease.OutQuad)
@@ -54,5 +58,11 @@ public class LevelWidget : MonoBehaviour {
                 transform.DOScale(transform.localScale / clickScaleSize, clickScaleDuration)
                     .SetEase(Ease.OutQuad);
             });
+    }
+
+    public void onClick() {
+        if (!_isHighlighted) return;
+        playClickAnimation();
+        screenEffect.turnBlack(sceneName);
     }
 }
