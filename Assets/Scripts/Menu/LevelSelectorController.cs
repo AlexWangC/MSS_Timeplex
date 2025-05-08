@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Fries;
 using Fries.Data;
+using Menu;
 using UnityEngine.Rendering;
 
 /// <summary>
@@ -67,6 +68,8 @@ public class LevelSelectorController : MonoBehaviour {
     [Header("Container Configuration")] [Tooltip("Parent Container")] [SerializeField]
     private RectTransform widgetsContainer;
 
+    public BlackScreenEffect screenEffect;
+
     // 关卡按钮列表
     private List<LevelWidget> levelWidgets = new List<LevelWidget>();
 
@@ -82,16 +85,15 @@ public class LevelSelectorController : MonoBehaviour {
             widgetsContainer = GetComponent<RectTransform>();
         }
 
+        levels = new StringList<string>(
+            PlayerPrefs.GetString("LevelSelectorController.Levels"),
+            s => s, s => s
+        );
         // 初始化关卡按钮
         InitializeLevelWidgets();
 
         // 初始布局
         ArrangeLevelWidgets(0);
-
-        levels = new StringList<string>(
-            PlayerPrefs.GetString("LevelSelectorController.Levels"),
-            s => s, s => s
-        );
     }
 
     private void Update() {
@@ -131,7 +133,7 @@ public class LevelSelectorController : MonoBehaviour {
             string levelName = levels[i];
             GameObject widgetObj = Instantiate(levelWidgetPrefab, widgetsContainer);
             LevelWidget widget = widgetObj.GetComponent<LevelWidget>();
-            widget.init(levelName);
+            widget.init(levelName, screenEffect);
 
             if (widget == null) {
                 widget = widgetObj.AddComponent<LevelWidget>();
