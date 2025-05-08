@@ -20,7 +20,6 @@ public class scrPlayer : MonoBehaviour
     public FMODUnity.EventReference blockSound;
     public FMODUnity.EventReference hurtSound;
     public FMODUnity.EventReference levelclearSound;
-    public 
 
     void Start()
     {

@@ -14,7 +14,6 @@ public class scrSoundManager : MonoBehaviour
     [SerializeField] public AudioClip level_clear;
     [SerializeField] public AudioClip goal; //yes 
 
-    public FMODUnity.EventReference titleMusic;
     public FMODUnity.EventReference backgroundMusic;
 
     private void Awake()

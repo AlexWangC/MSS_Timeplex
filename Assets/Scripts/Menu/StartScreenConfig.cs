@@ -32,7 +32,9 @@ namespace Menu {
         public FloatWrapper logoNewGameSpacer;
         public FloatWrapper newGameSettingSpacer;
         public FloatWrapper bottomMargin;
-        
+
+        public FMODUnity.EventReference titleMusic;
+
         private void Reset() {
             RectTransform rt = (RectTransform)transform.findAll("Spacer 0")[0];
             topMargin = new FloatWrapper(() => rt.sizeDelta.y) {

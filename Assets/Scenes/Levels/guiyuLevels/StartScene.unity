@@ -981,8 +981,8 @@ GameObject:
   m_Component:
   - component: {fileID: 787401380}
   - component: {fileID: 787401379}
-  - component: {fileID: 787401378}
   - component: {fileID: 787401381}
+  - component: {fileID: 787401382}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -990,14 +990,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &787401378
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787401377}
-  m_Enabled: 1
 --- !u!20 &787401379
 Camera:
   m_ObjectHideFlags: 0
@@ -1108,6 +1100,20 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &787401382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787401377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &1006749694
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,6 +3081,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2259175292670469465, guid: 8d7bc61b4de58455ebc2a086fe90d77d, type: 3}
+      propertyPath: backgroundMusic.Path
+      value: event:/MUSIC_Title
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259175292670469465, guid: 8d7bc61b4de58455ebc2a086fe90d77d, type: 3}
+      propertyPath: backgroundMusic.Guid.Data1
+      value: 685029493
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259175292670469465, guid: 8d7bc61b4de58455ebc2a086fe90d77d, type: 3}
+      propertyPath: backgroundMusic.Guid.Data2
+      value: 1271778804
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259175292670469465, guid: 8d7bc61b4de58455ebc2a086fe90d77d, type: 3}
+      propertyPath: backgroundMusic.Guid.Data3
+      value: 805594768
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259175292670469465, guid: 8d7bc61b4de58455ebc2a086fe90d77d, type: 3}
+      propertyPath: backgroundMusic.Guid.Data4
+      value: -1758039006
+      objectReference: {fileID: 0}
     - target: {fileID: 2970203919964909875, guid: 8d7bc61b4de58455ebc2a086fe90d77d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3284,6 +3310,13 @@ MonoBehaviour:
     label: Bottom Margin
     initLabel: 
     setterLabel: 
+  titleMusic:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &2105906243
 GameObject:
   m_ObjectHideFlags: 0
