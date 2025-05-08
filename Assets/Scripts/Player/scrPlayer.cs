@@ -20,6 +20,7 @@ public class scrPlayer : MonoBehaviour
     public FMODUnity.EventReference blockSound;
     public FMODUnity.EventReference hurtSound;
     public FMODUnity.EventReference levelclearSound;
+    public FMODUnity.EventReference portalSound;
 
     void Start()
     {
@@ -351,7 +352,7 @@ public class scrPlayer : MonoBehaviour
                         // play sound & check if sound manager is here.
 
                         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                        FMODUnity.RuntimeManager.PlayOneShot(footstepSound);
+                        FMODUnity.RuntimeManager.PlayOneShot(portalSound);
 
 
 

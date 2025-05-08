@@ -10,6 +10,10 @@ public class scrEnemy : MonoBehaviour
 
     public bool dead; // showing whether this enemy is dead. adaptation for undo manager.
 
+    public FMODUnity.EventReference enemyFootstepSound;
+    public FMODUnity.EventReference blockSound;
+    public FMODUnity.EventReference killGuardSound;
+
     private void Start()
     {
         dead = false;
@@ -111,7 +115,8 @@ public class scrEnemy : MonoBehaviour
                         // play sound & check if sound manager is here.
                         if (scrSoundManager.Instance)
                         {
-                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                            //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                            FMODUnity.RuntimeManager.PlayOneShot(enemyFootstepSound);
                         }
                         else
                         {
@@ -143,7 +148,8 @@ public class scrEnemy : MonoBehaviour
                     // play sound & check if sound manager is here.
                     if (scrSoundManager.Instance)
                     {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                        FMODUnity.RuntimeManager.PlayOneShot(enemyFootstepSound);
                     }
                     else
                     {
@@ -170,7 +176,8 @@ public class scrEnemy : MonoBehaviour
     // old way of killing the guard, where the guard instance is completed removed.
     private void killThisGuardLegacy()
     {
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+        FMODUnity.RuntimeManager.PlayOneShot(killGuardSound);
         Destroy(gameObject);
     }
 
@@ -185,7 +192,8 @@ public class scrEnemy : MonoBehaviour
     
     private void killThisGuard()
     {
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+        FMODUnity.RuntimeManager.PlayOneShot(killGuardSound);
         gameObject.tag = "Untagged";
         dead = true;
         GetComponent<SpriteRenderer>().enabled = false;
@@ -202,8 +210,8 @@ public class scrEnemy : MonoBehaviour
     private bool forbidMovement()
     {
         //play collide wall music
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
-        
+        //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
+        FMODUnity.RuntimeManager.PlayOneShot(blockSound);
         return false;
     }
     

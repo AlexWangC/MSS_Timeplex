@@ -31,6 +31,22 @@ public class AudioDirector : MonoBehaviour
     public FMODUnity.EventReference levelclearSoundFMOD;
     public float levelclearVolume = 1.0f;
 
+    public AudioClip enemyFootstepSound;
+    public FMODUnity.EventReference enemyFootstepSoundFMOD;
+    public float enemyFootstepVolume = 1.0f;
+
+    public AudioClip portalSound;
+    public FMODUnity.EventReference portalSoundFMOD;
+    public float portalVolume = 1.0f;
+
+    public AudioClip pickupSound;
+    public FMODUnity.EventReference pickupSoundFMOD;
+    public float pickupVolume = 1.0f;
+    
+    public AudioClip killGuardSound;
+    public FMODUnity.EventReference killGuardFMOD;
+    public float killGuardVolume = 1.0f;
+
     [Header("Background")]
     public AudioClip backgroundMusic;
     public float musicVolume = 1.0f;

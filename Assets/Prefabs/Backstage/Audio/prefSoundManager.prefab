@@ -53,13 +53,6 @@ MonoBehaviour:
   hurt: {fileID: 8300000, guid: f8efa7989f9e8dc4da80b3377cddbdb7, type: 3}
   level_clear: {fileID: 8300000, guid: 14709d2c434ef4a8cab0f6658e67153b, type: 3}
   goal: {fileID: 8300000, guid: c4da3eb3d5cd0be4d97f67e826f23e66, type: 3}
-  titleMusic:
-    Guid:
-      Data1: 685029493
-      Data2: 1271778804
-      Data3: 805594768
-      Data4: -1758039006
-    Path: event:/MUSIC_Title
   backgroundMusic:
     Guid:
       Data1: -1499550664
@@ -114,6 +107,26 @@ PrefabInstance:
     - target: {fileID: 4198982263197168830, guid: 7743875e8a603fa458d9474f0413be57, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581226310589551766, guid: 7743875e8a603fa458d9474f0413be57, type: 3}
+      propertyPath: pickupSoundFMOD.Path
+      value: event:/SFX_Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581226310589551766, guid: 7743875e8a603fa458d9474f0413be57, type: 3}
+      propertyPath: pickupSoundFMOD.Guid.Data1
+      value: -598574533
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581226310589551766, guid: 7743875e8a603fa458d9474f0413be57, type: 3}
+      propertyPath: pickupSoundFMOD.Guid.Data2
+      value: 1226525433
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581226310589551766, guid: 7743875e8a603fa458d9474f0413be57, type: 3}
+      propertyPath: pickupSoundFMOD.Guid.Data3
+      value: -1272782187
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581226310589551766, guid: 7743875e8a603fa458d9474f0413be57, type: 3}
+      propertyPath: pickupSoundFMOD.Guid.Data4
+      value: -808176195
       objectReference: {fileID: 0}
     - target: {fileID: 7216724867485913078, guid: 7743875e8a603fa458d9474f0413be57, type: 3}
       propertyPath: m_Name

@@ -12,7 +12,7 @@ public class scrInventory : MonoBehaviour
     public GameObject keyPickUp1;
     public GameObject keyPickUp2;
     public GameObject keyPickUp3;
-    
+
     private void Start()
     {
         inventory = new Dictionary<string, bool>();
@@ -54,18 +54,21 @@ public class scrInventory : MonoBehaviour
                 Debug.Log("what's to be added to inventory: key1");
                 scrKey1 newKey1Script = gameObject.AddComponent<scrKey1>();
                 newKey1Script.keyIconSprite = key1Sprite;
+                FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.pickupSoundFMOD);
                 break;
             
             case "key2":
                 Debug.Log("what's to be added to inventory: key2");
                 scrKey2 newKey2Script = gameObject.AddComponent<scrKey2>();
                 newKey2Script.keyIconSprite = key2Sprite;
+                FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.pickupSoundFMOD);
                 break;
             
             case "key3":
                 Debug.Log("what's to be added to inventory: key3");
                 scrKey3 newKey3Script = gameObject.AddComponent<scrKey3>();
                 newKey3Script.keyIconSprite = key3Sprite;
+                FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.pickupSoundFMOD);
                 break;
         }
     }

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updated: 0
-  gridPosition: {x: 0, y: 0}
+  gridPosition: {x: 0, y: 1}
   parentGrid: {fileID: 0}
   inventoryHasItem: 0
 --- !u!114 &-7739529526674907215
@@ -85,6 +85,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priority: 0
   dead: 0
+  enemyFootstepSound:
+    Guid:
+      Data1: 672128645
+      Data2: 1305707138
+      Data3: 1847938981
+      Data4: -1992064866
+    Path: event:/SFX_EnemyFootstep
+  blockSound:
+    Guid:
+      Data1: 564021306
+      Data2: 1197379213
+      Data3: 1637341101
+      Data4: 709238200
+    Path: event:/SFX_Blocked
+  killGuardSound:
+    Guid:
+      Data1: 324341218
+      Data2: 1195610572
+      Data3: -577250683
+      Data4: -1488911321
+    Path: event:/SFX_Killguard
 --- !u!212 &-3133989461075292841
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -126,9 +147,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -937790731
+  m_SortingLayer: 3
+  m_SortingOrder: 100
   m_Sprite: {fileID: -1045384926, guid: fdfff80faf1d7aa4c89ecd16d42e43cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
