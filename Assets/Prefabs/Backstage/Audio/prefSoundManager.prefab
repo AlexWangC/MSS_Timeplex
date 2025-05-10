@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2970203919964909875}
   - component: {fileID: 2259175292670469465}
+  - component: {fileID: 7154937656137282697}
   m_Layer: 0
   m_Name: prefSoundManager
   m_TagString: Untagged
@@ -52,3 +53,116 @@ MonoBehaviour:
   hurt: {fileID: 8300000, guid: f8efa7989f9e8dc4da80b3377cddbdb7, type: 3}
   level_clear: {fileID: 8300000, guid: 14709d2c434ef4a8cab0f6658e67153b, type: 3}
   goal: {fileID: 8300000, guid: c4da3eb3d5cd0be4d97f67e826f23e66, type: 3}
+--- !u!114 &7154937656137282697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6477906881123076645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52942332e0824a24f957770ef80b280a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 0}
+  titleSource: {fileID: 0}
+  blockSound: {fileID: 0}
+  blockSoundFMOD:
+    Guid:
+      Data1: 564021306
+      Data2: 1197379213
+      Data3: 1637341101
+      Data4: 709238200
+    Path: event:/SFX_Blocked
+  blockVolume: 1
+  footstepSound: {fileID: 0}
+  footstepSoundFMOD:
+    Guid:
+      Data1: -836552155
+      Data2: 1300593630
+      Data3: -1292171083
+      Data4: -1640799478
+    Path: event:/SFX_Footstep
+  footstepVolume: 1
+  hurtSound: {fileID: 0}
+  hurtSoundFMOD:
+    Guid:
+      Data1: -985534172
+      Data2: 1116324705
+      Data3: 502413721
+      Data4: -1005315299
+    Path: event:/SFX_Hurt
+  hurtVolume: 1
+  timeswapSound: {fileID: 0}
+  timeswapSoundFMOD:
+    Guid:
+      Data1: -451457213
+      Data2: 1326816489
+      Data3: -102574200
+      Data4: 1540553934
+    Path: event:/SFX_Timeswap
+  timeswapVolume: 1
+  levelclearSound: {fileID: 0}
+  levelclearSoundFMOD:
+    Guid:
+      Data1: -294910155
+      Data2: 1229473524
+      Data3: -1161977447
+      Data4: -168357583
+    Path: event:/SFX_Levelclear
+  levelclearVolume: 1
+  enemyFootstepSound: {fileID: 0}
+  enemyFootstepSoundFMOD:
+    Guid:
+      Data1: 672128645
+      Data2: 1305707138
+      Data3: 1847938981
+      Data4: -1992064866
+    Path: event:/SFX_EnemyFootstep
+  enemyFootstepVolume: 1
+  portalSound: {fileID: 0}
+  portalSoundFMOD:
+    Guid:
+      Data1: -2124818833
+      Data2: 1219654552
+      Data3: -2019553354
+      Data4: 880726756
+    Path: event:/SFX_Portal
+  portalVolume: 1
+  pickupSound: {fileID: 0}
+  pickupSoundFMOD:
+    Guid:
+      Data1: -598574533
+      Data2: 1226525433
+      Data3: -1272782187
+      Data4: -808176195
+    Path: event:/SFX_Pickup
+  pickupVolume: 1
+  killGuardSound: {fileID: 0}
+  killGuardFMOD:
+    Guid:
+      Data1: 324341218
+      Data2: 1195610572
+      Data3: -577250683
+      Data4: -1488911321
+    Path: event:/SFX_Killguard
+  killGuardVolume: 1
+  backgroundMusic: {fileID: 0}
+  backgroundMusicFMOD:
+    Guid:
+      Data1: -1499550664
+      Data2: 1298552807
+      Data3: -324489053
+      Data4: 1734590373
+    Path: event:/MUSIC_Play
+  musicVolume: 1
+  titleMusic: {fileID: 0}
+  titleMusicFMOD:
+    Guid:
+      Data1: 685029493
+      Data2: 1271778804
+      Data3: 805594768
+      Data4: -1758039006
+    Path: event:/MUSIC_Title
+  titleVolume: 1

@@ -31,7 +31,8 @@ public class scrSoundManager : MonoBehaviour
     private void Start()
     {
         //plays the main theme
-        PlaySound(theme, transform, 0.8f, true);
+        //PlaySound(theme, transform, 0.8f, true);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.backgroundMusicFMOD);
     }
 
     public void PlaySound(AudioClip audio_clip, Transform spawn_transform, float volume, bool on_loop)
