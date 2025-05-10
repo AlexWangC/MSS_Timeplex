@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Fries;
+using Fries.Inspector;
 using Fries.Inspector.ComponentWrapper;
 using Fries.Inspector.ValueWrapper;
 using Fries.TaskPerformer;
@@ -71,5 +74,15 @@ namespace Menu {
             if (topMargin.setter == null)
                 Reset();
         }
+        
+        private void Awake() {
+            ReflectionUtils.forStaticMethods((mi, de) => {
+                de.DynamicInvoke();
+            }, typeof(StartSceneAwakeEventAttribute), BindingFlags.Public | BindingFlags.NonPublic, typeof(void));
+        }
+    }
+
+    public class StartSceneAwakeEventAttribute : Attribute {
+        
     }
 }
