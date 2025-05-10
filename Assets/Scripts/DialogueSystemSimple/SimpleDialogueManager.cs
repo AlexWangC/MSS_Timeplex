@@ -75,12 +75,16 @@ public class SimpleDialogueManager : MonoBehaviour
                 //instantiate chatbox
                 GameObject chatbox = Instantiate(chatboxPrefab);
                 chatbox.transform.SetParent(GameObject.Find("Canvas").transform);
-                chatbox.transform.position = Camera.main.WorldToScreenPoint(player.transform.position) + (new Vector3(10 * deviation.x - 100, 10 * deviation.y, 0));
+                SpriteRenderer sr = player.GetComponent<SpriteRenderer>();
+                Vector3 topRightWorld = sr.bounds.max;
+                Vector3 topRightScreen = Camera.main.WorldToScreenPoint(topRightWorld);
+                Vector3 offset = new Vector3(-20, 20, 0); // Adjust these values as needed
+                chatbox.transform.position = topRightScreen + offset;
 
                 //instantiate dialogue text
                 GameObject dialogueText = Instantiate(dialogueTextPrefab);
                 dialogueText.transform.SetParent(GameObject.Find("Canvas").transform);
-                dialogueText.transform.position = Camera.main.WorldToScreenPoint(player.transform.position) + (new Vector3(10 * deviation.x - 100, 10 * deviation.y, 0));
+                dialogueText.transform.position = topRightScreen + offset + new Vector3(5, 0, 0);
                 StartCoroutine(UpdateDialogueText(data, player, dialogueText, chatbox));
                 break;
             }
@@ -110,7 +114,7 @@ public class SimpleDialogueManager : MonoBehaviour
             // Resize current chatbox
 
             var rt = chatbox.GetComponent<RectTransform>();
-            float width = Mathf.Min(textComponent.preferredWidth, textComponent.rectTransform.rect.width);
+            float width = Mathf.Min(textComponent.preferredWidth, textComponent.rectTransform.rect.width) + 10;
             rt.sizeDelta = new Vector2(width, textComponent.preferredHeight);
 
             /*

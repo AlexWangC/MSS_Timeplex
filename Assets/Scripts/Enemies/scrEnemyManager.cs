@@ -18,7 +18,7 @@ public class scrEnemyManager : MonoBehaviour
         yield return new WaitForSeconds(initial_wait_time);
         
         // 1. Update enemies field
-        RetrieveAllEnemies();
+        enemies = RetrieveAllEnemies();
 
         // 2. Sort them then iterate over them
         enemies = sortEnemies(enemies);

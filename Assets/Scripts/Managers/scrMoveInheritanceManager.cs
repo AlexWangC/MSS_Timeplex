@@ -52,7 +52,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(0, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.down);
+            MoveAllEnemyManager(FindAllEnemyManagers(), Vector2.down);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -64,7 +64,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(1, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.up);
+            MoveAllEnemyManager(FindAllEnemyManagers(), Vector2.up);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
@@ -76,7 +76,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(2, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.left);
+            MoveAllEnemyManager(FindAllEnemyManagers(), Vector2.left);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
@@ -88,7 +88,7 @@ public class scrMoveInheritanceManager : MonoBehaviour
             
             StartCoroutine(movePlayerDelayed(3, Move_delay));
             StartCoroutine(updateAutoOpaqueItems());
-            FindAnyObjectByType<scrEnemyManager>().MoveEnemies(Vector2.right);
+            MoveAllEnemyManager(FindAllEnemyManagers(), Vector2.right);
         }
 
         
@@ -243,6 +243,20 @@ public class scrMoveInheritanceManager : MonoBehaviour
         foreach (scrGridObjectAutoOpaque obj in objects_with_autoopaque)
         {
             obj.CheckWhatsAtBack();
+        }
+    }
+
+    private scrEnemyManager[] FindAllEnemyManagers()
+    {
+        scrEnemyManager[] enemy_managers = FindObjectsByType<scrEnemyManager>(FindObjectsSortMode.None);
+        return enemy_managers;
+    }
+
+    private void MoveAllEnemyManager(scrEnemyManager[] managers, Vector2 direction)
+    {
+        foreach (var manager in managers)
+        {
+            manager.MoveEnemies(direction);
         }
     }
 }
