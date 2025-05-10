@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -4168,6 +4169,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 880528724}
     m_Modifications:
+    - target: {fileID: 2952063390293848289, guid: 97de9f33bd805274c9dece5f605329d3, type: 3}
+      propertyPath: nextScene
+      value: 
+      objectReference: {fileID: 102900000, guid: 138548b4bdcdab346bc08dd52d7e3385, type: 3}
+    - target: {fileID: 2952063390293848289, guid: 97de9f33bd805274c9dece5f605329d3, type: 3}
+      propertyPath: nextSceneName
+      value: StartScene
+      objectReference: {fileID: 0}
     - target: {fileID: 3666528460367816092, guid: 97de9f33bd805274c9dece5f605329d3, type: 3}
       propertyPath: parentGrid
       value: 
