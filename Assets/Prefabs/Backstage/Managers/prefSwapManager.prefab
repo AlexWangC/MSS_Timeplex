@@ -79,6 +79,7 @@ MonoBehaviour:
   Move_delay: 0.5
   First_enemy_move_delay: 0.2
   Enemies_move_delay: 0.2
+  pauseMenuManager: {fileID: 0}
   Can_move: 0
   Players: []
 --- !u!114 &-6191491624274236859
@@ -106,9 +107,9 @@ MonoBehaviour:
   standard_aber_alpha: 1
   highlight_aber_alpha: 1.5
   highlight_duration: 0.5
-  default_r_shift: 0.01
-  default_g_shift: 0.05
-  default_b_shift: 0.03
+  default_r_shift: 0
+  default_g_shift: -0.005
+  default_b_shift: 0.01
   random_r_shift_min: -0.3
   random_r_shift_max: 0.1
   random_g_shift_min: -0.05
