@@ -16,7 +16,8 @@ public class scrGridMakerTilted : MonoBehaviour
     [Header("Line Settings")]
     public Material lineMaterial;
     public Color lineColor = Color.white;
-    public float lineWidth = 0.05f;
+    private float lineWidth = 0.00f;
+
 
 
     [Button("Refresh Grid")]
