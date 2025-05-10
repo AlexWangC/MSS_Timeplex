@@ -57,7 +57,7 @@ public class scrSwapManager : MonoBehaviour
 
         //play sound
         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.time_swap, this.transform, 30f);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.timeswapSoundFMOD);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().timeswapSoundFMOD);
 
         movePanel(panel1_position_og, duration, panel0);
         movePanel(panel0_position_og, duration, panel1);

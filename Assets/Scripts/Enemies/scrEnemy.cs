@@ -112,7 +112,7 @@ public class scrEnemy : MonoBehaviour
                         if (scrSoundManager.Instance)
                         {
                             //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                            FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.enemyFootstepSoundFMOD);
+                            FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().enemyFootstepSoundFMOD);
                         }
                         else
                         {
@@ -145,7 +145,7 @@ public class scrEnemy : MonoBehaviour
                     if (scrSoundManager.Instance)
                     {
                         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.enemyFootstepSoundFMOD);
+                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().enemyFootstepSoundFMOD);
                     }
                     else
                     {
@@ -173,7 +173,7 @@ public class scrEnemy : MonoBehaviour
     private void killThisGuardLegacy()
     {
         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.killGuardFMOD);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().killGuardFMOD);
         Destroy(gameObject);
     }
 
@@ -189,7 +189,7 @@ public class scrEnemy : MonoBehaviour
     private void killThisGuard()
     {
         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.killGuardFMOD);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().killGuardFMOD);
         gameObject.tag = "Untagged";
         dead = true;
         GetComponent<SpriteRenderer>().enabled = false;
@@ -207,7 +207,7 @@ public class scrEnemy : MonoBehaviour
     {
         //play collide wall music
         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.blockSoundFMOD);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().blockSoundFMOD);
 
         return false;
     }

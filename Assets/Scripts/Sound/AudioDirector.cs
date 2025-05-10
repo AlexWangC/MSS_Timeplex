@@ -8,7 +8,12 @@ using Menu;
 
 public class AudioDirector : MonoBehaviour
 {
-    public static AudioDirector Instance;
+    private static AudioDirector Instance;
+    public static AudioDirector Inst() 
+    {
+        if (Instance == null) create();
+        return Instance;
+    }
 
     public AudioSource musicSource;
     public AudioSource titleSource;
@@ -69,17 +74,9 @@ public class AudioDirector : MonoBehaviour
         else if (Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
         DontDestroyOnLoad(gameObject);
-
-        musicSource.clip = backgroundMusic;
-        musicSource.volume = musicVolume;
-        musicSource.Play();
-
-        titleSource.clip = titleMusic;
-        titleSource.volume = 1f;
-        titleSource.Play();
-
     }
 
     public void PlaySound(FMODUnity.EventReference eventReference)
@@ -88,12 +85,19 @@ public class AudioDirector : MonoBehaviour
 
     }
 
-    public string startSceneName;
-    string sceneName;
-    
+    public FMOD.Studio.EventInstance ei;
+
     [StartSceneAwakeEvent]
     public static void OnStartSceneAwake()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.titleMusicFMOD);
+        create();
+        AudioDirector.Instance.ei = FMODUnity.RuntimeManager.CreateInstance("event:/MUSIC_Title");
+        AudioDirector.Instance.ei.start();
+    }
+
+    public static void create()
+    {
+        GameObject gop = Resources.Load<GameObject>("AudioDirector");
+        GameObject.Instantiate(gop);
     }
 }

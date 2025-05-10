@@ -240,7 +240,7 @@ public class scrPlayer : MonoBehaviour
                     {
                         //FindAnyObjectByType<DialogueDisplayer>().Open();
                         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
-                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.blockSoundFMOD);
+                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().blockSoundFMOD);
                     }
                     else
                     {
@@ -255,7 +255,7 @@ public class scrPlayer : MonoBehaviour
                     if (scrSoundManager.Instance)
                     {
                         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 1);
-                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.hurtSoundFMOD);
+                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().hurtSoundFMOD);
                     }
                     else
                     {
@@ -342,7 +342,7 @@ public class scrPlayer : MonoBehaviour
                         if (scrSoundManager.Instance)
                         {
                             //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                            FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.footstepSoundFMOD);
+                            FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().footstepSoundFMOD);
                         }
                         else
                         {
@@ -374,7 +374,7 @@ public class scrPlayer : MonoBehaviour
                     if (scrSoundManager.Instance)
                     {
                         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
-                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.footstepSoundFMOD);
+                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().footstepSoundFMOD);
                     }
                     else
                     {
@@ -396,7 +396,7 @@ public class scrPlayer : MonoBehaviour
                     if (scrSoundManager.Instance)
                     {
                         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
-                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.blockSoundFMOD);
+                        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().blockSoundFMOD);
                     }
                     else
                     {
@@ -419,7 +419,7 @@ public class scrPlayer : MonoBehaviour
     public void killThisPlayer()
     {
         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.hurtSoundFMOD);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().hurtSoundFMOD);
 
         //kill all of the rest of the panels after
         scrPanel[] panels = FindAnyObjectByType<scrGridLocations>().panels;
@@ -441,7 +441,7 @@ public class scrPlayer : MonoBehaviour
     {
         //play collide wall music
         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.blockSoundFMOD);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().blockSoundFMOD);
 
         wallShake();
                     
@@ -464,7 +464,7 @@ public class scrPlayer : MonoBehaviour
     private void moveToGoal(GridObject target_goal)
     {
         //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.goal, this.transform, 1);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Instance.levelclearSoundFMOD);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioDirector.Inst().levelclearSoundFMOD);
 
         StartCoroutine(checkGoalsAfterMovement(() =>
         {
