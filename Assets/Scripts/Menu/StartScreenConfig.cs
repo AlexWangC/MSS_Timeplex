@@ -75,7 +75,7 @@ namespace Menu {
                 Reset();
         }
         
-        private void Awake() {
+        private void Start() {
             ReflectionUtils.forStaticMethods((mi, de) => {
                 de.DynamicInvoke();
             }, typeof(StartSceneAwakeEventAttribute), BindingFlags.Public | BindingFlags.NonPublic, typeof(void));
