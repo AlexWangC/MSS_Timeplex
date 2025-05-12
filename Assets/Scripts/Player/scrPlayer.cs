@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using DG.Tweening;
 using DialogueSystem;
 using Fries;
@@ -239,7 +241,7 @@ public class scrPlayer : MonoBehaviour
                     if (scrSoundManager.Instance)
                     {
                         //FindAnyObjectByType<DialogueDisplayer>().Open();
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.5f);
                     }
                     else
                     {
@@ -339,7 +341,9 @@ public class scrPlayer : MonoBehaviour
                         // play sound & check if sound manager is here.
                         if (scrSoundManager.Instance)
                         {
-                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                            //scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                            int soundIndex = UnityEngine.Random.Range(1, 5);
+                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walkSounds[soundIndex], this.transform, 0.5f);
                         }
                         else
                         {
@@ -370,7 +374,8 @@ public class scrPlayer : MonoBehaviour
                     // play sound & check if sound manager is here.
                     if (scrSoundManager.Instance)
                     {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                        int soundIndex = UnityEngine.Random.Range(1, 5);
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walkSounds[soundIndex], this.transform, 0.5f);
                     }
                     else
                     {
@@ -391,7 +396,7 @@ public class scrPlayer : MonoBehaviour
                     
                     if (scrSoundManager.Instance)
                     {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 1);
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.5f);
                     }
                     else
                     {
@@ -434,7 +439,7 @@ public class scrPlayer : MonoBehaviour
     private bool forbidMovement()
     {
         //play collide wall music
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 100);
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.5f);
                     
         wallShake();
                     
