@@ -403,7 +403,7 @@ public class scrPlayer : MonoBehaviour
                         throw new NullReferenceException("Hey you might wanna throw sound manager in. scrPlayer needs it for movement sound");
                     }
                     
-                    //wallShake();
+                    wallShake();
                     return false;
                 }
             }
@@ -418,7 +418,7 @@ public class scrPlayer : MonoBehaviour
 
     public void killThisPlayer()
     {
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 3);
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hurt, this.transform, 1);
                     
         //kill all of the rest of the panels after
         scrPanel[] panels = FindAnyObjectByType<scrGridLocations>().panels;
