@@ -111,7 +111,8 @@ public class scrEnemy : MonoBehaviour
                         // play sound & check if sound manager is here.
                         if (scrSoundManager.Instance)
                         {
-                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                            int soundIndex = UnityEngine.Random.Range(1, 5);
+                            scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walkSounds[soundIndex], this.transform, 0.5f);
                         }
                         else
                         {
@@ -143,7 +144,8 @@ public class scrEnemy : MonoBehaviour
                     // play sound & check if sound manager is here.
                     if (scrSoundManager.Instance)
                     {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walk, this.transform, 1);
+                        int soundIndex = UnityEngine.Random.Range(1, 5);
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walkSounds[soundIndex], this.transform, 0.5f);
                     }
                     else
                     {

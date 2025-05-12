@@ -14,6 +14,7 @@ public class scrSoundManager : MonoBehaviour
     [SerializeField] public AudioClip hurt; //yes
     [SerializeField] public AudioClip level_clear;
     [SerializeField] public AudioClip goal; //yes 
+    [SerializeField] public AudioClip keys; //yes 
     [SerializeField] public AudioClip[] walkSounds;
 
     private void Awake()

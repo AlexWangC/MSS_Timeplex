@@ -241,7 +241,7 @@ public class scrPlayer : MonoBehaviour
                     if (scrSoundManager.Instance)
                     {
                         //FindAnyObjectByType<DialogueDisplayer>().Open();
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.5f);
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.1f);
                     }
                     else
                     {
@@ -396,7 +396,7 @@ public class scrPlayer : MonoBehaviour
                     
                     if (scrSoundManager.Instance)
                     {
-                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.5f);
+                        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.1f);
                     }
                     else
                     {
@@ -439,7 +439,7 @@ public class scrPlayer : MonoBehaviour
     private bool forbidMovement()
     {
         //play collide wall music
-        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.5f);
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.hit_wall, this.transform, 0.1f);
                     
         wallShake();
                     

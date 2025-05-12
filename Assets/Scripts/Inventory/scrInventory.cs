@@ -39,6 +39,7 @@ public class scrInventory : MonoBehaviour
     
     public void addToInventory(string _what_to_add)
     {
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.keys, this.transform, 1f);
         inventoryDropEverything();
 
         if (!inventory.ContainsKey(_what_to_add))
