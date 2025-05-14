@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,9 +48,19 @@ public class scrResetManager : MonoBehaviour
 
     public void Reset()
     {
+        // insert playsound for reset button here.
+        
+        StartCoroutine(ResetDelayed());
+    }
+
+    private IEnumerator ResetDelayed()
+    {
+        // Or Insert play sound for reset button here.
+        
+        yield return new WaitForSeconds(1f); // adjust the number here to tweak how long the game waits till resetting current level
+        
         // Get the current scene's index
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
         // Reload the current scene
         SceneManager.LoadScene(currentSceneIndex); 
     }
