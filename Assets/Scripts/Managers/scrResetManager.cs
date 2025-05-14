@@ -48,8 +48,8 @@ public class scrResetManager : MonoBehaviour
 
     public void Reset()
     {
-        // insert playsound for reset button here.
-        
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.undo, this.transform, 0.7f);
+
         StartCoroutine(ResetDelayed());
     }
 

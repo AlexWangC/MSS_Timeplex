@@ -111,7 +111,7 @@ public class scrEnemy : MonoBehaviour
                         // play sound & check if sound manager is here.
                         if (scrSoundManager.Instance)
                         {
-                            int soundIndex = UnityEngine.Random.Range(1, 5);
+                            int soundIndex = UnityEngine.Random.Range(0, 5);
                             scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.walkSounds[soundIndex], this.transform, 0.5f);
                         }
                         else

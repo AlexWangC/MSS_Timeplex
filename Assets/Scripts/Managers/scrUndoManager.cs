@@ -87,9 +87,9 @@ public class scrUndoManager : MonoBehaviour
     // after pop, peek next and set value to the peeked val
     public void Retrace() // this gets called
     {
-        // insert retrace button sound here.
-        
-     
+        scrSoundManager.Instance.PlaySound(scrSoundManager.Instance.undo, this.transform, 0.7f);
+
+
         // looping through all object's movement history stack
         for (int foreach_counter = 0; foreach_counter < objectsMovementHistory.Count; foreach_counter++)
         {
